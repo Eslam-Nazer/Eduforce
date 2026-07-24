@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import StudentRegisterForm from '@/components/auth/student-register-form';
+import StudentRegisterForm from '@/components/student/auth/student-register-form';
 
 type Props = {
     passwordRules: string;

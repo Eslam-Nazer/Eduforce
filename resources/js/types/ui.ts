@@ -1,9 +1,12 @@
 import type { ReactNode } from 'react';
-import type { BreadcrumbItem } from '@/types/navigation';
+import type { BreadcrumbItem, NavItem } from '@/types/navigation';
+import { RouteDefinition } from '@/wayfinder';
 
 export type AppLayoutProps = {
     children: ReactNode;
     breadcrumbs?: BreadcrumbItem[];
+    mainNavItems: NavItem[];
+    dashboardRoute: string;
 };
 
 export type AppVariant = 'header' | 'sidebar';

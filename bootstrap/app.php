@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureUserVerified;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -22,6 +23,16 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+
+        $middleware->redirectGuestsTo(fn () => route('students.login'));
+
+        //        $middleware->redirectGuestsTo(function (Request $request) {
+        //            if ($request->is('instructors/*')) {
+        //                return route('instructors.login');
+        //            } else {
+        //                return route('students.login');
+        //            }
+        //        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
