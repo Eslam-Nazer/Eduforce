@@ -41,6 +41,17 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'loginable' => false,
+        ],
+        'students' => [
+            'driver' => 'session',
+            'provider' => 'students',
+            'loginable' => true,
+        ],
+        'instructors' => [
+            'driver' => 'session',
+            'provider' => 'instructors',
+            'loginable' => true,
         ],
     ],
 
@@ -65,6 +76,16 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', \Modules\Auth\Models\Student::class),
+        ],
+
+        'instructors' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', \Modules\Auth\Models\Instructor::class),
         ],
 
         // 'users' => [
@@ -99,6 +120,20 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        'students' => [
+            'provider' => 'users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'instructors' => [
+            'provider' => 'users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*
@@ -114,4 +149,15 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Configuration
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    'verification' => [
+        'expire' => 30,
+    ],
 ];
