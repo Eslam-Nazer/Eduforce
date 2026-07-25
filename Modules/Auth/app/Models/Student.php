@@ -22,20 +22,20 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property Carbon|null $email_verified_at
  * @property string $password
  */
-#[Fillable(['name', 'email', 'email_verified_at', 'password'])]
+#[Fillable(['name', 'email', 'email_verified_at', 'password', 'remember_token'])]
 #[Hidden(['password'])]
 class Student extends User
 {
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new StudentVerifyEmail());
     }
 }
