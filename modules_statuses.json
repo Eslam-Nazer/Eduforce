@@ -1,4 +1,5 @@
 {
     "Auth": true,
-    "Student": true
+    "Student": true,
+    "Instructor": true
 }
