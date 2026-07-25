@@ -2,9 +2,11 @@ import { createInertiaApp } from '@inertiajs/react';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
-import AppLayout from '@/layouts/app-layout';
 // import AuthLayout from '@/layouts/auth-layout';
 // import SettingsLayout from '@/layouts/settings/layout';
+import AuthLayout from '@/layouts/auth-layout';
+import InstructorAppLayout from '@/layouts/instructor/instructor-app-layout';
+import InstructorAuthLayout from '@/layouts/instructor/instructor-auth-layout';
 import StudentAppLayout from '@/layouts/students/student-app-layout';
 import StudentAuthLayout from '@/layouts/students/student-auth-layout';
 
@@ -24,8 +26,12 @@ createInertiaApp({
                 return StudentAuthLayout;
             case name.startsWith('students/'):
                 return StudentAppLayout;
+            case name.startsWith('instructor/auth'):
+                return InstructorAuthLayout
+            case name.startsWith('instructor/'):
+                return InstructorAppLayout
             default:
-                return AppLayout;
+                return AuthLayout;
         }
     },
     strictMode: true,
