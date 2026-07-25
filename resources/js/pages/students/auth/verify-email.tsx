@@ -14,6 +14,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
             studentVerifyController.resend()
         );
     }
+
     return (
         <>
             <Head title="Email verification" />
