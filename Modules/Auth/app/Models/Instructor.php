@@ -2,21 +2,25 @@
 
 namespace Modules\Auth\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Auth\Database\Factories\InstructorFactory;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Modules\Auth\Notifications\InstructorVerifyEmail;
 
-class Instructor extends Model
+#[Fillable(['name', 'email', 'title', 'description', 'email_verified_at', 'password', 'remember_token'])]
+#[Hidden(['password'])]
+class Instructor extends User
 {
-    use HasFactory;
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [];
-
-    // protected static function newFactory(): InstructorFactory
-    // {
-    //     // return InstructorFactory::new();
-    // }
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new InstructorVerifyEmail());
+    }
 }
