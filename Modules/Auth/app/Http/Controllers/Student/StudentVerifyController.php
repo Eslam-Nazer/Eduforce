@@ -24,9 +24,9 @@ class StudentVerifyController extends Controller
 
     public function verify(EmailVerificationRequest $request): RedirectResponse
     {
-        $this->authService->verify($request);
+        $result = $this->authService->verify($request);
 
-        return redirect()->route('students.dashboard', ['verified' => 1]);
+        return redirect()->route('students.dashboard', ['verified' => $result]);
     }
 
     public function resend(Request $request): RedirectResponse
