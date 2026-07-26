@@ -21,6 +21,6 @@ class Instructor extends User
 
     public function sendEmailVerificationNotification(): void
     {
-        $this->notify(new InstructorVerifyEmail());
+        $this->notify(new InstructorVerifyEmail);
     }
 }
