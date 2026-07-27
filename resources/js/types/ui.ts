@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import type { BreadcrumbItem, NavItem } from '@/types/navigation';
-import { RouteDefinition } from '@/wayfinder';
 
 export type AppLayoutProps = {
     children: ReactNode;
