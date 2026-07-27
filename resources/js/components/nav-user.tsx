@@ -1,5 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import { ChevronsUpDown } from 'lucide-react';
+import { createElement } from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,10 +13,11 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar';
 import { UserInfo } from '@/components/user-info';
-import { UserMenuContent } from '@/components/user-menu-content';
+import useNavUserContent from '@/contexts/nav-user-context';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export function NavUser() {
+    const menuContent = useNavUserContent();
     const { auth } = usePage().props;
     const { state } = useSidebar();
     const isMobile = useIsMobile();
@@ -49,7 +51,8 @@ export function NavUser() {
                                   : 'bottom'
                         }
                     >
-                        <UserMenuContent user={auth.user} />
+                        {/*<UserMenuContent user={auth.user} />*/}
+                        {createElement(menuContent, { user: auth.user })}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>
