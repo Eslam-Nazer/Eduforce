@@ -1,3 +1,5 @@
+import { InstructorMenuContent } from '@/components/instructor/instructor-menu-content';
+import { NavUserProvider } from '@/contexts/nav-user-context';
 import AppLayout from '@/layouts/app-layout';
 import instructors from '@/routes/instructors';
 import type { BreadcrumbItem, NavItem } from '@/types';
@@ -12,12 +14,14 @@ export default function InstructorAppLayout({
     const mainNavItems: NavItem[] = [];
 
     return (
-        <AppLayout
-            mainNavItems={mainNavItems}
-            dashboardRoute={instructors.dashboard.url()}
-            breadcrumbs={breadcrumbs}
-        >
-            {children}
-        </AppLayout>
+        <NavUserProvider menuContent={InstructorMenuContent}>
+            <AppLayout
+                mainNavItems={mainNavItems}
+                dashboardRoute={instructors.dashboard.url()}
+                breadcrumbs={breadcrumbs}
+            >
+                {children}
+            </AppLayout>
+        </NavUserProvider>
     );
 }
