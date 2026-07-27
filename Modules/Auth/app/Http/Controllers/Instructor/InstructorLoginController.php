@@ -3,6 +3,7 @@
 namespace Modules\Auth\Http\Controllers\Instructor;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Laravel\Fortify\Features;
 use Modules\Auth\Http\Requests\Instructor\LoginRequest;
@@ -22,10 +23,10 @@ class InstructorLoginController extends Controller
         ]);
     }
 
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): RedirectResponse
     {
         $this->authService->login($request);
 
-        redirect()->route('instructors.dashboard');
+        return redirect()->route('instructors.dashboard');
     }
 }
