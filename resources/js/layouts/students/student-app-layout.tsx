@@ -1,3 +1,5 @@
+import { StudentMenuContent } from '@/components/student/student-menu-content';
+import { NavUserProvider } from '@/contexts/nav-user-context';
 import AppLayout from '@/layouts/app-layout';
 import students from '@/routes/students';
 import type { BreadcrumbItem, NavItem } from '@/types';
@@ -12,12 +14,14 @@ export default function StudentAppLayout({
     const mainNavItems: NavItem[] = [];
 
     return (
-        <AppLayout
-            mainNavItems={mainNavItems}
-            dashboardRoute={students.dashboard.url()}
-            breadcrumbs={breadcrumbs}
-        >
-            {children}
-        </AppLayout>
+        <NavUserProvider menuContent={StudentMenuContent}>
+            <AppLayout
+                mainNavItems={mainNavItems}
+                dashboardRoute={students.dashboard.url()}
+                breadcrumbs={breadcrumbs}
+            >
+                {children}
+            </AppLayout>
+        </NavUserProvider>
     );
 }
