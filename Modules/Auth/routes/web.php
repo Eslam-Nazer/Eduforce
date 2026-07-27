@@ -38,6 +38,7 @@ Route::middleware(['guest:instructors'])->prefix('instructors')->name('instructo
     Route::post('register', [InstructorRegisterController::class, 'store'])->name('register.store');
 
     Route::get('login', [InstructorLoginController::class, 'index'])->name('login');
+    Route::post('login', [InstructorLoginController::class, 'store'])->name('login.store');
 });
 
 Route::middleware(['auth:instructors'])->prefix('instructors')->name('instructors.')->group(function () {
