@@ -1,6 +1,6 @@
+import type { ReactNode } from 'react';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import type { BreadcrumbItem, NavItem } from '@/types';
-import { RouteDefinition } from '@/wayfinder';
 
 export default function AppLayout({
     breadcrumbs = [],
@@ -9,7 +9,7 @@ export default function AppLayout({
     dashboardRoute,
 }: {
     breadcrumbs?: BreadcrumbItem[];
-    children: React.ReactNode;
+    children: ReactNode;
     mainNavItems: NavItem[];
     dashboardRoute: string;
 }) {
