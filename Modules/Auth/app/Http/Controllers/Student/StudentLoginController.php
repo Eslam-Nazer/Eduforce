@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 use Laravel\Fortify\Features;
-use Modules\Auth\Http\Requests\LoginRequest;
+use Modules\Auth\Http\Requests\Student\LoginRequest;
 use Modules\Auth\Services\Student\AuthService;
 
 
