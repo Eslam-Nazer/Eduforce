@@ -1,4 +1,4 @@
-import { createInertiaApp } from "@inertiajs/vue3";
+import { createInertiaApp, usePage } from "@inertiajs/vue3";
 import AuthLayout from "./layouts/AuthLayout.vue";
 import AppLayout from "./layouts/AppLayout.vue";
 
@@ -9,5 +9,6 @@ void createInertiaApp({
     progress: {
         color: "#4B5563",
     },
-    layout: (name) => (name.startsWith("Auth/") ? AuthLayout : AppLayout),
+    layout: (name) =>
+        name.startsWith("Auth/") && usePage().props.auth.user ? AuthLayout : AppLayout,
 });
