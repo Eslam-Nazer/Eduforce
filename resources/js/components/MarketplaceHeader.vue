@@ -11,6 +11,9 @@ import {
 import type { Currency } from '@/types';
 
 const currency = defineModel<Currency>('currency', { required: true });
+withDefaults(defineProps<{ browseHref?: string }>(), {
+    browseHref: '/#courses',
+});
 const emit = defineEmits<{
     browse: [];
     preview: [title: string];
@@ -35,7 +38,7 @@ const emit = defineEmits<{
                     aria-label="Main navigation"
                     class="flex items-center gap-6 text-sm"
                 >
-                    <a href="#courses" class="font-medium text-slate-900"
+                    <a :href="browseHref" class="font-medium text-slate-900"
                         >Browse Courses</a
                     >
                     <Button

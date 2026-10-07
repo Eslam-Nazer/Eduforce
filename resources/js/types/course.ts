@@ -11,3 +11,18 @@ export interface Course {
     sar: number;
     image: string;
 }
+
+export interface CourseLesson {
+    id: string;
+    title: string;
+    duration: string;
+    kind: 'video' | 'exam';
+}
+
+export interface CourseModule {
+    id: string;
+    title: string;
+    duration: string;
+    lessons: CourseLesson[];
+    resource: string;
+}

@@ -199,6 +199,8 @@ Keep the design assets board separate, above the journeys. At completion report 
 
 ## Communication and approval preferences
 
+- User prefers questions and implementation-choice approvals through the available interactive question prompt with selectable options, instead of plain chat questions requiring a typed response. Mandatory Codex approvals still use the system approval UI.
+
 - Before implementation or changing the implementation approach, present the proposed choices and wait for the user to direct/approve them. Do not independently choose native controls instead of shadcn-vue, substitute one UI component for another, or decide which page sections to extract into components. First inspect installed components and explain missing ones and proposed component boundaries. A general implementation request does not authorize unconfirmed architectural/UI choices; do not treat silence as approval. Read-only inspection and maintaining this context remain authorized.
 
 - Communicate in clear Egyptian Arabic, concisely.
@@ -249,6 +251,12 @@ Keep the design assets board separate, above the journeys. At completion report 
 - No deployment, production payments, or complete application implementation was verified during the conversations summarized here.
 
 ## Change log
+
+- 2026-10-07: At user request changed CourseCurriculum initial accordion state to open only the first module; remaining modules start collapsed. Multiple modules can still be opened manually.
+
+- 2026-10-07: Implemented approved Courses/Show.vue composition with installed shadcn primitives, shared MarketplaceHeader/Footer, separate CourseCurriculum and CoursePurchaseCard, static four-module syllabus and local currency/preview interactions. Added CourseLesson/CourseModule types under types/course.ts. Derived 23 videos and total duration from lesson rows; exam uses sample 70% threshold. Used alternative Unsplash image and concise sample descriptions. Existing /courses/show route retained; no backend data/payment integration. Header browseHref now supports cross-page navigation. TypeScript, scoped lint and production build passed; live preview verified curriculum collapse, purchase preview open/close and SAR price. Panel-width layout inspected; full breakpoint audit pending. User clarified that additional questions remain welcome through selectable prompts, and authorized implementation.
+
+- 2026-10-07: User approved Courses/Show composition: shared MarketplaceHeader/Footer, separate CourseCurriculum and CoursePurchaseCard, other content sections in Show.vue, local sample data with types under types and video count derived from lessons. User requested interactive selectable prompts for future questions. Implementation pending.
 
 - 2026-10-07: User explicitly required consultation before implementation choices, including native versus shadcn-vue controls and extracting page sections into components. Present choices first and wait for user direction rather than choosing independently.
 
