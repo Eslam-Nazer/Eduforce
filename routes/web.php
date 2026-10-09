@@ -24,6 +24,7 @@ Route::inertia('/consultations/career-advisory/request', 'Consultations/Request'
 Route::inertia('/consultations/requests', 'Consultations/Tracking')->name('consultations.requests');
 Route::inertia('/consultations/checkout', 'Consultations/Checkout')->name('consultations.checkout');
 Route::inertia('/messages', 'Messages/Index')->name('messages.index');
+Route::inertia('/purchase-history', 'Purchases/Index')->name('purchases.index');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {
