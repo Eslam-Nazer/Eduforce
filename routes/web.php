@@ -23,6 +23,7 @@ Route::inertia('/consultations/architecture-review/request', 'Consultations/Requ
 Route::inertia('/consultations/career-advisory/request', 'Consultations/Request', ['serviceId' => 'career-advisory'])->name('consultations.career.request');
 Route::inertia('/consultations/requests', 'Consultations/Tracking')->name('consultations.requests');
 Route::inertia('/consultations/checkout', 'Consultations/Checkout')->name('consultations.checkout');
+Route::inertia('/messages', 'Messages/Index')->name('messages.index');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {
