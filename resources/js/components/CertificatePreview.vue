@@ -5,7 +5,7 @@ defineProps<{
     course: string;
     instructor: string;
     videoCount: number;
-    score: number;
+    score: number | null;
     previewDate: string;
 }>();
 </script>
@@ -57,8 +57,11 @@ defineProps<{
                     {{ course }}
                 </h3>
                 <p class="mt-5 text-xs leading-6 text-slate-500">
-                    {{ videoCount }} videos completed · {{ score }}% on the
-                    course exam
+                    {{ videoCount }} videos completed<span
+                        v-if="score !== null"
+                    >
+                        · {{ score }}% on the course exam</span
+                    >
                 </p>
             </div>
             <div
