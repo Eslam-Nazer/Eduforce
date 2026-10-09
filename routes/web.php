@@ -9,6 +9,7 @@ Route::inertia('/login', 'Auth/Login')->name('login');
 Route::inertia('/register', 'Auth/Register')->name('register');
 Route::inertia('/forgot-password', 'Auth/ForgotPassword')->name('password.request');
 Route::inertia('/reset-password', 'Auth/ResetPassword')->name('password.reset');
+Route::inertia('/settings', 'Settings/Index')->name('settings');
 Route::inertia('/checkout/failed', 'Checkout/Failed')->name('checkout.failed');
 
 // Route::prefix('courses')->group(function () {
