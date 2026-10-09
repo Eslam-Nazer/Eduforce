@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { sampleInstructorProfile } from "@/data/sample-instructor";
+import { useInstructorServices } from "./useInstructorServices";
 import type {
     ConsultationRequestDraft,
     ConsultationRequestPreview,
@@ -23,9 +24,10 @@ function load() {
                 return (
                     typeof entry.id === "string" &&
                     entry.id.startsWith("local-") &&
-                    sampleInstructorProfile.services.some(
-                        (service) => service.id === entry.serviceId,
-                    ) &&
+                    [
+                        ...sampleInstructorProfile.services,
+                        ...useInstructorServices().services.value,
+                    ].some((service) => service.id === entry.serviceId) &&
                     entry.status === "Requested" &&
                     entry.sample === false &&
                     typeof entry.subject === "string" &&

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, ref, reactive } from "vue";
 import { MessageCircle, ArrowRight, Globe, Info } from "@lucide/vue";
 import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
 import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
@@ -20,7 +20,13 @@ import {
     SheetTitle,
     SheetDescription,
 } from "@/components/ui/sheet";
-import { sampleInstructorProfile as instructor } from "@/data/sample-instructor";
+import { sampleInstructorProfile } from "@/data/sample-instructor";
+import { useInstructorServices } from "@/composables/useInstructorServices";
+const { publicServices } = useInstructorServices();
+const instructor = reactive({
+    ...sampleInstructorProfile,
+    services: publicServices,
+});
 import { sampleModules } from "@/data/sample-course";
 import type { Currency, Course } from "@/types/course";
 import type { ConsultationService } from "@/types/instructor";

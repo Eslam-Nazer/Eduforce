@@ -29,6 +29,11 @@ Route::inertia('/refunds/request', 'Refunds/Create')->name('refunds.create');
 Route::inertia('/instructor/apply', 'Instructor/Application')->name('instructor.apply');
 Route::inertia('/instructor', 'Instructor/Dashboard')->name('instructor.dashboard');
 Route::inertia('/instructor/courses', 'Instructor/Courses/Index')->name('instructor.courses.index');
+Route::inertia('/instructor/consultations/services', 'Instructor/Consultations/Services')->name('instructor.consultations.services');
+Route::inertia('/instructor/consultations/requests', 'Instructor/Consultations/Requests')->name('instructor.consultations.requests');
+Route::inertia('/instructor/earnings', 'Instructor/Earnings')->name('instructor.earnings');
+Route::get('/consultations/{serviceId}/request', fn (string $serviceId) => inertia('Consultations/Request', ['serviceId' => $serviceId]))->where('serviceId', 'service-[a-z0-9-]+')->name('consultations.local.request');
+Route::get('/consultations/{serviceId}', fn (string $serviceId) => inertia('Consultations/Show', ['serviceId' => $serviceId]))->where('serviceId', 'service-[a-z0-9-]+')->name('consultations.local.show');
 Route::get('/instructor/courses/{courseId}/{step}', function (string $courseId, string $step) {
     $pages = ['basics' => 'Basics', 'curriculum' => 'Curriculum', 'exam' => 'Exam', 'publish' => 'Publish'];
     abort_unless(isset($pages[$step]), 404);

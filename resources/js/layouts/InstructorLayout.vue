@@ -19,15 +19,9 @@ import {
 defineProps<{
     title: string;
     description?: string;
-    active?: "dashboard" | "courses";
+    active?: "dashboard" | "courses" | "services" | "requests" | "earnings";
 }>();
 const menuOpen = ref(false);
-const previewOpen = ref(false);
-const previewTitle = ref("");
-function preview(title: string) {
-    previewTitle.value = title;
-    previewOpen.value = true;
-}
 </script>
 <template>
     <Head :title="title" />
@@ -75,20 +69,33 @@ function preview(title: string) {
                         ><GraduationCap class="size-4" />Courses</a
                     ></Button
                 ><Button
+                    v-for="item in [
+                        {
+                            key: 'services',
+                            title: 'Consultation Services',
+                            href: '/instructor/consultations/services',
+                        },
+                        {
+                            key: 'requests',
+                            title: 'Consultation Requests',
+                            href: '/instructor/consultations/requests',
+                        },
+                        {
+                            key: 'earnings',
+                            title: 'Earnings & Transactions',
+                            href: '/instructor/earnings',
+                        },
+                    ]"
+                    :key="item.key"
+                    as-child
                     variant="ghost"
                     class="w-full justify-start"
-                    @click="preview('Consultation Services')"
-                    >Consultation Services</Button
-                ><Button
-                    variant="ghost"
-                    class="w-full justify-start"
-                    @click="preview('Consultation Requests')"
-                    >Consultation Requests</Button
-                ><Button
-                    variant="ghost"
-                    class="w-full justify-start"
-                    @click="preview('Earnings & Transactions')"
-                    >Earnings & Transactions</Button
+                    :class="
+                        active === item.key
+                            ? 'bg-teal-700 text-white hover:bg-teal-800 hover:text-white'
+                            : ''
+                    "
+                    ><a :href="item.href">{{ item.title }}</a></Button
                 >
             </nav>
             <div
@@ -146,10 +153,10 @@ function preview(title: string) {
                 <p
                     class="rounded-lg border border-teal-100 bg-teal-50 p-4 text-xs leading-6 text-teal-900"
                 >
-                    Local instructor preview. Course drafts and workspace
-                    settings are saved in this tab. Files stay as filename
-                    references; nothing is uploaded, submitted or published to
-                    the platform.
+                    Local instructor preview. Course drafts, services and
+                    workspace settings are saved in this tab. Request scenarios
+                    reset on navigation. Nothing is uploaded, transmitted,
+                    charged or published to the platform.
                 </p>
                 <slot />
             </main>
@@ -167,21 +174,30 @@ function preview(title: string) {
                         ><a href="/instructor">Dashboard</a></Button
                     ><Button as-child variant="outline" class="w-full"
                         ><a href="/instructor/courses">Courses</a></Button
+                    ><Button
+                        v-for="item in [
+                            {
+                                title: 'Consultation Services',
+                                href: '/instructor/consultations/services',
+                            },
+                            {
+                                title: 'Consultation Requests',
+                                href: '/instructor/consultations/requests',
+                            },
+                            {
+                                title: 'Earnings & Transactions',
+                                href: '/instructor/earnings',
+                            },
+                        ]"
+                        :key="item.href"
+                        as-child
+                        variant="outline"
+                        class="w-full"
+                        ><a :href="item.href">{{ item.title }}</a></Button
                     ><Button as-child variant="outline" class="w-full"
                         ><a href="/my-courses">Switch to learning</a></Button
                     >
                 </nav></SheetContent
-            ></Sheet
-        >
-        <Sheet v-model:open="previewOpen"
-            ><SheetContent
-                ><SheetHeader
-                    ><SheetTitle>{{ previewTitle }}</SheetTitle
-                    ><SheetDescription
-                        >This instructor screen belongs to the next section,
-                        07.</SheetDescription
-                    ></SheetHeader
-                ></SheetContent
             ></Sheet
         >
     </div>

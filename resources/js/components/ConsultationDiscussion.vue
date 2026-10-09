@@ -5,7 +5,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import type { ConsultationDiscussionMessage } from "@/types/instructor";
-defineProps<{ messages: ConsultationDiscussionMessage[]; active: boolean }>();
+withDefaults(
+    defineProps<{
+        messages: ConsultationDiscussionMessage[];
+        active: boolean;
+        composerLabel?: string;
+        messageLabel?: string;
+        description?: string;
+    }>(),
+    {
+        composerLabel: "Message to Instructor",
+        messageLabel: "Your local preview",
+        description:
+            "Local text previews only. Nothing is sent to the instructor, and no replies are simulated.",
+    },
+);
 const emit = defineEmits<{ message: [text: string] }>();
 const message = ref("");
 function preview() {
@@ -19,8 +33,7 @@ function preview() {
         ><CardContent class="space-y-5 p-5 sm:p-6"
             ><h2 class="text-xl font-semibold">Preparation & Discussion</h2>
             <p class="text-sm leading-6 text-slate-500">
-                Local text previews only. Nothing is sent to the instructor, and
-                no replies are simulated.
+                {{ description }}
             </p>
             <div
                 v-if="messages.length"
@@ -34,7 +47,7 @@ function preview() {
                     class="rounded-lg bg-teal-50 p-4"
                 >
                     <p class="text-xs font-semibold text-teal-800">
-                        Your local preview
+                        {{ messageLabel }}
                     </p>
                     <p
                         class="mt-2 text-sm leading-6 break-words whitespace-pre-wrap"
@@ -45,7 +58,7 @@ function preview() {
             </div>
             <p v-else class="text-sm text-slate-500">No local messages yet.</p>
             <form v-if="active" class="space-y-3" @submit.prevent="preview">
-                <Label for="discussion-message">Message to Instructor</Label
+                <Label for="discussion-message">{{ composerLabel }}</Label
                 ><Textarea
                     id="discussion-message"
                     v-model="message"
