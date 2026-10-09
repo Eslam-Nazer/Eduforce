@@ -16,6 +16,13 @@ Route::inertia('/my-courses/full-stack/exam', 'Learning/Exam')->name('learning.e
 Route::inertia('/my-courses/full-stack/exam/results', 'Learning/Results')->name('learning.results');
 Route::inertia('/my-courses/full-stack/certificate', 'Learning/Certificate')->name('learning.certificate');
 Route::inertia('/checkout/failed', 'Checkout/Failed')->name('checkout.failed');
+Route::inertia('/instructors/ahmed-mansour', 'Instructors/Show')->name('instructors.show');
+Route::inertia('/consultations/architecture-review', 'Consultations/Show', ['serviceId' => 'architecture-review'])->name('consultations.architecture');
+Route::inertia('/consultations/career-advisory', 'Consultations/Show', ['serviceId' => 'career-advisory'])->name('consultations.career');
+Route::inertia('/consultations/architecture-review/request', 'Consultations/Request', ['serviceId' => 'architecture-review'])->name('consultations.architecture.request');
+Route::inertia('/consultations/career-advisory/request', 'Consultations/Request', ['serviceId' => 'career-advisory'])->name('consultations.career.request');
+Route::inertia('/consultations/requests', 'Consultations/Tracking')->name('consultations.requests');
+Route::inertia('/consultations/checkout', 'Consultations/Checkout')->name('consultations.checkout');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {

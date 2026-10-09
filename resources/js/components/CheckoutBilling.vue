@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { Globe, Info } from '@lucide/vue';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+import { Globe, Info } from "@lucide/vue";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import type { BillingCountry, Currency } from '@/types';
+} from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import type { BillingCountry, Currency } from "@/types";
 
 defineProps<{ chargeCurrency: Currency; chargeAmount: number }>();
-const country = defineModel<BillingCountry>('country', { required: true });
-const currency = defineModel<Currency>('currency', { required: true });
+const country = defineModel<BillingCountry>("country", { required: true });
+const currency = defineModel<Currency>("currency", { required: true });
 </script>
 
 <template>
@@ -69,7 +69,7 @@ const currency = defineModel<Currency>('currency', { required: true });
                         ></Select
                     >
                     <p class="text-xs leading-5 text-slate-500">
-                        Choose how sample course prices are displayed.
+                        Choose how sample prices are displayed.
                     </p>
                 </div>
             </div>
@@ -77,7 +77,7 @@ const currency = defineModel<Currency>('currency', { required: true });
                 ><Info class="size-4 text-teal-700" /><AlertDescription
                     aria-live="polite"
                     >Sample charge for this country:
-                    {{ new Intl.NumberFormat('en-US').format(chargeAmount) }}
+                    {{ new Intl.NumberFormat("en-US").format(chargeAmount) }}
                     {{ chargeCurrency }}. Final payment details will be
                     confirmed by the configured provider.</AlertDescription
                 ></Alert
