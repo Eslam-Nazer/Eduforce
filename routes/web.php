@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'Home')->name('home');
 Route::inertia('/checkout', 'Checkout/Index')->name('checkout');
 Route::inertia('/checkout/success', 'Checkout/Success')->name('checkout.success');
+Route::inertia('/login', 'Auth/Login')->name('login');
+Route::inertia('/register', 'Auth/Register')->name('register');
+Route::inertia('/forgot-password', 'Auth/ForgotPassword')->name('password.request');
+Route::inertia('/reset-password', 'Auth/ResetPassword')->name('password.reset');
 Route::inertia('/checkout/failed', 'Checkout/Failed')->name('checkout.failed');
 
 // Route::prefix('courses')->group(function () {

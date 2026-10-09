@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { BookOpen, Globe } from '@lucide/vue';
-import { Button } from '@/components/ui/button';
+import { BookOpen, Globe } from "@lucide/vue";
+import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
-import type { Currency } from '@/types';
+} from "@/components/ui/select";
+import type { Currency } from "@/types";
 
-const currency = defineModel<Currency>('currency', { required: true });
-withDefaults(defineProps<{ browseHref?: string }>(), {
-    browseHref: '/#courses',
+const currency = defineModel<Currency>("currency", { required: true });
+withDefaults(defineProps<{ browseHref?: string; accountName?: string }>(), {
+    browseHref: "/#courses",
 });
 const emit = defineEmits<{
     browse: [];
@@ -34,13 +34,8 @@ const emit = defineEmits<{
                     <BookOpen class="size-6 text-teal-700" aria-hidden="true" />
                     Eduforce
                 </a>
-                <nav
-                    aria-label="Main navigation"
-                    class="flex items-center gap-6 text-sm"
-                >
-                    <a :href="browseHref" class="font-medium text-slate-900"
-                        >Browse Courses</a
-                    >
+                <nav aria-label="Main navigation" class="flex items-center gap-6 text-sm">
+                    <a :href="browseHref" class="font-medium text-slate-900">Browse Courses</a>
                     <Button
                         variant="ghost"
                         class="text-slate-500 hover:text-teal-700"
@@ -55,27 +50,24 @@ const emit = defineEmits<{
                     <SelectTrigger
                         aria-label="Display currency"
                         class="w-36 border-slate-200 bg-white text-slate-900"
-                        ><Globe
-                            class="size-4 text-slate-500"
-                            aria-hidden="true" /><SelectValue
+                        ><Globe class="size-4 text-slate-500" aria-hidden="true" /><SelectValue
                     /></SelectTrigger>
                     <SelectContent
                         ><SelectItem value="EGP">EGP (£)</SelectItem
                         ><SelectItem value="SAR">SAR</SelectItem></SelectContent
                     >
                 </Select>
-                <Button
-                    variant="ghost"
-                    class="text-slate-600 hover:text-teal-700"
-                    @click="emit('preview', 'Sign in')"
+                <Button v-if="accountName" as-child variant="ghost" class="text-teal-800"
+                    ><a href="/settings">{{ accountName }}</a></Button
                 >
-                    Sign in
-                </Button>
-                <Button
-                    class="bg-teal-700 text-white hover:bg-teal-800"
-                    @click="emit('preview', 'Sign up')"
-                    >Sign up</Button
-                >
+                <template v-else>
+                    <Button as-child variant="ghost" class="text-slate-600 hover:text-teal-700"
+                        ><a href="/login">Sign in</a></Button
+                    >
+                    <Button as-child class="bg-teal-700 text-white hover:bg-teal-800"
+                        ><a href="/register">Sign up</a></Button
+                    >
+                </template>
             </div>
         </div>
     </header>
