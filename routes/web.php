@@ -26,6 +26,15 @@ Route::inertia('/consultations/checkout', 'Consultations/Checkout')->name('consu
 Route::inertia('/messages', 'Messages/Index')->name('messages.index');
 Route::inertia('/purchase-history', 'Purchases/Index')->name('purchases.index');
 Route::inertia('/refunds/request', 'Refunds/Create')->name('refunds.create');
+Route::inertia('/instructor/apply', 'Instructor/Application')->name('instructor.apply');
+Route::inertia('/instructor', 'Instructor/Dashboard')->name('instructor.dashboard');
+Route::inertia('/instructor/courses', 'Instructor/Courses/Index')->name('instructor.courses.index');
+Route::get('/instructor/courses/{courseId}/{step}', function (string $courseId, string $step) {
+    $pages = ['basics' => 'Basics', 'curriculum' => 'Curriculum', 'exam' => 'Exam', 'publish' => 'Publish'];
+    abort_unless(isset($pages[$step]), 404);
+
+    return inertia('Instructor/Courses/'.$pages[$step], ['courseId' => $courseId]);
+})->name('instructor.courses.builder');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {

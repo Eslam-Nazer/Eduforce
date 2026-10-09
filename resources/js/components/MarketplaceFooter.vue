@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { BookOpen } from '@lucide/vue';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { BookOpen } from "@lucide/vue";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 withDefaults(defineProps<{ browseHref?: string }>(), {
-    browseHref: '/#courses',
+    browseHref: "/#courses",
 });
 
 const emit = defineEmits<{
     preview: [title: string];
 }>();
-const links = ['Become an Instructor', 'Terms of Service', 'Privacy Policy'];
+const links = ["Terms of Service", "Privacy Policy"];
 const year = new Date().getFullYear();
 </script>
 
@@ -46,6 +46,14 @@ const year = new Date().getFullYear();
                     >
                         <a :href="browseHref">Browse Courses</a>
                     </Button>
+                    <Button
+                        as-child
+                        variant="link"
+                        class="h-auto p-0 text-sm font-normal text-slate-500 hover:text-teal-700 hover:no-underline"
+                        ><a href="/instructor/apply"
+                            >Become an Instructor</a
+                        ></Button
+                    >
                     <Button
                         v-for="link in links"
                         :key="link"

@@ -34,14 +34,19 @@ const emit = defineEmits<{
                     <BookOpen class="size-6 text-teal-700" aria-hidden="true" />
                     Eduforce
                 </a>
-                <nav aria-label="Main navigation" class="flex items-center gap-6 text-sm">
-                    <a :href="browseHref" class="font-medium text-slate-900">Browse Courses</a>
+                <nav
+                    aria-label="Main navigation"
+                    class="flex items-center gap-6 text-sm"
+                >
+                    <a :href="browseHref" class="font-medium text-slate-900"
+                        >Browse Courses</a
+                    >
                     <Button
+                        as-child
                         variant="ghost"
                         class="text-slate-500 hover:text-teal-700"
-                        @click="emit('preview', 'Become an Instructor')"
                     >
-                        Become an Instructor
+                        <a href="/instructor/apply">Become an Instructor</a>
                     </Button>
                 </nav>
             </div>
@@ -50,21 +55,32 @@ const emit = defineEmits<{
                     <SelectTrigger
                         aria-label="Display currency"
                         class="w-36 border-slate-200 bg-white text-slate-900"
-                        ><Globe class="size-4 text-slate-500" aria-hidden="true" /><SelectValue
+                        ><Globe
+                            class="size-4 text-slate-500"
+                            aria-hidden="true" /><SelectValue
                     /></SelectTrigger>
                     <SelectContent
                         ><SelectItem value="EGP">EGP (£)</SelectItem
                         ><SelectItem value="SAR">SAR</SelectItem></SelectContent
                     >
                 </Select>
-                <Button v-if="accountName" as-child variant="ghost" class="text-teal-800"
+                <Button
+                    v-if="accountName"
+                    as-child
+                    variant="ghost"
+                    class="text-teal-800"
                     ><a href="/settings">{{ accountName }}</a></Button
                 >
                 <template v-else>
-                    <Button as-child variant="ghost" class="text-slate-600 hover:text-teal-700"
+                    <Button
+                        as-child
+                        variant="ghost"
+                        class="text-slate-600 hover:text-teal-700"
                         ><a href="/login">Sign in</a></Button
                     >
-                    <Button as-child class="bg-teal-700 text-white hover:bg-teal-800"
+                    <Button
+                        as-child
+                        class="bg-teal-700 text-white hover:bg-teal-800"
                         ><a href="/register">Sign up</a></Button
                     >
                 </template>
