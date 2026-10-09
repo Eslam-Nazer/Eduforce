@@ -10,6 +10,11 @@ Route::inertia('/register', 'Auth/Register')->name('register');
 Route::inertia('/forgot-password', 'Auth/ForgotPassword')->name('password.request');
 Route::inertia('/reset-password', 'Auth/ResetPassword')->name('password.reset');
 Route::inertia('/settings', 'Settings/Index')->name('settings');
+Route::inertia('/my-courses', 'Learning/MyCourses')->name('learning.courses');
+Route::inertia('/my-courses/full-stack', 'Learning/Player')->name('learning.player');
+Route::inertia('/my-courses/full-stack/exam', 'Learning/Exam')->name('learning.exam');
+Route::inertia('/my-courses/full-stack/exam/results', 'Learning/Results')->name('learning.results');
+Route::inertia('/my-courses/full-stack/certificate', 'Learning/Certificate')->name('learning.certificate');
 Route::inertia('/checkout/failed', 'Checkout/Failed')->name('checkout.failed');
 
 // Route::prefix('courses')->group(function () {
