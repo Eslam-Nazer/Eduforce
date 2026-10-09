@@ -25,6 +25,7 @@ Route::inertia('/consultations/requests', 'Consultations/Tracking')->name('consu
 Route::inertia('/consultations/checkout', 'Consultations/Checkout')->name('consultations.checkout');
 Route::inertia('/messages', 'Messages/Index')->name('messages.index');
 Route::inertia('/purchase-history', 'Purchases/Index')->name('purchases.index');
+Route::inertia('/refunds/request', 'Refunds/Create')->name('refunds.create');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {
