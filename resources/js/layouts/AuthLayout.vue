@@ -10,6 +10,8 @@ import {
     SheetDescription,
 } from "@/components/ui/sheet";
 
+withDefaults(defineProps<{ showFooter?: boolean }>(), { showFooter: true });
+
 const legalTitle = ref("");
 const legalOpen = ref(false);
 function openLegal(title: string) {
@@ -19,25 +21,33 @@ function openLegal(title: string) {
 </script>
 
 <template>
-    <div class="auth-layout flex min-h-screen flex-col bg-[#f8fafc] text-slate-900">
+    <div
+        class="auth-layout flex min-h-screen flex-col bg-[#f8fafc] text-slate-900"
+    >
         <header class="border-b border-slate-200 bg-white">
             <div
                 class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8"
             >
                 <a href="/" class="flex items-center gap-2 text-lg font-bold"
-                    ><BookOpen class="size-6 text-teal-700" aria-hidden="true" />Eduforce</a
+                    ><BookOpen
+                        class="size-6 text-teal-700"
+                        aria-hidden="true"
+                    />Eduforce</a
                 >
                 <Button as-child variant="ghost" class="text-sm text-slate-500"
                     ><a href="/"
-                        ><ArrowLeft class="size-4" aria-hidden="true" />Back to Home</a
+                        ><ArrowLeft class="size-4" aria-hidden="true" />Back to
+                        Home</a
                     ></Button
                 >
             </div>
         </header>
-        <main class="flex flex-1 items-center justify-center px-5 py-10 sm:py-12">
+        <main
+            class="flex flex-1 items-center justify-center px-5 py-10 sm:py-6"
+        >
             <div class="w-full max-w-md"><slot /></div>
         </main>
-        <footer class="border-t border-slate-200 bg-white">
+        <footer v-if="showFooter" class="border-t border-slate-200 bg-white">
             <div
                 class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-4 text-xs text-slate-500 sm:px-8"
             >
@@ -63,8 +73,9 @@ function openLegal(title: string) {
                 ><SheetHeader
                     ><SheetTitle>{{ legalTitle }}</SheetTitle
                     ><SheetDescription
-                        >This document will be available when the platform launches. This is a local
-                        interface preview.</SheetDescription
+                        >This document will be available when the platform
+                        launches. This is a local interface
+                        preview.</SheetDescription
                     ></SheetHeader
                 ></SheetContent
             ></Sheet
