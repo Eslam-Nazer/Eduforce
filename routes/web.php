@@ -1,12 +1,49 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+Route::get('/verify-email', fn () => inertia('Auth/VerifyEmail', [
+    'email' => session('verification_email'),
+]))->name('verification.notice');
+Route::get('/verify/{id}/{hash}', function () {
+    dd('verified');
+})->name('verify')->middleware('auth','signed');
+
+
+// Route::prefix('courses')->group(function () {
+//     Route::get('/show', function () {
+//         return inertia('Courses/Show');
+//     }); // TODO: we need change it to {course} to show it
+
+//     Route::prefix('course/checkout')->group(function () {
+//         Route::get('/', function () {
+//             return inertia('Checkout/Index');
+//         });
+
+//         Route::get('success', function () {
+//             return inertia('Checkout/Success');
+//         });
+
+//         Route::get('failed', function () {
+//             return inertia('Checkout/Failed');
+//         });
+
+//         Route::get('cancelled', function () {
+//             return inertia('Checkout/Cancelled');
+//         });
+//     });
+// });
+
+// Route::inertia('/', 'Home')->name('home');
 Route::inertia('/checkout', 'Checkout/Index')->name('checkout');
 Route::inertia('/checkout/success', 'Checkout/Success')->name('checkout.success');
 Route::inertia('/login', 'Auth/Login')->name('login');
-Route::inertia('/register', 'Auth/Register')->name('register');
+// Route::inertia('/register', 'Auth/Register')->name('register');
 Route::inertia('/forgot-password', 'Auth/ForgotPassword')->name('password.request');
 Route::inertia('/reset-password', 'Auth/ResetPassword')->name('password.reset');
 Route::inertia('/settings', 'Settings/Index')->name('settings');
@@ -40,27 +77,3 @@ Route::get('/instructor/courses/{courseId}/{step}', function (string $courseId, 
 
     return inertia('Instructor/Courses/'.$pages[$step], ['courseId' => $courseId]);
 })->name('instructor.courses.builder');
-
-// Route::prefix('courses')->group(function () {
-//     Route::get('/show', function () {
-//         return inertia('Courses/Show');
-//     }); // TODO: we need change it to {course} to show it
-
-//     Route::prefix('course/checkout')->group(function () {
-//         Route::get('/', function () {
-//             return inertia('Checkout/Index');
-//         });
-
-//         Route::get('success', function () {
-//             return inertia('Checkout/Success');
-//         });
-
-//         Route::get('failed', function () {
-//             return inertia('Checkout/Failed');
-//         });
-
-//         Route::get('cancelled', function () {
-//             return inertia('Checkout/Cancelled');
-//         });
-//     });
-// });

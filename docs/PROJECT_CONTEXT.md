@@ -1,6 +1,6 @@
 # Eduforce أ¢â‚¬â€‌ Project Context
 
-Last updated: 2026-10-09 (Africa/Cairo).
+Last updated: 2026-10-13 (Africa/Cairo).
 
 ## Purpose and maintenance
 
@@ -203,6 +203,8 @@ Keep the design assets board separate, above the journeys. At completion report 
 
 ## Communication and approval preferences
 
+- User prefers feature/ as the prefix for new feature branches, instead of codex/ (confirmed 2026-10-11).
+
 - On 2026-10-09 the user reaffirmed: consult them before making new decisions, including Git organization. The user approved splitting the pending work into separate commits for dependencies/configuration, shadcn-vue, Checkout, Auth, Account Settings, Eloquent strict mode and documentation. Do not independently choose future grouping or implementation approaches.
 
 - User prefers questions and implementation-choice approvals through the available interactive question prompt with selectable options, instead of plain chat questions requiring a typed response. Mandatory Codex approvals still use the system approval UI.
@@ -338,6 +340,22 @@ Keep the design assets board separate, above the journeys. At completion report 
 - 07.03 shows currency-separated gross volume, commission/net panels, transaction filters/search/table and export action. Gateway brands, instant deposits/splits, active connections and PCI claims are unverified. Commission rates remain undecided; no invented fee/net amounts or wallet/withdrawal workflow. Free sessions are activity records rather than paid settlements.
 - Local inspection confirms reusable InstructorLayout, consultation sample services/request types, ConsultationDiscussion and installed shadcn Card/Badge/Button/Tabs/Table/Sheet/Dialog/AlertDialog/Input/Textarea/Select/RadioGroup/Switch. Current request persistence accepts Requested records only and messages have no sender/time fields; shared instructor/student lifecycle changes need an explicitly approved model/storage proposal. Proposed pages: Instructor/Consultations/Services.vue, Requests.vue and Instructor/Earnings.vue; separate service editor/card, appointment controls and transaction table are proposals only. No packages, implementation, branch, commit or push authorized by this inspection.
 ## Change log
+
+- 2026-10-11: At user request renamed the current branch to feature/register-layout-and-form and saved feature/ as the preferred new-feature branch prefix. Commit 9ca47d5 retained; working changes preserved; no push.
+
+- 2026-10-11: At user request created codex/register-layout-and-form from main and committed frontend changes as 9ca47d5 (Polish registration layout and wire frontend form): Register/AuthLayout, InputError, Ziggy JS/types, npm manifest/lock and Blade @routes view directive. Backend PHP/routes/migration/Composer files and backend documentation remain uncommitted and unchanged by this operation. Context documentation remains uncommitted. Staged diff check passed; no push or additional runtime tests. Committed form/Ziggy wiring depends on the pending local backend integration.
+
+- 2026-10-11: User clarified they want a shorter Register header. Reduced header vertical padding locally from 20px to 12px; logo/action sizes retained. Browser measured header height 61px (previously 77px). Prettier passed; other auth headers unchanged.
+
+- 2026-10-11: At user request compacted the Register learner/instructor notice: 12px title/body, 16px line height, smaller horizontal padding and row gap. Text preserved; Prettier completed. Browser appearance was not rechecked for this small styling edit.
+
+- 2026-10-11: At user request removed the footer from Register through AuthLayout showFooter (default true for other auth pages). Redistributed its space into card padding, section/form gaps and notice padding. Prettier passed; browser verified absent footer and no scrolling at 859x854. At 1265x720 natural scrolling remains; no form submission tested.
+
+- 2026-10-11: User approved reducing Register spacing while preserving field sizes and all content. Updated Register.vue only: compact card/form/label/notice spacing and page-local main padding through AuthLayout classes. Browser verified /register at 859x854: document height equals viewport (854px), with no vertical or horizontal overflow. Prettier passed. Short screens and validation errors retain natural scrolling; registration submission and other breakpoints were not tested.
+
+- 2026-10-10: Added reusable resources/js/components/InputError.vue at user request. Its message prop accepts a string, string array, null or undefined; displays all nonblank messages with role=alert and supports caller-provided id/class. Component normalization/reactivity self-check and formatting passed. Existing forms and Inertia error transport were not changed; installed Inertia middleware defaults to first error per field.
+
+- 2026-10-09: At user request translated docs/BACKEND_ROADMAP.md into English, preserving the implementation sequence, confirmed rules, and unresolved decisions.
 
 - 2026-10-09: At user request split pending work into a feature commit for the interconnected Row 07 previews (995a6a6) and a separate documentation commit for the backend roadmap and continuity records. git diff --check passed; previous implementation checks were not rerun for this Git-only task. No push performed.
 
@@ -487,3 +505,13 @@ Keep the design assets board separate, above the journeys. At completion report 
 - 2026-10-07: At the user's request, allowed Git to see only `.local-secrets/telegram-token.dpapi`; other local secrets remain ignored. Updated continuity instructions. No commit or push was requested.
 - 2026-10-07: Added task-scoped Telegram-on routing for questions, approvals, blockers/stops, and final reports, with mandatory Codex approvals and forced-interruption limitations preserved. Saved `.local-secrets/telegram-token.dpapi`; verified decryption matches the existing token without exposing it and verified Git ignores the file. No Telegram message was sent during this maintenance task.
 - 2026-10-07: Created this project handoff and root AGENTS.md discovery instructions at the user's request. Consolidated confirmed business decisions, design arrangement plan, external links, communication experiments, and incomplete/blocked work. No external services were changed by creating this handoff.
+
+- 2026-10-12: Created reusable English Blade email template resources/views/mail/message.blade.php matching Eduforce white/slate/teal styling. VerifiedUserMail accepts title, messageBody, optional name, actionText/actionUrl and note, with welcome defaults. Render checks passed for escaped names, absent optional button, and action/note content. Registration sending and email verification were not implemented; email-client visual compatibility remains unverified.
+
+- 2026-10-13: Implemented authorized email verification notice at /verify-email in Auth/VerifyEmail.vue, reusing AuthLayout and installed shadcn Card/Button/Alert/Separator. RegisterController redirects after the existing registration service returns and stores the validated email in the current session for the notice; direct visits without that session value show an honest preview. Includes inbox instructions, spam/junk guidance, sign-in link and explicitly disabled resend button. PHP syntax, route registration, controller Pint, Vue Prettier and production build passed; browser verified the direct-visit preview visually. Actual registration/email delivery and verification-link completion were not tested. Existing verify route remains a debug placeholder and email link expiration remains one second; these backend issues were not changed in this screen task. No new dependencies, external messages, commit or push.
+
+- 2026-10-19: Added tests/Feature/UserRegisterTest.php covering registration page, successful account creation and password hashing, one verification email to the intended recipient, duplicate email rejection, password validation, missing/invalid email, missing name, and ignoring supplied email_verified_at. Verified Pest: 7 tests passed, 50 assertions. Mail::fake prevents external delivery; inbox delivery and verification-link completion remain untested. User requested committing this test coverage. Existing backend-roadmap edits are excluded from this commit.
+
+- 2026-10-19: Ran explicitly requested Graphify full build on project root: detected 347 supported files (~100,562 words), including 336 code files, 9 documents and 2 images. Generated graphify-out/graph.html, GRAPH_REPORT.md and graph.json: 1,667 nodes, 3,925 edges, 147 labeled communities. Skipped .npmrc and encrypted Telegram credential. Integrity diagnostics: 835 dangling-endpoint edges, 2 self-loops and 293 undirected same-endpoint collapses; 54 code files yielded no symbols. SVG inspected as source only. Agent token usage unavailable; cost tracker marks unknown. Benchmark estimates 65.9x token reduction, not measured per-query savings. Outputs remain untracked; no ignore-rule edits, commit or push. Both context copies synchronized.
+
+- 2026-10-19: User requested committing Graphify outputs. Selected graph.html, graph.json, GRAPH_REPORT.md, community labels, integrity diagnostics and cost metadata with both context copies. Excluded machine-specific interpreter/root files, extraction cache and manifest; unrelated backend-roadmap edits remain outside this commit. No push requested.
