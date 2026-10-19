@@ -1,29 +1,29 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import PurchaseTransactionCard from "@/components/PurchaseTransactionCard.vue";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import PurchaseTransactionCard from '@/components/PurchaseTransactionCard.vue';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
     usePurchasePreview,
     formatPurchaseAmount,
-} from "@/composables/usePurchasePreview";
-import type { PurchaseTransaction } from "@/types/purchase";
-import type { Currency } from "@/types/course";
+} from '@/composables/usePurchasePreview';
+import type { PurchaseTransaction } from '@/types/purchase';
+import type { Currency } from '@/types/course';
 const { transactions } = usePurchasePreview();
-const currency = ref<Currency>("EGP");
-const filter = ref("all");
+const currency = ref<Currency>('EGP');
+const filter = ref('all');
 const visible = computed(() =>
     transactions.value.filter(
-        (item) => filter.value === "all" || item.kind === filter.value,
+        (item) => filter.value === 'all' || item.kind === filter.value,
     ),
 );
 const now = ref(Date.now());
@@ -35,7 +35,7 @@ onMounted(() => {
 });
 onUnmounted(() => clearInterval(timer));
 const receipt = ref<PurchaseTransaction | null>(null);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 const sheetOpen = ref(false);
 function preview(title: string) {
     receipt.value = null;
@@ -44,7 +44,7 @@ function preview(title: string) {
 }
 function showReceipt(transaction: PurchaseTransaction) {
     receipt.value = transaction;
-    sheetTitle.value = "Purchase receipt";
+    sheetTitle.value = 'Purchase receipt';
     sheetOpen.value = true;
 }
 </script>
@@ -139,8 +139,8 @@ function showReceipt(transaction: PurchaseTransaction) {
                     ><SheetTitle>{{ sheetTitle }}</SheetTitle
                     ><SheetDescription>{{
                         receipt
-                            ? "Sample receipt preview. This is not an issued invoice."
-                            : "This action is a frontend preview."
+                            ? 'Sample receipt preview. This is not an issued invoice.'
+                            : 'This action is a frontend preview.'
                     }}</SheetDescription></SheetHeader
                 >
                 <dl v-if="receipt" class="space-y-5 px-4 py-6 text-sm">
@@ -170,7 +170,7 @@ function showReceipt(transaction: PurchaseTransaction) {
                             {{
                                 new Date(
                                     receipt.purchasedAt,
-                                ).toLocaleDateString("en-GB")
+                                ).toLocaleDateString('en-GB')
                             }}
                         </dd>
                     </div>

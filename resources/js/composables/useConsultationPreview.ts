@@ -1,51 +1,51 @@
-import { ref } from "vue";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import { useInstructorServices } from "./useInstructorServices";
+import { ref } from 'vue';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import { useInstructorServices } from './useInstructorServices';
 import type {
     ConsultationRequestDraft,
     ConsultationRequestPreview,
-} from "@/types/instructor";
-const storageKey = "eduforce.consultation-preview.v1";
+} from '@/types/instructor';
+const storageKey = 'eduforce.consultation-preview.v1';
 const localRequests = ref<ConsultationRequestPreview[]>([]);
-const storageNotice = ref("");
+const storageNotice = ref('');
 let loaded = false;
 function load() {
-    if (loaded || typeof window === "undefined") return;
+    if (loaded || typeof window === 'undefined') return;
     loaded = true;
     try {
         const value: unknown = JSON.parse(
-            sessionStorage.getItem(storageKey) ?? "[]",
+            sessionStorage.getItem(storageKey) ?? '[]',
         );
         if (!Array.isArray(value)) return;
         localRequests.value = value.filter(
             (item): item is ConsultationRequestPreview => {
-                if (!item || typeof item !== "object") return false;
+                if (!item || typeof item !== 'object') return false;
                 const entry = item as Record<string, unknown>;
                 return (
-                    typeof entry.id === "string" &&
-                    entry.id.startsWith("local-") &&
+                    typeof entry.id === 'string' &&
+                    entry.id.startsWith('local-') &&
                     [
                         ...sampleInstructorProfile.services,
                         ...useInstructorServices().services.value,
                     ].some((service) => service.id === entry.serviceId) &&
-                    entry.status === "Requested" &&
+                    entry.status === 'Requested' &&
                     entry.sample === false &&
-                    typeof entry.subject === "string" &&
+                    typeof entry.subject === 'string' &&
                     !!entry.subject.trim() &&
                     entry.subject.length <= 100 &&
-                    typeof entry.context === "string" &&
+                    typeof entry.context === 'string' &&
                     !!entry.context.trim() &&
                     entry.context.length <= 1200 &&
-                    typeof entry.preferredTime === "string" &&
+                    typeof entry.preferredTime === 'string' &&
                     entry.preferredTime.length <= 200 &&
-                    (entry.timeZone === "Africa/Cairo" ||
-                        entry.timeZone === "Asia/Riyadh") &&
+                    (entry.timeZone === 'Africa/Cairo' ||
+                        entry.timeZone === 'Asia/Riyadh') &&
                     Array.isArray(entry.messages) &&
                     entry.messages.every(
                         (message) =>
                             message &&
-                            typeof message.id === "string" &&
-                            typeof message.text === "string" &&
+                            typeof message.id === 'string' &&
+                            typeof message.text === 'string' &&
                             message.text.length <= 2000,
                     )
                 );
@@ -53,7 +53,7 @@ function load() {
         );
     } catch {
         storageNotice.value =
-            "Saved previews could not be read. This tab can still use local previews.";
+            'Saved previews could not be read. This tab can still use local previews.';
     }
 }
 function persist() {
@@ -61,7 +61,7 @@ function persist() {
         sessionStorage.setItem(storageKey, JSON.stringify(localRequests.value));
     } catch {
         storageNotice.value =
-            "Browser storage is unavailable. Previews remain in memory and may be lost on reload.";
+            'Browser storage is unavailable. Previews remain in memory and may be lost on reload.';
     }
 }
 export function useConsultationPreview() {
@@ -71,7 +71,7 @@ export function useConsultationPreview() {
             ...draft,
             id: `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
             serviceId,
-            status: "Requested",
+            status: 'Requested',
             sample: false,
             messages: [],
         };

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed } from "vue";
-import LearningHeader from "@/components/LearningHeader.vue";
-import ExamResultSummary from "@/components/ExamResultSummary.vue";
-import ExamAnswerReview from "@/components/ExamAnswerReview.vue";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { sampleCourseTitle, sampleModules } from "@/data/sample-course";
-import { sampleExam } from "@/data/sample-exam";
-import { useLearningPreview } from "@/composables/useLearningPreview";
+import { Head, router } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import LearningHeader from '@/components/LearningHeader.vue';
+import ExamResultSummary from '@/components/ExamResultSummary.vue';
+import ExamAnswerReview from '@/components/ExamAnswerReview.vue';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { sampleCourseTitle, sampleModules } from '@/data/sample-course';
+import { sampleExam } from '@/data/sample-exam';
+import { useLearningPreview } from '@/composables/useLearningPreview';
 const { attempts, completedIds, examPassed, storageAvailable, scoreAttempt } =
     useLearningPreview();
 const attempt = computed(() => attempts.value.at(-1));
@@ -23,9 +23,9 @@ const correctCount = computed(
 );
 const totalVideos = sampleModules
     .flatMap((module) => module.lessons)
-    .filter((lesson) => lesson.kind === "video").length;
+    .filter((lesson) => lesson.kind === 'video').length;
 function retake() {
-    router.visit("/my-courses/full-stack/exam");
+    router.visit('/my-courses/full-stack/exam');
 }
 </script>
 <template>
@@ -114,7 +114,7 @@ function retake() {
 </template>
 <style scoped>
 .exam-results {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

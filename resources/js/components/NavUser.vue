@@ -6,9 +6,9 @@ import {
     CreditCard,
     LogOut,
     User as UserIcon,
-} from "@lucide/vue";
+} from '@lucide/vue';
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,14 +16,14 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "@/components/ui/sidebar";
-import type { User } from "@/types";
+} from '@/components/ui/sidebar';
+import type { User } from '@/types';
 
 const props = defineProps<{
     user: User;

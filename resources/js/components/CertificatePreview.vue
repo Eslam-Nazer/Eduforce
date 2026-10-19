@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BookOpen, Award, GraduationCap } from "@lucide/vue";
+import { BookOpen, Award, GraduationCap } from '@lucide/vue';
 defineProps<{
     learner: string;
     course: string;

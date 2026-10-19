@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { router } from "@inertiajs/vue3";
-import CourseBuilderLayout from "@/layouts/CourseBuilderLayout.vue";
-import CourseBasicsForm from "@/components/CourseBasicsForm.vue";
-import { useInstructorWorkspace } from "@/composables/useInstructorWorkspace";
+import { router } from '@inertiajs/vue3';
+import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CourseBasicsForm from '@/components/CourseBasicsForm.vue';
+import { useInstructorWorkspace } from '@/composables/useInstructorWorkspace';
 const props = defineProps<{ courseId: string }>();
 const { course, notice, save } = useInstructorWorkspace(props.courseId);
 function navigate(step: string) {

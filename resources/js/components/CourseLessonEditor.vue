@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import type { InstructorLesson } from "@/types/instructor-workspace";
-import { newPreviewId } from "@/composables/useInstructorWorkspace";
+import { computed, ref, watch } from 'vue';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import type { InstructorLesson } from '@/types/instructor-workspace';
+import { newPreviewId } from '@/composables/useInstructorWorkspace';
 const props = defineProps<{ lesson?: InstructorLesson }>();
 const emit = defineEmits<{ save: [lesson: InstructorLesson]; cancel: [] }>();
-const title = ref(props.lesson?.title ?? "");
-const kind = ref<"video" | "file">(props.lesson?.kind ?? "video");
-const fileName = ref(props.lesson?.fileName ?? "");
-const summary = ref(props.lesson?.summary ?? "");
+const title = ref(props.lesson?.title ?? '');
+const kind = ref<'video' | 'file'>(props.lesson?.kind ?? 'video');
+const fileName = ref(props.lesson?.fileName ?? '');
+const summary = ref(props.lesson?.summary ?? '');
 const minutes = ref(Math.floor((props.lesson?.durationSeconds ?? 0) / 60));
 const seconds = ref((props.lesson?.durationSeconds ?? 0) % 60);
 watch(kind, () => {
-    fileName.value = "";
+    fileName.value = '';
 });
 const ready = computed(
     () =>
         !!title.value.trim() &&
         !!fileName.value &&
-        (kind.value === "file" ||
+        (kind.value === 'file' ||
             (Number.isInteger(minutes.value) &&
                 minutes.value >= 0 &&
                 Number.isInteger(seconds.value) &&
@@ -32,18 +32,18 @@ const ready = computed(
 );
 function choose(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file && (kind.value === "file" || file.type.startsWith("video/")))
+    if (file && (kind.value === 'file' || file.type.startsWith('video/')))
         fileName.value = file.name;
 }
 function submit() {
     if (ready.value)
-        emit("save", {
+        emit('save', {
             id: props.lesson?.id ?? newPreviewId(),
             title: title.value.trim(),
             kind: kind.value,
             fileName: fileName.value,
             durationSeconds:
-                kind.value === "video" ? minutes.value * 60 + seconds.value : 0,
+                kind.value === 'video' ? minutes.value * 60 + seconds.value : 0,
             summary: summary.value.trim(),
         });
 }
@@ -86,7 +86,7 @@ function submit() {
                 @change="choose"
             />
             <p class="text-xs leading-5 break-words text-slate-500">
-                {{ fileName || "Choose a file." }} Only its filename is saved.
+                {{ fileName || 'Choose a file.' }} Only its filename is saved.
                 No upload or processing occurs.
             </p>
         </div>

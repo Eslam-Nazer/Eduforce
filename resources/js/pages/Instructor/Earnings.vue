@@ -1,62 +1,62 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import InstructorLayout from "@/layouts/InstructorLayout.vue";
-import InstructorTransactionTable from "@/components/InstructorTransactionTable.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { computed, ref } from 'vue';
+import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorTransactionTable from '@/components/InstructorTransactionTable.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { usePurchasePreview } from "@/composables/usePurchasePreview";
-import type { InstructorTransaction } from "@/types/instructor-consultations";
+} from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { usePurchasePreview } from '@/composables/usePurchasePreview';
+import type { InstructorTransaction } from '@/types/instructor-consultations';
 const { transactions } = usePurchasePreview();
-const search = ref("");
-const filter = ref("All");
-const range = ref("all");
+const search = ref('');
+const filter = ref('All');
+const range = ref('all');
 const records = computed<InstructorTransaction[]>(() => [
     ...transactions.value.map((item) => ({
         id: item.reference,
         kind: item.kind,
         learner:
-            item.id === "career-advisory" ? "Sarah Al-Otaibi" : "Kareem Tarek",
+            item.id === 'career-advisory' ? 'Sarah Al-Otaibi' : 'Kareem Tarek',
         title: item.title,
         date: item.purchasedAt,
         amount: item.amount,
         currency: item.currency,
         status: item.amount
-            ? ("Paid sample" as const)
-            : ("Free activity" as const),
+            ? ('Paid sample' as const)
+            : ('Free activity' as const),
     })),
     {
-        id: "EDF-DEMO-REFUND",
-        kind: "course",
-        learner: "Tarek Zaki",
-        title: transactions.value[0]?.title ?? "Course",
-        date: "2026-10-08T12:00:00Z",
+        id: 'EDF-DEMO-REFUND',
+        kind: 'course',
+        learner: 'Tarek Zaki',
+        title: transactions.value[0]?.title ?? 'Course',
+        date: '2026-10-08T12:00:00Z',
         amount: 2400,
-        currency: "EGP",
-        status: "Refunded sample",
+        currency: 'EGP',
+        status: 'Refunded sample',
     },
 ]);
 const visible = computed(() =>
     records.value.filter((item) => {
         const age = Date.now() - Date.parse(item.date);
         return (
-            (range.value === "all" ||
+            (range.value === 'all' ||
                 (age >= 0 && age <= Number(range.value) * 86400000)) &&
-            (filter.value === "All" ||
-                (filter.value === "Refunds"
-                    ? item.status === "Refunded sample"
-                    : filter.value === "Courses"
-                      ? item.kind === "course"
-                      : item.kind === "consultation")) &&
+            (filter.value === 'All' ||
+                (filter.value === 'Refunds'
+                    ? item.status === 'Refunded sample'
+                    : filter.value === 'Courses'
+                      ? item.kind === 'course'
+                      : item.kind === 'consultation')) &&
             `${item.id} ${item.learner} ${item.title}`
                 .toLowerCase()
                 .includes(search.value.trim().toLowerCase())
@@ -67,20 +67,20 @@ const gross = (currency: string) =>
     visible.value
         .filter(
             (item) =>
-                item.currency === currency && item.status === "Paid sample",
+                item.currency === currency && item.status === 'Paid sample',
         )
         .reduce((sum, item) => sum + item.amount, 0);
 function exportLedger() {
     const rows = [
         [
-            "Reference",
-            "Type",
-            "Learner",
-            "Item",
-            "Date",
-            "Amount",
-            "Currency",
-            "Status",
+            'Reference',
+            'Type',
+            'Learner',
+            'Item',
+            'Date',
+            'Amount',
+            'Currency',
+            'Status',
         ],
         ...visible.value.map((item) => [
             item.id,
@@ -98,17 +98,17 @@ function exportLedger() {
             row
                 .map(
                     (cell) =>
-                        `"${(/^[=+@\-\t\r]/.test(cell) ? "'" : "") + cell.replaceAll('"', '""')}"`,
+                        `"${(/^[=+@\-\t\r]/.test(cell) ? "'" : '') + cell.replaceAll('"', '""')}"`,
                 )
-                .join(","),
+                .join(','),
         )
-        .join("\r\n");
+        .join('\r\n');
     const url = URL.createObjectURL(
-        new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" }),
+        new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' }),
     );
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = url;
-    link.download = "eduforce-sample-ledger.csv";
+    link.download = 'eduforce-sample-ledger.csv';
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
@@ -147,11 +147,11 @@ function exportLedger() {
                         SAMPLE GROSS VOLUME
                     </p>
                     <p class="text-2xl font-bold">
-                        {{ gross("EGP").toLocaleString("en-US") }}
+                        {{ gross('EGP').toLocaleString('en-US') }}
                         <span class="text-sm">EGP</span>
                     </p>
                     <p class="text-xl font-semibold">
-                        {{ gross("SAR").toLocaleString("en-US") }}
+                        {{ gross('SAR').toLocaleString('en-US') }}
                         <span class="text-sm">SAR</span>
                     </p>
                     <p class="text-xs text-slate-500">

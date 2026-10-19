@@ -1,8 +1,8 @@
 import type {
     ConsultationService,
     ConsultationRequestPreview,
-} from "./instructor";
-import type { Currency } from "./course";
+} from './instructor';
+import type { Currency } from './course';
 
 export interface InstructorService extends ConsultationService {
     active: boolean;
@@ -16,11 +16,11 @@ export interface InstructorRequest extends ConsultationRequestPreview {
 }
 export interface InstructorTransaction {
     id: string;
-    kind: "course" | "consultation";
+    kind: 'course' | 'consultation';
     learner: string;
     title: string;
     date: string;
     amount: number;
     currency: Currency;
-    status: "Paid sample" | "Refunded sample" | "Free activity";
+    status: 'Paid sample' | 'Refunded sample' | 'Free activity';
 }

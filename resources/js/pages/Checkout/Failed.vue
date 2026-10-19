@@ -120,7 +120,9 @@ function preview(title: string) {
                                     Full-Stack Web Development with Node.js
                                     &amp; React
                                 </h3>
-                                <p class="mt-1 text-xs leading-5 text-slate-500">
+                                <p
+                                    class="mt-1 text-xs leading-5 text-slate-500"
+                                >
                                     Instructor:
                                     <span class="font-medium text-slate-700"
                                         >Ahmed Mansour</span
@@ -133,7 +135,9 @@ function preview(title: string) {
                         >
                             <div>
                                 <p class="text-sm font-medium">Total Payable</p>
-                                <p class="mt-1 text-xs leading-5 text-slate-500">
+                                <p
+                                    class="mt-1 text-xs leading-5 text-slate-500"
+                                >
                                     Sample course price
                                 </p>
                             </div>

@@ -1,70 +1,70 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref, reactive } from "vue";
-import { Check, Minus, Info } from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import ConsultationRequestCard from "@/components/ConsultationRequestCard.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref, reactive } from 'vue';
+import { Check, Minus, Info } from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import ConsultationRequestCard from '@/components/ConsultationRequestCard.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import { useInstructorServices } from "@/composables/useInstructorServices";
+} from '@/components/ui/sheet';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import { useInstructorServices } from '@/composables/useInstructorServices';
 const { publicServices } = useInstructorServices();
 const instructor = reactive({
     ...sampleInstructorProfile,
     services: publicServices,
 });
-import type { Currency } from "@/types/course";
+import type { Currency } from '@/types/course';
 const props = defineProps<{ serviceId: string }>();
 const service = computed(() =>
     instructor.services.find((item) => item.id === props.serviceId),
 );
-const currency = ref<Currency>("EGP");
+const currency = ref<Currency>('EGP');
 const sheetOpen = ref(false);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 
 const exclusions = computed(() =>
-    service.value?.id === "career-advisory"
+    service.value?.id === 'career-advisory'
         ? [
-              "Job placement or a guaranteed career outcome.",
-              "Completing assignments or projects on your behalf.",
+              'Job placement or a guaranteed career outcome.',
+              'Completing assignments or projects on your behalf.',
           ]
         : [
-              "Implementing new features on your behalf.",
-              "Making changes to a live production environment.",
-              "Completing coursework or assignments on your behalf.",
+              'Implementing new features on your behalf.',
+              'Making changes to a live production environment.',
+              'Completing coursework or assignments on your behalf.',
           ],
 );
 const steps = computed(() => [
     {
-        title: "Submit Request",
-        detail: "Describe your questions and the context for the service.",
+        title: 'Submit Request',
+        detail: 'Describe your questions and the context for the service.',
     },
     {
-        title: "Agree on Time",
-        detail: "Coordinate the appointment and scope directly with the instructor.",
+        title: 'Agree on Time',
+        detail: 'Coordinate the appointment and scope directly with the instructor.',
     },
     ...(service.value?.egp
         ? [
               {
-                  title: "Payment",
-                  detail: "Pay only after the appointment has been agreed.",
+                  title: 'Payment',
+                  detail: 'Pay only after the appointment has been agreed.',
               },
           ]
         : []),
     {
-        title: "Remote Session",
-        detail: "Meet through an external meeting tool agreed with the instructor.",
+        title: 'Remote Session',
+        detail: 'Meet through an external meeting tool agreed with the instructor.',
     },
 ]);
 function preview(title: string) {
@@ -96,7 +96,7 @@ function request() {
                 }}</a
                 ><span>/</span
                 ><span aria-current="page">{{
-                    service?.title ?? "Service not found"
+                    service?.title ?? 'Service not found'
                 }}</span>
             </nav>
             <div
@@ -210,7 +210,7 @@ function request() {
                                     <span
                                         class="text-sm font-semibold text-teal-800"
                                         >{{
-                                            String(index + 1).padStart(2, "0")
+                                            String(index + 1).padStart(2, '0')
                                         }}</span
                                     >
                                     <h3 class="mt-3 font-semibold">
@@ -268,7 +268,7 @@ function request() {
 </template>
 <style scoped>
 .consultation-page {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

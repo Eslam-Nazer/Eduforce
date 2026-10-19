@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
-import { GraduationCap, FileText, MessageCircle } from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import EnrolledCourseCard from "@/components/EnrolledCourseCard.vue";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import { GraduationCap, FileText, MessageCircle } from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import EnrolledCourseCard from '@/components/EnrolledCourseCard.vue';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
     Breadcrumb,
     BreadcrumbList,
@@ -16,45 +16,45 @@ import {
     BreadcrumbLink,
     BreadcrumbSeparator,
     BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
+} from '@/components/ui/breadcrumb';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import type { Currency } from "@/types/course";
-import type { EnrolledCourse } from "@/types/learning";
+} from '@/components/ui/sheet';
+import type { Currency } from '@/types/course';
+import type { EnrolledCourse } from '@/types/learning';
 import {
     sampleModules,
     sampleCourseTitle,
     sampleInstructor,
-} from "@/data/sample-course";
-import { useLearningPreview } from "@/composables/useLearningPreview";
+} from '@/data/sample-course';
+import { useLearningPreview } from '@/composables/useLearningPreview';
 const { completedIds, examPassed } = useLearningPreview();
 const sampleVideos = sampleModules
     .flatMap((module) => module.lessons)
-    .filter((lesson) => lesson.kind === "video");
+    .filter((lesson) => lesson.kind === 'video');
 
-const currency = ref<Currency>("EGP");
-const filter = ref("all");
+const currency = ref<Currency>('EGP');
+const filter = ref('all');
 const previewOpen = ref(false);
-const previewTitle = ref("");
-const referenceDate = "2026-10-09T12:00:00+03:00";
+const previewTitle = ref('');
+const referenceDate = '2026-10-09T12:00:00+03:00';
 const courses = computed<EnrolledCourse[]>(() => [
     {
-        id: "full-stack",
+        id: 'full-stack',
         title: sampleCourseTitle,
         instructor: sampleInstructor,
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=85",
+        image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=85',
         moduleCount: sampleModules.length,
         completedVideos: completedIds.value.length,
         totalVideos: sampleVideos.length,
-        purchasedAt: "2026-10-07T12:00:00+03:00",
-        orderReference: "EDF-DEMO-94821",
+        purchasedAt: '2026-10-07T12:00:00+03:00',
+        orderReference: 'EDF-DEMO-94821',
         amountPaid: 2400,
-        paidCurrency: "EGP",
+        paidCurrency: 'EGP',
         exam: { passingScore: 70, passed: examPassed.value },
         nextLesson:
             sampleVideos.find(
@@ -69,32 +69,32 @@ const completedCount = computed(() => courses.value.filter(isCompleted).length);
 const visibleCourses = computed(() =>
     courses.value.filter(
         (course) =>
-            filter.value === "all" ||
-            (filter.value === "completed"
+            filter.value === 'all' ||
+            (filter.value === 'completed'
                 ? isCompleted(course)
                 : !isCompleted(course)),
     ),
 );
 const filters = computed(() => [
-    { value: "all", label: "All Courses", count: courses.value.length },
+    { value: 'all', label: 'All Courses', count: courses.value.length },
     {
-        value: "progress",
-        label: "In Progress",
+        value: 'progress',
+        label: 'In Progress',
         count: courses.value.length - completedCount.value,
     },
-    { value: "completed", label: "Completed", count: completedCount.value },
+    { value: 'completed', label: 'Completed', count: completedCount.value },
 ]);
 function preview(title: string) {
-    if (title === "Course Certificate") {
-        router.visit("/my-courses/full-stack/certificate");
+    if (title === 'Course Certificate') {
+        router.visit('/my-courses/full-stack/certificate');
         return;
     }
-    if (title === "Course Exam") {
-        router.visit("/my-courses/full-stack/exam");
+    if (title === 'Course Exam') {
+        router.visit('/my-courses/full-stack/exam');
         return;
     }
-    if (title === "Continue Learning" || title === "Review Course") {
-        router.visit("/my-courses/full-stack");
+    if (title === 'Continue Learning' || title === 'Review Course') {
+        router.visit('/my-courses/full-stack');
         return;
     }
     previewTitle.value = title;
@@ -205,8 +205,8 @@ function preview(title: string) {
                                         </p>
                                         <Badge variant="secondary">{{
                                             course.exam.passed
-                                                ? "Passed"
-                                                : "Not yet passed"
+                                                ? 'Passed'
+                                                : 'Not yet passed'
                                         }}</Badge>
                                         <p
                                             class="text-xs leading-6 text-slate-500"
@@ -274,7 +274,7 @@ function preview(title: string) {
                                                 <dd class="font-semibold">
                                                     {{
                                                         course.amountPaid.toLocaleString(
-                                                            "en-US",
+                                                            'en-US',
                                                         )
                                                     }}
                                                     {{ course.paidCurrency }}
@@ -324,20 +324,20 @@ function preview(title: string) {
                             />
                             <h2 class="text-xl font-semibold">
                                 {{
-                                    filter === "completed"
-                                        ? "No completed courses yet"
-                                        : "No courses here yet"
+                                    filter === 'completed'
+                                        ? 'No completed courses yet'
+                                        : 'No courses here yet'
                                 }}
                             </h2>
                             <p class="text-sm text-slate-500">
                                 {{
-                                    filter === "completed"
-                                        ? "Complete your videos and pass any enabled exam to finish a course."
-                                        : "Explore courses and start your next learning journey."
+                                    filter === 'completed'
+                                        ? 'Complete your videos and pass any enabled exam to finish a course.'
+                                        : 'Explore courses and start your next learning journey.'
                                 }}
                             </p>
                             <Button
-                                v-if="courses.value.length"
+                                v-if="courses.length"
                                 variant="outline"
                                 @click="filter = 'all'"
                                 >View All Courses</Button
@@ -371,7 +371,7 @@ function preview(title: string) {
 
 <style scoped>
 .my-courses {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { InstructorModule } from "@/types/instructor-workspace";
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { InstructorModule } from '@/types/instructor-workspace';
 defineProps<{ module: InstructorModule; index: number; count: number }>();
 const emit = defineEmits<{
     rename: [title: string];
@@ -15,7 +15,7 @@ const emit = defineEmits<{
     removeLesson: [id: string];
 }>();
 const duration = (seconds: number) =>
-    `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+    `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
 </script>
 <template>
     <Card class="border-slate-200 bg-white"
@@ -68,11 +68,11 @@ const duration = (seconds: number) =>
                             class="mt-1 text-xs leading-5 break-words text-slate-500"
                         >
                             {{
-                                lesson.kind === "video"
+                                lesson.kind === 'video'
                                     ? `Video · ${duration(lesson.durationSeconds)}`
-                                    : "Downloadable file"
+                                    : 'Downloadable file'
                             }}
-                            · {{ lesson.fileName || "No file selected" }}
+                            · {{ lesson.fileName || 'No file selected' }}
                         </p>
                     </div>
                     <div class="flex flex-wrap gap-1">

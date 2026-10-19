@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { Search, MessageCircle } from "@lucide/vue";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import type { Conversation } from "@/types/message";
+import { computed, ref } from 'vue';
+import { Search, MessageCircle } from '@lucide/vue';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import type { Conversation } from '@/types/message';
 const props = defineProps<{
     conversations: Conversation[];
     selectedId: string;
 }>();
 const emit = defineEmits<{ select: [id: string] }>();
-const search = ref("");
+const search = ref('');
 const visible = computed(() =>
     props.conversations.filter((item) =>
         `${item.name} ${item.subject}`

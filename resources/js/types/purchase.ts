@@ -1,4 +1,4 @@
-import type { Currency } from "./course";
+import type { Currency } from './course';
 
 interface PurchaseBase {
     id: string;
@@ -12,11 +12,11 @@ interface PurchaseBase {
 
 export type PurchaseTransaction = PurchaseBase &
     (
-        | { kind: "course"; completedVideos: number; totalVideos: number }
+        | { kind: 'course'; completedVideos: number; totalVideos: number }
         | {
-              kind: "consultation";
+              kind: 'consultation';
               appointment: string;
-              status: "Confirmed" | "Completed";
+              status: 'Confirmed' | 'Completed';
               durationMinutes: number;
           }
     );

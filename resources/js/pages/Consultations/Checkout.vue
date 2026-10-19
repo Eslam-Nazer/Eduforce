@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
-import { FlaskConical, Info } from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import CheckoutBilling from "@/components/CheckoutBilling.vue";
-import CheckoutPayment from "@/components/CheckoutPayment.vue";
-import ConsultationCheckoutSummary from "@/components/ConsultationCheckoutSummary.vue";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import { FlaskConical, Info } from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import CheckoutBilling from '@/components/CheckoutBilling.vue';
+import CheckoutPayment from '@/components/CheckoutPayment.vue';
+import ConsultationCheckoutSummary from '@/components/ConsultationCheckoutSummary.vue';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import { sampleInstructorProfile as instructor } from "@/data/sample-instructor";
-import { sampleConsultationRequests } from "@/data/sample-consultation-requests";
-import { useConsultationPreview } from "@/composables/useConsultationPreview";
-import type { Currency } from "@/types/course";
-import type { BillingCountry, CheckoutPaymentMethod } from "@/types/checkout";
+} from '@/components/ui/sheet';
+import { sampleInstructorProfile as instructor } from '@/data/sample-instructor';
+import { sampleConsultationRequests } from '@/data/sample-consultation-requests';
+import { useConsultationPreview } from '@/composables/useConsultationPreview';
+import type { Currency } from '@/types/course';
+import type { BillingCountry, CheckoutPaymentMethod } from '@/types/checkout';
 const { localRequests } = useConsultationPreview();
 const requestId =
-    typeof window !== "undefined"
-        ? new URLSearchParams(window.location.search).get("request")
+    typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search).get('request')
         : null;
 const request = computed(() =>
     [...localRequests.value, ...sampleConsultationRequests].find(
@@ -38,24 +38,24 @@ const service = computed(() =>
 const eligible = computed(
     () =>
         !!request.value?.appointment &&
-        request.value.status === "Time Agreed" &&
+        request.value.status === 'Time Agreed' &&
         !!service.value &&
         service.value.egp > 0,
 );
-const country = ref<BillingCountry>("EG");
-const currency = ref<Currency>("EGP");
-const method = ref<CheckoutPaymentMethod>("hosted");
+const country = ref<BillingCountry>('EG');
+const currency = ref<Currency>('EGP');
+const method = ref<CheckoutPaymentMethod>('hosted');
 const chargeCurrency = computed<Currency>(() =>
-    country.value === "EG" ? "EGP" : "SAR",
+    country.value === 'EG' ? 'EGP' : 'SAR',
 );
 const chargeAmount = computed(
     () =>
-        (chargeCurrency.value === "EGP"
+        (chargeCurrency.value === 'EGP'
             ? service.value?.egp
             : service.value?.sar) ?? 0,
 );
 const sheetOpen = ref(false);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 const paymentPreview = ref(false);
 function preview(title: string) {
     paymentPreview.value = false;
@@ -65,13 +65,13 @@ function preview(title: string) {
 function proceed() {
     if (!eligible.value) return;
     paymentPreview.value = true;
-    sheetTitle.value = "Consultation Payment Preview";
+    sheetTitle.value = 'Consultation Payment Preview';
     sheetOpen.value = true;
 }
 const trackingHref = computed(() =>
     request.value
         ? `/consultations/requests?request=${encodeURIComponent(request.value.id)}`
-        : "/consultations/requests",
+        : '/consultations/requests',
 );
 </script>
 <template>
@@ -91,7 +91,7 @@ const trackingHref = computed(() =>
                 <a :href="trackingHref" class="text-teal-800"
                     >Consultation Requests</a
                 ><span>/</span
-                ><span>{{ service?.title ?? "Consultation" }}</span
+                ><span>{{ service?.title ?? 'Consultation' }}</span
                 ><span>/</span><span aria-current="page">Checkout</span>
             </nav>
             <template v-if="eligible && request && service"
@@ -161,8 +161,8 @@ const trackingHref = computed(() =>
                 <p class="mt-3 text-sm leading-6 text-slate-600">
                     {{
                         service?.egp === 0
-                            ? "This service is free and does not require checkout."
-                            : "Select a paid request with an agreed appointment. New, closed or already confirmed requests cannot proceed to payment here."
+                            ? 'This service is free and does not require checkout.'
+                            : 'Select a paid request with an agreed appointment. New, closed or already confirmed requests cannot proceed to payment here.'
                     }}
                 </p>
                 <Button as-child variant="outline" class="mt-5"
@@ -177,8 +177,8 @@ const trackingHref = computed(() =>
                     ><SheetTitle>{{ sheetTitle }}</SheetTitle
                     ><SheetDescription>{{
                         paymentPreview
-                            ? "Local payment review only. Nothing has been charged or confirmed."
-                            : "This destination is not connected in this preview."
+                            ? 'Local payment review only. Nothing has been charged or confirmed.'
+                            : 'This destination is not connected in this preview.'
                     }}</SheetDescription></SheetHeader
                 >
                 <div
@@ -209,7 +209,7 @@ const trackingHref = computed(() =>
 </template>
 <style scoped>
 .consultation-checkout {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

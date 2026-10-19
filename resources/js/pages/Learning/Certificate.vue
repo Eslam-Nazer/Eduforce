@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 import {
     ArrowLeft,
     Award,
@@ -10,35 +10,35 @@ import {
     Info,
     Link as LinkIcon,
     Share2,
-} from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import CertificatePreview from "@/components/CertificatePreview.vue";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+} from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import CertificatePreview from '@/components/CertificatePreview.vue';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
     sampleCourseTitle,
     sampleInstructor,
     sampleModules,
-} from "@/data/sample-course";
-import { sampleExam } from "@/data/sample-exam";
-import { useLearningPreview } from "@/composables/useLearningPreview";
-import type { Currency } from "@/types/course";
+} from '@/data/sample-course';
+import { sampleExam } from '@/data/sample-exam';
+import { useLearningPreview } from '@/composables/useLearningPreview';
+import type { Currency } from '@/types/course';
 
 const { attempts, completedIds, examPassed, scoreAttempt, storageAvailable } =
     useLearningPreview();
 const totalVideos = sampleModules
     .flatMap((module) => module.lessons)
-    .filter((lesson) => lesson.kind === "video").length;
+    .filter((lesson) => lesson.kind === 'video').length;
 const eligible = computed(
     () =>
         storageAvailable.value &&
@@ -53,16 +53,16 @@ const passingAttempt = computed(() =>
 const score = computed(() =>
     passingAttempt.value ? scoreAttempt(passingAttempt.value) : 0,
 );
-const currency = ref<Currency>("EGP");
+const currency = ref<Currency>('EGP');
 const expanded = ref(false);
 const noticeOpen = ref(false);
-const noticeTitle = ref("");
-const previewDate = new Intl.DateTimeFormat("en-GB", {
-    dateStyle: "long",
-    timeZone: "Africa/Cairo",
+const noticeTitle = ref('');
+const previewDate = new Intl.DateTimeFormat('en-GB', {
+    dateStyle: 'long',
+    timeZone: 'Africa/Cairo',
 }).format(new Date());
 const certificateProps = computed(() => ({
-    learner: "Kareem Tarek",
+    learner: 'Kareem Tarek',
     course: sampleCourseTitle,
     instructor: sampleInstructor,
     videoCount: totalVideos,
@@ -118,8 +118,8 @@ function printCertificate() {
                         <h1 class="mt-2 text-2xl font-bold">
                             {{
                                 eligible
-                                    ? "Course Completed"
-                                    : "Complete Your Course"
+                                    ? 'Course Completed'
+                                    : 'Complete Your Course'
                             }}
                         </h1>
                         <p class="mt-2 text-sm leading-6 text-slate-500">
@@ -127,7 +127,7 @@ function printCertificate() {
                             completed ·
                             {{
                                 examPassed
-                                    ? "Course exam passed"
+                                    ? 'Course exam passed'
                                     : `${sampleExam.passingScore}% exam pass required`
                             }}.
                         </p>
@@ -348,7 +348,7 @@ function printCertificate() {
 </template>
 <style scoped>
 .certificate-page {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 @media print {

@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
-        Model::shouldBeStrict(!app()->isProduction());
+        Model::shouldBeStrict(! app()->isProduction());
     }
 
     /**

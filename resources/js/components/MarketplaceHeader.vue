@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { BookOpen, Globe } from "@lucide/vue";
-import { Button } from "@/components/ui/button";
+import { BookOpen, Globe } from '@lucide/vue';
+import { Button } from '@/components/ui/button';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import type { Currency } from "@/types";
+} from '@/components/ui/select';
+import type { Currency } from '@/types';
 
-const currency = defineModel<Currency>("currency", { required: true });
+const currency = defineModel<Currency>('currency', { required: true });
 withDefaults(defineProps<{ browseHref?: string; accountName?: string }>(), {
-    browseHref: "/#courses",
+    browseHref: '/#courses',
 });
 const emit = defineEmits<{
     browse: [];

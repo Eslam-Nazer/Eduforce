@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { BookOpen, ArrowLeft } from "@lucide/vue";
-import { Button } from "@/components/ui/button";
+import { ref } from 'vue';
+import { BookOpen, ArrowLeft } from '@lucide/vue';
+import { Button } from '@/components/ui/button';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 
 withDefaults(defineProps<{ showFooter?: boolean }>(), { showFooter: true });
 
-const legalTitle = ref("");
+const legalTitle = ref('');
 const legalOpen = ref(false);
 function openLegal(title: string) {
     legalTitle.value = title;
@@ -85,7 +85,7 @@ function openLegal(title: string) {
 
 <style scoped>
 .auth-layout {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

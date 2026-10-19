@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Register\StoreRegisterRequest;
 use App\Service\RegisterService;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 
 class RegisterController extends Controller
@@ -17,7 +18,7 @@ class RegisterController extends Controller
         return inertia('Auth/Register');
     }
 
-    public function store(StoreRegisterRequest $request)
+    public function store(StoreRegisterRequest $request): RedirectResponse
     {
         $this->registerService->store($request);
 

@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
+import { ref } from 'vue';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 import {
     Select,
     SelectTrigger,
     SelectValue,
     SelectContent,
     SelectItem,
-} from "@/components/ui/select";
-import type { PurchaseTransaction, RefundDraft } from "@/types/purchase";
+} from '@/components/ui/select';
+import type { PurchaseTransaction, RefundDraft } from '@/types/purchase';
 const props = defineProps<{
     transaction: PurchaseTransaction;
     eligible: boolean;
 }>();
 const emit = defineEmits<{ review: [draft: RefundDraft] }>();
-const reason = ref("");
-const details = ref("");
+const reason = ref('');
+const details = ref('');
 const acknowledged = ref(false);
 function submit() {
     if (!props.eligible || !reason.value || !acknowledged.value) return;
-    emit("review", {
+    emit('review', {
         transactionId: props.transaction.id,
         reason: reason.value,
         details: details.value.trim(),
@@ -45,9 +45,9 @@ function submit() {
                                 : 'Unable to attend the appointment'
                         "
                         >{{
-                            transaction.kind === "course"
-                                ? "Course does not meet my needs"
-                                : "Unable to attend the appointment"
+                            transaction.kind === 'course'
+                                ? 'Course does not meet my needs'
+                                : 'Unable to attend the appointment'
                         }}</SelectItem
                     ><SelectItem value="Purchased by mistake"
                         >Purchased by mistake</SelectItem
@@ -78,9 +78,9 @@ function submit() {
             <h3 class="font-semibold">Applicable refund policy</h3>
             <p class="mt-2">
                 {{
-                    transaction.kind === "course"
-                        ? "Course refunds are eligible within 14 days from purchase and with no more than 3 completed videos. Completing the fourth video removes eligibility."
-                        : "Paid consultation cancellation must be requested at least 24 hours before the agreed appointment."
+                    transaction.kind === 'course'
+                        ? 'Course refunds are eligible within 14 days from purchase and with no more than 3 completed videos. Completing the fourth video removes eligibility.'
+                        : 'Paid consultation cancellation must be requested at least 24 hours before the agreed appointment.'
                 }}
             </p>
         </div>
@@ -89,7 +89,7 @@ function submit() {
                 id="refund-policy"
                 v-model="acknowledged"
                 class="mt-1"
-            /><Label for="refund-policy" class="font-normal leading-6"
+            /><Label for="refund-policy" class="leading-6 font-normal"
                 >I have read the applicable refund policy and understand that
                 this is a local request preview.</Label
             >

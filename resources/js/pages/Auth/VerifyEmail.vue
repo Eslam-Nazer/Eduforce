@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Head } from "@inertiajs/vue3";
-import { ArrowLeft, MailCheck, Info, RefreshCw } from "@lucide/vue";
-import AuthLayout from "@/layouts/AuthLayout.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
+import { Head } from '@inertiajs/vue3';
+import { ArrowLeft, MailCheck, Info, RefreshCw } from '@lucide/vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Separator } from '@/components/ui/separator';
 
 defineOptions({ layout: [] });
 defineProps<{ email?: string | null }>();
@@ -32,7 +32,7 @@ defineProps<{ email?: string | null }>();
                     >
                         We've sent a verification email to
                         <span
-                            class="block break-all font-semibold text-slate-900"
+                            class="block font-semibold break-all text-slate-900"
                             >{{ email }}</span
                         >
                     </p>

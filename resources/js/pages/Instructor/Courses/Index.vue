@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { router } from "@inertiajs/vue3";
-import InstructorLayout from "@/layouts/InstructorLayout.vue";
-import InstructorCourseCard from "@/components/InstructorCourseCard.vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { computed, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorCourseCard from '@/components/InstructorCourseCard.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
     Select,
     SelectTrigger,
     SelectValue,
     SelectContent,
     SelectItem,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -22,25 +22,25 @@ import {
     AlertDialogFooter,
     AlertDialogAction,
     AlertDialogCancel,
-} from "@/components/ui/alert-dialog";
-import { useInstructorWorkspace } from "@/composables/useInstructorWorkspace";
+} from '@/components/ui/alert-dialog';
+import { useInstructorWorkspace } from '@/composables/useInstructorWorkspace';
 const { courses, notice, createCourse, deleteDraft } = useInstructorWorkspace();
-const search = ref("");
-const filter = ref("All");
-const sort = ref("updated");
+const search = ref('');
+const filter = ref('All');
+const sort = ref('updated');
 const removing = ref<string | null>(null);
 const confirmOpen = ref(false);
 const visible = computed(() =>
     courses.value
         .filter(
             (course) =>
-                (filter.value === "All" || course.status === filter.value) &&
+                (filter.value === 'All' || course.status === filter.value) &&
                 course.title
                     .toLowerCase()
                     .includes(search.value.trim().toLowerCase()),
         )
         .toSorted((a, b) =>
-            sort.value === "title"
+            sort.value === 'title'
                 ? a.title.localeCompare(b.title)
                 : Date.parse(b.updatedAt) - Date.parse(a.updatedAt),
         ),
@@ -85,7 +85,7 @@ function remove(id: string) {
                         >{{ value }} ({{
                             courses.filter(
                                 (course) =>
-                                    value === "All" || course.status === value,
+                                    value === 'All' || course.status === value,
                             ).length
                         }})</TabsTrigger
                     ></TabsList

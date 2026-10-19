@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { ArrowRight, Clock, Info } from "@lucide/vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import type { ConsultationService } from "@/types/instructor";
-import type { Currency } from "@/types/course";
+import { computed } from 'vue';
+import { ArrowRight, Clock, Info } from '@lucide/vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import type { ConsultationService } from '@/types/instructor';
+import type { Currency } from '@/types/course';
 const props = defineProps<{
     service: ConsultationService;
     currency: Currency;
@@ -13,8 +13,8 @@ const props = defineProps<{
 const emit = defineEmits<{ request: [] }>();
 const free = computed(() => props.service.egp === 0);
 const price = computed(() =>
-    new Intl.NumberFormat("en-US").format(
-        props.currency === "EGP" ? props.service.egp : props.service.sar,
+    new Intl.NumberFormat('en-US').format(
+        props.currency === 'EGP' ? props.service.egp : props.service.sar,
     ),
 );
 </script>
@@ -23,10 +23,10 @@ const price = computed(() =>
         <CardContent class="space-y-5 p-5 sm:p-6">
             <div class="rounded-lg bg-slate-50 p-4">
                 <Badge variant="secondary" class="bg-teal-50 text-teal-800">{{
-                    free ? "Free Service" : "Paid Service"
+                    free ? 'Free Service' : 'Paid Service'
                 }}</Badge>
                 <p class="mt-3 text-4xl font-bold">
-                    {{ free ? "Free" : price }}
+                    {{ free ? 'Free' : price }}
                     <span v-if="!free" class="text-base font-medium">{{
                         currency
                     }}</span>
@@ -50,14 +50,14 @@ const price = computed(() =>
             >
                 <p class="flex items-center gap-2 font-semibold">
                     <Info class="size-4" aria-hidden="true" />{{
-                        free ? "No payment required" : "No upfront payment"
+                        free ? 'No payment required' : 'No upfront payment'
                     }}
                 </p>
                 <p class="mt-2">
                     {{
                         free
-                            ? "Agree on an appointment with the instructor. This service is free."
-                            : "Payment follows agreement on the appointment and scope with the instructor."
+                            ? 'Agree on an appointment with the instructor. This service is free.'
+                            : 'Payment follows agreement on the appointment and scope with the instructor.'
                     }}
                 </p>
             </div>

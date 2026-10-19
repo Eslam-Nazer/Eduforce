@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { BookOpen, Calendar, FileText, RotateCcw } from "@lucide/vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { computed } from 'vue';
+import { BookOpen, Calendar, FileText, RotateCcw } from '@lucide/vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
     formatPurchaseAmount,
     refundEligibility,
-} from "@/composables/usePurchasePreview";
-import type { PurchaseTransaction } from "@/types/purchase";
+} from '@/composables/usePurchasePreview';
+import type { PurchaseTransaction } from '@/types/purchase';
 const props = defineProps<{ transaction: PurchaseTransaction; now: number }>();
 const emit = defineEmits<{ receipt: [transaction: PurchaseTransaction] }>();
 const eligibility = computed(() =>
     refundEligibility(props.transaction, props.now),
 );
 const date = (value: string) =>
-    new Intl.DateTimeFormat("en-GB", {
-        dateStyle: "medium",
-        timeZone: "Africa/Cairo",
+    new Intl.DateTimeFormat('en-GB', {
+        dateStyle: 'medium',
+        timeZone: 'Africa/Cairo',
     }).format(new Date(value));
 </script>
 <template>
@@ -35,17 +35,17 @@ const date = (value: string) =>
                 <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap gap-2">
                         <Badge variant="secondary">{{
-                            transaction.kind === "course"
-                                ? "Course"
-                                : "Consultation"
+                            transaction.kind === 'course'
+                                ? 'Course'
+                                : 'Consultation'
                         }}</Badge
                         ><Badge variant="outline">{{
                             transaction.amount
-                                ? "Paid · sample"
-                                : "Free service"
+                                ? 'Paid · sample'
+                                : 'Free service'
                         }}</Badge>
                     </div>
-                    <h2 class="mt-3 text-lg font-semibold leading-7">
+                    <h2 class="mt-3 text-lg leading-7 font-semibold">
                         {{ transaction.title }}
                     </h2>
                     <p class="mt-1 text-sm text-slate-500">
@@ -73,14 +73,14 @@ const date = (value: string) =>
                 <div>
                     <dt class="text-xs text-slate-500">
                         {{
-                            transaction.kind === "course"
-                                ? "Learning progress"
-                                : "Appointment · Cairo"
+                            transaction.kind === 'course'
+                                ? 'Learning progress'
+                                : 'Appointment · Cairo'
                         }}
                     </dt>
                     <dd class="mt-1">
                         {{
-                            transaction.kind === "course"
+                            transaction.kind === 'course'
                                 ? `${transaction.completedVideos} of ${transaction.totalVideos} videos completed`
                                 : `${date(transaction.appointment)} · ${transaction.durationMinutes} min`
                         }}
@@ -89,13 +89,13 @@ const date = (value: string) =>
                 <div>
                     <dt class="text-xs text-slate-500">
                         {{
-                            transaction.kind === "course" ? "Access" : "Status"
+                            transaction.kind === 'course' ? 'Access' : 'Status'
                         }}
                     </dt>
                     <dd class="mt-1">
                         {{
-                            transaction.kind === "course"
-                                ? "Purchased course preview"
+                            transaction.kind === 'course'
+                                ? 'Purchased course preview'
                                 : transaction.status
                         }}
                     </dd>
@@ -125,9 +125,9 @@ const date = (value: string) =>
                                     : '/consultations/requests'
                             "
                             >{{
-                                transaction.kind === "course"
-                                    ? "Continue learning"
-                                    : "View consultation"
+                                transaction.kind === 'course'
+                                    ? 'Continue learning'
+                                    : 'View consultation'
                             }}</a
                         ></Button
                     >
@@ -141,10 +141,10 @@ const date = (value: string) =>
                     "
                     >{{
                         eligibility.eligible
-                            ? "Refund eligible"
+                            ? 'Refund eligible'
                             : transaction.amount
-                              ? "Not eligible for refund"
-                              : "No payment"
+                              ? 'Not eligible for refund'
+                              : 'No payment'
                     }}</Badge
                 >
             </div>

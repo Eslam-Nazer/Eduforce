@@ -1,32 +1,42 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { LockKeyhole } from "@lucide/vue";
-import PasswordInput from "@/components/PasswordInput.vue";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { ref } from 'vue';
+import { LockKeyhole } from '@lucide/vue';
+import PasswordInput from '@/components/PasswordInput.vue';
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardDescription,
+    CardContent,
+} from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 const emit = defineEmits<{ saved: [message: string] }>();
-const current = ref("");
-const password = ref("");
-const confirmation = ref("");
-const error = ref("");
+const current = ref('');
+const password = ref('');
+const confirmation = ref('');
+const error = ref('');
 function submit() {
-    error.value = "";
+    error.value = '';
     if (password.value.length < 8 || !/[0-9]/.test(password.value)) {
-        error.value = "Use at least 8 characters and one number in this preview.";
+        error.value =
+            'Use at least 8 characters and one number in this preview.';
         return;
     }
     if (password.value !== confirmation.value) {
-        error.value = "Passwords do not match.";
+        error.value = 'Passwords do not match.';
         return;
     }
     if (current.value === password.value) {
-        error.value = "Choose a different password from the current one.";
+        error.value = 'Choose a different password from the current one.';
         return;
     }
-    current.value = password.value = confirmation.value = "";
-    emit("saved", "Password form checked locally. No account password was changed.");
+    current.value = password.value = confirmation.value = '';
+    emit(
+        'saved',
+        'Password form checked locally. No account password was changed.',
+    );
 }
 </script>
 
@@ -34,13 +44,18 @@ function submit() {
     <Card id="password" class="scroll-mt-6 border-slate-200 bg-white shadow-sm"
         ><CardHeader
             ><CardTitle class="flex items-center gap-2 text-lg"
-                ><LockKeyhole class="size-5 text-teal-700" aria-hidden="true" />Security &amp;
-                Password</CardTitle
-            ><CardDescription>Preview the password change form.</CardDescription></CardHeader
+                ><LockKeyhole
+                    class="size-5 text-teal-700"
+                    aria-hidden="true"
+                />Security &amp; Password</CardTitle
+            ><CardDescription
+                >Preview the password change form.</CardDescription
+            ></CardHeader
         ><CardContent
             ><form class="space-y-5" @submit.prevent="submit">
                 <div class="space-y-2">
-                    <Label for="account-current-password">Current Password</Label
+                    <Label for="account-current-password"
+                        >Current Password</Label
                     ><PasswordInput
                         id="account-current-password"
                         v-model="current"
@@ -64,7 +79,8 @@ function submit() {
                         />
                     </div>
                     <div class="space-y-2">
-                        <Label for="account-confirmation">Confirm New Password</Label
+                        <Label for="account-confirmation"
+                            >Confirm New Password</Label
                         ><PasswordInput
                             id="account-confirmation"
                             v-model="confirmation"
@@ -85,7 +101,9 @@ function submit() {
                     {{ error }}
                 </p>
                 <div class="flex justify-end">
-                    <Button type="submit" class="h-11 bg-teal-700 text-white hover:bg-teal-800"
+                    <Button
+                        type="submit"
+                        class="h-11 bg-teal-700 text-white hover:bg-teal-800"
                         >Save Password</Button
                     >
                 </div>

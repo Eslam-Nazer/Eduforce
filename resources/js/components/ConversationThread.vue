@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { nextTick, ref } from "vue";
-import { Send, Lock, ExternalLink } from "@lucide/vue";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import type { Conversation } from "@/types/message";
+import { nextTick, ref } from 'vue';
+import { Send, Lock, ExternalLink } from '@lucide/vue';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import type { Conversation } from '@/types/message';
 defineProps<{ conversation: Conversation }>();
 const emit = defineEmits<{ message: [text: string] }>();
-const text = ref("");
+const text = ref('');
 const history = ref<HTMLElement | null>(null);
 async function submit() {
     const value = text.value.trim();
     if (!value) return;
-    emit("message", value);
-    text.value = "";
+    emit('message', value);
+    text.value = '';
     await nextTick();
     history.value?.scrollTo({ top: history.value.scrollHeight });
 }
@@ -80,8 +80,8 @@ async function submit() {
                         "
                     >
                         {{
-                            message.author === "student"
-                                ? "You"
+                            message.author === 'student'
+                                ? 'You'
                                 : conversation.name
                         }}
                     </p>

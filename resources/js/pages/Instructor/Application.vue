@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { ref } from "vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import InstructorApplicationForm from "@/components/InstructorApplicationForm.vue";
-import InstructorApplicationStatus from "@/components/InstructorApplicationStatus.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Head, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import InstructorApplicationForm from '@/components/InstructorApplicationForm.vue';
+import InstructorApplicationStatus from '@/components/InstructorApplicationStatus.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import type { Currency } from "@/types/course";
-const currency = ref<Currency>("EGP");
-const state = ref<"form" | "pending" | "approved" | "rejected">("form");
+} from '@/components/ui/sheet';
+import type { Currency } from '@/types/course';
+const currency = ref<Currency>('EGP');
+const state = ref<'form' | 'pending' | 'approved' | 'rejected'>('form');
 const open = ref(false);
-const title = ref("");
+const title = ref('');
 function preview(value: string) {
     title.value = value;
     open.value = true;

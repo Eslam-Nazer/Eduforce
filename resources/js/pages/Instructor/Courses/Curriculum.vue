@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { router } from "@inertiajs/vue3";
-import CourseBuilderLayout from "@/layouts/CourseBuilderLayout.vue";
-import CurriculumModuleEditor from "@/components/CurriculumModuleEditor.vue";
-import CourseLessonEditor from "@/components/CourseLessonEditor.vue";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { computed, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CurriculumModuleEditor from '@/components/CurriculumModuleEditor.vue';
+import CourseLessonEditor from '@/components/CourseLessonEditor.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
     DialogDescription,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -22,19 +22,19 @@ import {
     AlertDialogFooter,
     AlertDialogAction,
     AlertDialogCancel,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 import {
     newPreviewId,
     useInstructorWorkspace,
-} from "@/composables/useInstructorWorkspace";
-import type { InstructorLesson } from "@/types/instructor-workspace";
+} from '@/composables/useInstructorWorkspace';
+import type { InstructorLesson } from '@/types/instructor-workspace';
 const props = defineProps<{ courseId: string }>();
 const { course, notice, save } = useInstructorWorkspace(props.courseId);
 const lessons = computed(
     () => course.value?.modules.flatMap((module) => module.lessons) ?? [],
 );
 const videos = computed(() =>
-    lessons.value.filter((lesson) => lesson.kind === "video"),
+    lessons.value.filter((lesson) => lesson.kind === 'video'),
 );
 const runtime = computed(() =>
     Math.round(
@@ -45,7 +45,7 @@ const runtime = computed(() =>
     ),
 );
 const editorOpen = ref(false);
-const moduleId = ref("");
+const moduleId = ref('');
 const editing = ref<InstructorLesson>();
 const editorKey = ref(0);
 const confirmOpen = ref(false);
@@ -210,8 +210,8 @@ function confirmRemove() {
                     ><DialogHeader
                         ><DialogTitle>{{
                             editing
-                                ? "Edit lesson / resource"
-                                : "Add lesson / resource"
+                                ? 'Edit lesson / resource'
+                                : 'Add lesson / resource'
                         }}</DialogTitle
                         ><DialogDescription
                             >Save a filename reference and lesson details in the
@@ -229,8 +229,8 @@ function confirmRemove() {
                             >Remove this
                             {{
                                 pendingRemoval?.lessonId
-                                    ? "lesson or resource"
-                                    : "module and its content"
+                                    ? 'lesson or resource'
+                                    : 'module and its content'
                             }}?</AlertDialogTitle
                         ><AlertDialogDescription
                             >This edits the local draft. Save the draft to

@@ -1,72 +1,72 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref, reactive } from "vue";
-import { MessageCircle, ArrowRight, Globe, Info } from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import CourseCard from "@/components/CourseCard.vue";
-import ConsultationServiceCard from "@/components/ConsultationServiceCard.vue";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref, reactive } from 'vue';
+import { MessageCircle, ArrowRight, Globe, Info } from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import CourseCard from '@/components/CourseCard.vue';
+import ConsultationServiceCard from '@/components/ConsultationServiceCard.vue';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import { useInstructorServices } from "@/composables/useInstructorServices";
+} from '@/components/ui/sheet';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import { useInstructorServices } from '@/composables/useInstructorServices';
 const { publicServices } = useInstructorServices();
 const instructor = reactive({
     ...sampleInstructorProfile,
     services: publicServices,
 });
-import { sampleModules } from "@/data/sample-course";
-import type { Currency, Course } from "@/types/course";
-import type { ConsultationService } from "@/types/instructor";
+import { sampleModules } from '@/data/sample-course';
+import type { Currency, Course } from '@/types/course';
+import type { ConsultationService } from '@/types/instructor';
 
-const currency = ref<Currency>("EGP");
+const currency = ref<Currency>('EGP');
 const sheetOpen = ref(false);
-const sheetKind = ref<"message" | "destination">("destination");
-const sheetTitle = ref("");
+const sheetKind = ref<'message' | 'destination'>('destination');
+const sheetTitle = ref('');
 
-const message = ref("");
-const messageNotice = ref("");
+const message = ref('');
+const messageNotice = ref('');
 const videoLessons = sampleModules
     .flatMap((module) => module.lessons)
-    .filter((lesson) => lesson.kind === "video");
+    .filter((lesson) => lesson.kind === 'video');
 const totalSeconds = videoLessons.reduce((total, lesson) => {
-    const [minutes = 0, seconds = 0] = lesson.duration.split(":").map(Number);
+    const [minutes = 0, seconds = 0] = lesson.duration.split(':').map(Number);
     return total + minutes * 60 + seconds;
 }, 0);
 const duration = `${Math.floor(totalSeconds / 3600)}h ${Math.floor((totalSeconds % 3600) / 60)}m`;
 const metadata = computed(() => [
-    { label: "PRIMARY STACK", value: instructor.stack },
-    { label: "FOCUS", value: instructor.focus },
-    { label: "TIMEZONE", value: instructor.timeZone },
+    { label: 'PRIMARY STACK', value: instructor.stack },
+    { label: 'FOCUS', value: instructor.focus },
+    { label: 'TIMEZONE', value: instructor.timeZone },
     {
-        label: "CONSULTATIONS",
+        label: 'CONSULTATIONS',
         value: instructor.services.length
-            ? "Independent services available"
-            : "No services listed",
+            ? 'Independent services available'
+            : 'No services listed',
     },
 ]);
 function preview(title: string) {
-    sheetKind.value = "destination";
+    sheetKind.value = 'destination';
     sheetTitle.value = title;
     sheetOpen.value = true;
 }
 function openMessage() {
     if (!instructor.contactEnabled) return;
-    sheetKind.value = "message";
+    sheetKind.value = 'message';
     sheetTitle.value = `Message ${instructor.name}`;
-    messageNotice.value = "";
+    messageNotice.value = '';
     sheetOpen.value = true;
 }
 function selectService(service: ConsultationService) {
@@ -78,7 +78,7 @@ function viewCourse(course: Course) {
 function previewMessage() {
     if (message.value.trim())
         messageNotice.value =
-            "Message preview ready. No message has been sent.";
+            'Message preview ready. No message has been sent.';
 }
 </script>
 <template>
@@ -129,7 +129,7 @@ function previewMessage() {
                                 class="mt-4 flex items-center gap-2 text-sm text-slate-500"
                             >
                                 <Globe class="size-4" aria-hidden="true" />{{
-                                    instructor.languages.join(" & ")
+                                    instructor.languages.join(' & ')
                                 }}
                             </p>
                         </div>
@@ -262,9 +262,9 @@ function previewMessage() {
                 ><SheetHeader
                     ><SheetTitle>{{ sheetTitle }}</SheetTitle
                     ><SheetDescription>{{
-                        sheetKind === "message"
-                            ? "Text-only local message preview. No message is sent to the instructor."
-                            : "This destination is not connected in this profile preview."
+                        sheetKind === 'message'
+                            ? 'Text-only local message preview. No message is sent to the instructor.'
+                            : 'This destination is not connected in this profile preview.'
                     }}</SheetDescription></SheetHeader
                 >
                 <div class="space-y-5 px-4 pb-6">
@@ -308,7 +308,7 @@ function previewMessage() {
 </template>
 <style scoped>
 .instructor-profile {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

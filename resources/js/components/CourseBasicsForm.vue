@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import {
     Select,
     SelectTrigger,
     SelectValue,
     SelectContent,
     SelectItem,
-} from "@/components/ui/select";
-import type { InstructorCourse } from "@/types/instructor-workspace";
-const course = defineModel<InstructorCourse>("course", { required: true });
+} from '@/components/ui/select';
+import type { InstructorCourse } from '@/types/instructor-workspace';
+const course = defineModel<InstructorCourse>('course', { required: true });
 const emit = defineEmits<{ save: []; continue: [] }>();
 function cover(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file && file.type.startsWith("image/"))
+    if (file && file.type.startsWith('image/'))
         course.value.coverName = file.name;
 }
 </script>
@@ -141,7 +141,7 @@ function cover(event: Event) {
                         <div
                             class="flex aspect-video items-center justify-center rounded-lg bg-slate-100 p-4 text-center text-xs text-slate-500"
                         >
-                            {{ course.coverName || "No cover selected" }}
+                            {{ course.coverName || 'No cover selected' }}
                         </div>
                         <Label for="course-cover"
                             >Choose an image reference</Label

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import type { InstructorRequest } from "@/types/instructor-consultations";
+import { ref } from 'vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import type { InstructorRequest } from '@/types/instructor-consultations';
 const props = defineProps<{
     request: InstructorRequest;
     paid: boolean;
@@ -14,26 +14,26 @@ const props = defineProps<{
 const emit = defineEmits<{
     proposal: [text: string];
     meeting: [url: string];
-    action: [action: "Completed" | "Cancelled" | "Rejected"];
+    action: [action: 'Completed' | 'Cancelled' | 'Rejected'];
 }>();
 const proposal = ref(props.request.proposal);
 const link = ref(props.request.meetingUrl);
-const error = ref("");
+const error = ref('');
 const active = () =>
-    !["Completed", "Cancelled", "Rejected"].includes(props.request.status);
+    !['Completed', 'Cancelled', 'Rejected'].includes(props.request.status);
 const canComplete = () =>
-    props.request.status === "Confirmed" &&
+    props.request.status === 'Confirmed' &&
     !!props.request.appointment &&
     Date.parse(props.request.appointment) + props.durationMinutes * 60000 <=
         Date.now();
 function saveLink() {
     try {
         const url = new URL(link.value);
-        if (url.protocol !== "https:") throw new Error();
-        emit("meeting", url.href);
-        error.value = "";
+        if (url.protocol !== 'https:') throw new Error();
+        emit('meeting', url.href);
+        error.value = '';
     } catch {
-        error.value = "Enter a valid HTTPS meeting URL.";
+        error.value = 'Enter a valid HTTPS meeting URL.';
     }
 }
 </script>
@@ -43,11 +43,11 @@ function saveLink() {
             ><h2 class="text-lg font-semibold">Appointment & actions</h2>
             <p class="text-sm leading-6 text-slate-500">
                 {{
-                    paid && request.status === "Time Agreed"
-                        ? "Awaiting student payment in this sample. This preview cannot confirm or charge the booking."
+                    paid && request.status === 'Time Agreed'
+                        ? 'Awaiting student payment in this sample. This preview cannot confirm or charge the booking.'
                         : paid
-                          ? "Paid consultation sample. This preview processes no payments or settlement."
-                          : "Free services skip payment. Confirmation requires both parties to agree on the appointment."
+                          ? 'Paid consultation sample. This preview processes no payments or settlement.'
+                          : 'Free services skip payment. Confirmation requires both parties to agree on the appointment.'
                 }}
             </p>
             <template v-if="active()"

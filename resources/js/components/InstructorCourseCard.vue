@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { courseReadiness } from "@/composables/useInstructorWorkspace";
-import type { InstructorCourse } from "@/types/instructor-workspace";
+import { computed } from 'vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { courseReadiness } from '@/composables/useInstructorWorkspace';
+import type { InstructorCourse } from '@/types/instructor-workspace';
 const props = defineProps<{ course: InstructorCourse }>();
 const emit = defineEmits<{ remove: [id: string] }>();
 const videos = computed(
     () =>
         props.course.modules
             .flatMap((module) => module.lessons)
-            .filter((lesson) => lesson.kind === "video").length,
+            .filter((lesson) => lesson.kind === 'video').length,
 );
 const readiness = computed(() => {
     const checks = courseReadiness(props.course);
@@ -27,7 +27,7 @@ const readiness = computed(() => {
             ><div
                 class="flex min-h-32 items-center justify-center rounded-lg bg-slate-100 p-5 text-center text-sm text-slate-400"
             >
-                {{ course.coverName || "Cover image not selected" }}
+                {{ course.coverName || 'Cover image not selected' }}
             </div>
             <div class="min-w-0 space-y-3">
                 <div class="flex flex-wrap justify-between gap-2">
@@ -42,20 +42,20 @@ const readiness = computed(() => {
                         ><Badge variant="outline">{{ course.category }}</Badge>
                     </div>
                     <p class="text-sm font-semibold">
-                        {{ course.price.toLocaleString("en-US") }}
+                        {{ course.price.toLocaleString('en-US') }}
                         {{ course.currency }}
                     </p>
                 </div>
                 <h2 class="text-lg font-semibold">
-                    {{ course.title || "Untitled course" }}
+                    {{ course.title || 'Untitled course' }}
                 </h2>
                 <p class="text-xs text-slate-500">
                     {{ course.modules.length }} modules · {{ videos }} video
                     lessons ·
                     {{
                         course.examEnabled
-                            ? "Final exam enabled"
-                            : "No final exam"
+                            ? 'Final exam enabled'
+                            : 'No final exam'
                     }}
                 </p>
                 <div v-if="course.status === 'Draft'">
@@ -69,9 +69,9 @@ const readiness = computed(() => {
                         as-child
                         class="bg-teal-700 text-white hover:bg-teal-800"
                         ><a :href="`/instructor/courses/${course.id}/basics`">{{
-                            course.status === "Draft"
-                                ? "Continue builder"
-                                : "Edit content"
+                            course.status === 'Draft'
+                                ? 'Continue builder'
+                                : 'Edit content'
                         }}</a></Button
                     ><Button as-child variant="outline"
                         ><a :href="`/instructor/courses/${course.id}/publish`"

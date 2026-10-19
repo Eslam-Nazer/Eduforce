@@ -1,20 +1,20 @@
-import type { Course } from "./course";
+import type { Course } from './course';
 
 export interface ConsultationRequestDraft {
     subject: string;
     context: string;
     preferredTime: string;
-    timeZone: "Africa/Cairo" | "Asia/Riyadh";
+    timeZone: 'Africa/Cairo' | 'Asia/Riyadh';
 }
 
 export type ConsultationRequestStatus =
-    | "Requested"
-    | "Discussing"
-    | "Time Agreed"
-    | "Confirmed"
-    | "Completed"
-    | "Rejected"
-    | "Cancelled";
+    | 'Requested'
+    | 'Discussing'
+    | 'Time Agreed'
+    | 'Confirmed'
+    | 'Completed'
+    | 'Rejected'
+    | 'Cancelled';
 export interface ConsultationDiscussionMessage {
     id: string;
     text: string;
