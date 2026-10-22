@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { sampleInstructorProfile as instructor } from "@/data/sample-instructor";
+import { computed } from 'vue';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { sampleInstructorProfile as instructor } from '@/data/sample-instructor';
 import type {
     ConsultationRequestPreview,
     ConsultationService,
-} from "@/types/instructor";
-import type { Currency } from "@/types/course";
+} from '@/types/instructor';
+import type { Currency } from '@/types/course';
 const props = defineProps<{
     request: ConsultationRequestPreview;
     service: ConsultationService;
@@ -19,12 +19,12 @@ const props = defineProps<{
 }>();
 const appointment = computed(() =>
     props.request.appointment
-        ? new Intl.DateTimeFormat("en-GB", {
-              dateStyle: "full",
-              timeStyle: "short",
+        ? new Intl.DateTimeFormat('en-GB', {
+              dateStyle: 'full',
+              timeStyle: 'short',
               timeZone: props.request.timeZone,
           }).format(new Date(props.request.appointment))
-        : "No appointment agreed",
+        : 'No appointment agreed',
 );
 </script>
 <template>
@@ -35,7 +35,7 @@ const appointment = computed(() =>
             </p>
             <CardTitle class="text-lg">1-on-1 Consultation</CardTitle
             ><Badge variant="secondary" class="w-fit">{{
-                request.sample ? "Sample scenario" : "Local preview"
+                request.sample ? 'Sample scenario' : 'Local preview'
             }}</Badge></CardHeader
         ><CardContent class="space-y-6 p-5 sm:p-6">
             <a href="/instructors/ahmed-mansour" class="flex items-center gap-3"
@@ -85,7 +85,7 @@ const appointment = computed(() =>
                 <div class="flex justify-between gap-4 text-sm">
                     <span>Sample display price</span
                     ><span class="font-semibold"
-                        >{{ currency === "EGP" ? service.egp : service.sar }}
+                        >{{ currency === 'EGP' ? service.egp : service.sar }}
                         {{ currency }}</span
                     >
                 </div>

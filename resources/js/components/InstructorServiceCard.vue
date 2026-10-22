@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import type { InstructorService } from "@/types/instructor-consultations";
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import type { InstructorService } from '@/types/instructor-consultations';
 defineProps<{ service: InstructorService }>();
 defineEmits<{ edit: []; visibility: []; remove: [] }>();
 </script>
@@ -14,14 +14,14 @@ defineEmits<{ edit: []; visibility: []; remove: [] }>();
                 <div class="min-w-0">
                     <Badge variant="secondary">{{
                         service.basePrice === 0
-                            ? "Free service"
-                            : "Paid service"
+                            ? 'Free service'
+                            : 'Paid service'
                     }}</Badge>
                     <h3 class="mt-2 font-semibold break-words">
                         {{ service.title }}
                     </h3>
                     <p
-                        class="mt-2 text-sm leading-6 text-slate-500 break-words"
+                        class="mt-2 text-sm leading-6 break-words text-slate-500"
                     >
                         {{ service.description }}
                     </p>
@@ -29,8 +29,8 @@ defineEmits<{ edit: []; visibility: []; remove: [] }>();
                 <p class="shrink-0 text-sm font-semibold text-teal-800">
                     {{
                         service.basePrice === 0
-                            ? "Free"
-                            : `${service.basePrice.toLocaleString("en-US")} ${service.baseCurrency}`
+                            ? 'Free'
+                            : `${service.basePrice.toLocaleString('en-US')} ${service.baseCurrency}`
                     }}
                 </p>
             </div>
@@ -54,7 +54,7 @@ defineEmits<{ edit: []; visibility: []; remove: [] }>();
                         :aria-label="`Visibility of ${service.title}`"
                         @update:model-value="$emit('visibility')"
                     /><span class="text-xs">{{
-                        service.active ? "Active & visible" : "Paused"
+                        service.active ? 'Active & visible' : 'Paused'
                     }}</span>
                 </div>
                 <Button size="sm" variant="outline" @click="$emit('edit')"

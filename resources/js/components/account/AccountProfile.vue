@@ -1,23 +1,29 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref } from "vue";
-import { Upload, UserRound } from "@lucide/vue";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import type { AccountProfile } from "@/types";
+import { computed, onBeforeUnmount, ref } from 'vue';
+import { Upload, UserRound } from '@lucide/vue';
+import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardDescription,
+    CardContent,
+} from '@/components/ui/card';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import type { AccountProfile } from '@/types';
 
 const profile = defineModel<AccountProfile>({ required: true });
 const emit = defineEmits<{ saved: [message: string] }>();
-const avatar = ref("");
+const avatar = ref('');
 const avatarInput = ref<InstanceType<typeof Input> | null>(null);
 function chooseAvatar() {
     const input = avatarInput.value?.$el as HTMLInputElement | undefined;
     input?.click();
 }
-const error = ref("");
+const error = ref('');
 const initials = computed(
     () =>
         profile.value.name
@@ -25,29 +31,29 @@ const initials = computed(
             .split(/\s+/)
             .slice(0, 2)
             .map((part) => part[0])
-            .join("")
-            .toUpperCase() || "U",
+            .join('')
+            .toUpperCase() || 'U',
 );
 function removeAvatar() {
     if (avatar.value) URL.revokeObjectURL(avatar.value);
-    avatar.value = "";
+    avatar.value = '';
 }
 function selectAvatar(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    error.value = "";
+    error.value = '';
     if (!file) return;
     if (
-        !["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
+        !['image/jpeg', 'image/png', 'image/webp'].includes(file.type) ||
         file.size > 3 * 1024 * 1024
     ) {
-        error.value = "Choose a JPG, PNG or WEBP image smaller than 3 MB.";
-        input.value = "";
+        error.value = 'Choose a JPG, PNG or WEBP image smaller than 3 MB.';
+        input.value = '';
         return;
     }
     removeAvatar();
     avatar.value = URL.createObjectURL(file);
-    input.value = "";
+    input.value = '';
 }
 onBeforeUnmount(removeAvatar);
 </script>
@@ -56,10 +62,13 @@ onBeforeUnmount(removeAvatar);
     <Card id="profile" class="scroll-mt-6 border-slate-200 bg-white shadow-sm">
         <CardHeader
             ><CardTitle class="flex items-center gap-2 text-lg"
-                ><UserRound class="size-5 text-teal-700" aria-hidden="true" />Profile
-                Information</CardTitle
+                ><UserRound
+                    class="size-5 text-teal-700"
+                    aria-hidden="true"
+                />Profile Information</CardTitle
             ><CardDescription
-                >Update your profile details in this local preview.</CardDescription
+                >Update your profile details in this local
+                preview.</CardDescription
             ></CardHeader
         >
         <CardContent
@@ -72,15 +81,18 @@ onBeforeUnmount(removeAvatar);
                     )
                 "
             >
-                <div class="flex flex-wrap items-center gap-4 rounded-lg bg-slate-50 p-4">
+                <div
+                    class="flex flex-wrap items-center gap-4 rounded-lg bg-slate-50 p-4"
+                >
                     <Avatar class="size-20"
                         ><AvatarImage
                             v-if="avatar"
                             :src="avatar"
                             alt="Local avatar preview"
-                        /><AvatarFallback class="bg-teal-700 text-2xl text-white">{{
-                            initials
-                        }}</AvatarFallback></Avatar
+                        /><AvatarFallback
+                            class="bg-teal-700 text-2xl text-white"
+                            >{{ initials }}</AvatarFallback
+                        ></Avatar
                     >
                     <div class="min-w-0 flex-1">
                         <div class="flex flex-wrap gap-2">
@@ -89,8 +101,10 @@ onBeforeUnmount(removeAvatar);
                                 size="sm"
                                 class="bg-teal-700 text-white hover:bg-teal-800"
                                 @click="chooseAvatar"
-                                ><Upload class="size-4" aria-hidden="true" />Upload New
-                                Avatar</Button
+                                ><Upload
+                                    class="size-4"
+                                    aria-hidden="true"
+                                />Upload New Avatar</Button
                             ><Button
                                 type="button"
                                 variant="outline"
@@ -110,10 +124,18 @@ onBeforeUnmount(removeAvatar);
                             aria-describedby="avatar-note"
                             @change="selectAvatar"
                         />
-                        <p id="avatar-note" class="mt-2 text-xs leading-5 text-slate-500">
-                            JPG, PNG or WEBP. Max 3 MB. The image stays in this preview.
+                        <p
+                            id="avatar-note"
+                            class="mt-2 text-xs leading-5 text-slate-500"
+                        >
+                            JPG, PNG or WEBP. Max 3 MB. The image stays in this
+                            preview.
                         </p>
-                        <p v-if="error" role="alert" class="mt-1 text-xs text-red-600">
+                        <p
+                            v-if="error"
+                            role="alert"
+                            class="mt-1 text-xs text-red-600"
+                        >
                             {{ error }}
                         </p>
                     </div>
@@ -138,7 +160,9 @@ onBeforeUnmount(removeAvatar);
                             readonly
                             class="h-11 border-slate-200 bg-slate-50"
                         />
-                        <p class="text-xs leading-5 text-slate-500">Sample account email.</p>
+                        <p class="text-xs leading-5 text-slate-500">
+                            Sample account email.
+                        </p>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -156,7 +180,9 @@ onBeforeUnmount(removeAvatar);
                     </p>
                 </div>
                 <div class="flex justify-end">
-                    <Button type="submit" class="h-11 bg-teal-700 text-white hover:bg-teal-800"
+                    <Button
+                        type="submit"
+                        class="h-11 bg-teal-700 text-white hover:bg-teal-800"
                         >Save Changes</Button
                     >
                 </div>

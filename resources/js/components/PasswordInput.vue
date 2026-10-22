@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { Eye, EyeOff, LockKeyhole, CircleCheck } from "@lucide/vue";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { computed, ref } from 'vue';
+import { Eye, EyeOff, LockKeyhole, CircleCheck } from '@lucide/vue';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 
 defineOptions({ inheritAttrs: false });
-const props = withDefaults(defineProps<{ showStrength?: boolean; label?: string }>(), {
-    showStrength: false,
-    label: "password",
-});
+const props = withDefaults(
+    defineProps<{ showStrength?: boolean; label?: string }>(),
+    {
+        showStrength: false,
+        label: 'password',
+    },
+);
 const value = defineModel<string>({ required: true });
 const visible = ref(false);
 const checks = computed(() => [
@@ -21,12 +24,12 @@ const checks = computed(() => [
 const strength = computed(() => checks.value.filter(Boolean).length * 25);
 const strengthLabel = computed(() =>
     !value.value
-        ? "Not entered"
+        ? 'Not entered'
         : strength.value < 50
-          ? "Weak"
+          ? 'Weak'
           : strength.value < 100
-            ? "Fair"
-            : "Strong",
+            ? 'Fair'
+            : 'Strong',
 );
 </script>
 
@@ -51,7 +54,9 @@ const strengthLabel = computed(() =>
                 :aria-label="`${visible ? 'Hide' : 'Show'} ${props.label}`"
                 :aria-pressed="visible"
                 @click="visible = !visible"
-                ><EyeOff v-if="visible" class="size-4" /><Eye v-else class="size-4"
+                ><EyeOff v-if="visible" class="size-4" /><Eye
+                    v-else
+                    class="size-4"
             /></Button>
         </div>
         <div
@@ -60,7 +65,9 @@ const strengthLabel = computed(() =>
         >
             <div class="flex justify-between gap-3">
                 <span>Password strength</span
-                ><span class="font-medium text-teal-800">{{ strengthLabel }}</span>
+                ><span class="font-medium text-teal-800">{{
+                    strengthLabel
+                }}</span>
             </div>
             <Progress
                 :model-value="strength"
@@ -68,10 +75,16 @@ const strengthLabel = computed(() =>
                 class="h-1.5 bg-slate-200 [&_[data-slot=progress-indicator]]:bg-teal-700"
             />
             <div class="flex flex-wrap gap-x-4 gap-y-1">
-                <span :class="checks[0] && 'text-teal-700'" class="flex items-center gap-1"
-                    ><CircleCheck class="size-3" aria-hidden="true" />At least 8 characters</span
-                ><span :class="checks[1] && 'text-teal-700'" class="flex items-center gap-1"
-                    ><CircleCheck class="size-3" aria-hidden="true" />At least one number</span
+                <span
+                    :class="checks[0] && 'text-teal-700'"
+                    class="flex items-center gap-1"
+                    ><CircleCheck class="size-3" aria-hidden="true" />At least 8
+                    characters</span
+                ><span
+                    :class="checks[1] && 'text-teal-700'"
+                    class="flex items-center gap-1"
+                    ><CircleCheck class="size-3" aria-hidden="true" />At least
+                    one number</span
                 >
             </div>
         </div>

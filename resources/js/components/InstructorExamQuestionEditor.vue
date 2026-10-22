@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
     newPreviewId,
     validQuestion,
-} from "@/composables/useInstructorWorkspace";
-import type { InstructorQuestion } from "@/types/instructor-workspace";
-const question = defineModel<InstructorQuestion>("question", {
+} from '@/composables/useInstructorWorkspace';
+import type { InstructorQuestion } from '@/types/instructor-workspace';
+const question = defineModel<InstructorQuestion>('question', {
     required: true,
 });
 defineProps<{ index: number; count: number }>();
@@ -21,7 +21,7 @@ function removeOption(id: string) {
         (option) => option.id !== id,
     );
     if (question.value.correctOptionId === id)
-        question.value.correctOptionId = "";
+        question.value.correctOptionId = '';
 }
 </script>
 <template>
@@ -31,9 +31,9 @@ function removeOption(id: string) {
                 <h3 class="text-sm font-semibold">
                     Question {{ index + 1 }} ·
                     {{
-                        question.kind === "true-false"
-                            ? "True / False"
-                            : "Multiple choice"
+                        question.kind === 'true-false'
+                            ? 'True / False'
+                            : 'Multiple choice'
                     }}
                 </h3>
                 <div class="flex gap-2">

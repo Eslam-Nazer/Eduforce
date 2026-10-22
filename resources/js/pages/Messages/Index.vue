@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import ConversationList from "@/components/ConversationList.vue";
-import ConversationThread from "@/components/ConversationThread.vue";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import ConversationList from '@/components/ConversationList.vue';
+import ConversationThread from '@/components/ConversationThread.vue';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import { sampleConversations } from "@/data/sample-conversations";
-import type { Currency } from "@/types/course";
-const currency = ref<Currency>("EGP");
+} from '@/components/ui/sheet';
+import { sampleConversations } from '@/data/sample-conversations';
+import type { Currency } from '@/types/course';
+const currency = ref<Currency>('EGP');
 const conversations = ref(
     sampleConversations.map((item) => ({
         ...item,
         messages: item.messages.map((message) => ({ ...message })),
     })),
 );
-const selectedId = ref("ahmed");
+const selectedId = ref('ahmed');
 const selected = computed(() =>
     conversations.value.find((item) => item.id === selectedId.value),
 );
 const sheetOpen = ref(false);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 function preview(title: string) {
     sheetTitle.value = title;
     sheetOpen.value = true;
@@ -37,8 +37,8 @@ function addMessage(text: string) {
     selected.value.messages.push({
         id: `local-${Date.now()}-${selected.value.messages.length}`,
         text: text.trim(),
-        author: "student",
-        time: new Intl.DateTimeFormat("en-GB", { timeStyle: "short" }).format(
+        author: 'student',
+        time: new Intl.DateTimeFormat('en-GB', { timeStyle: 'short' }).format(
             new Date(),
         ),
     });

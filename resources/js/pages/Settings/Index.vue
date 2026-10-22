@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 import {
     UserRound,
     Globe,
     LockKeyhole,
     GraduationCap,
     Info,
-} from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import AccountProfileForm from "@/components/account/AccountProfile.vue";
-import AccountPreferencesForm from "@/components/account/AccountPreferences.vue";
-import AccountPassword from "@/components/account/AccountPassword.vue";
+} from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import AccountProfileForm from '@/components/account/AccountProfile.vue';
+import AccountPreferencesForm from '@/components/account/AccountPreferences.vue';
+import AccountPassword from '@/components/account/AccountPassword.vue';
 import {
     Card,
     CardHeader,
     CardTitle,
     CardDescription,
     CardContent,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
     Breadcrumb,
     BreadcrumbList,
@@ -32,29 +32,29 @@ import {
     BreadcrumbLink,
     BreadcrumbPage,
     BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from '@/components/ui/breadcrumb';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import type {
     AccountProfile,
     AccountPreferences,
     AccountSection,
-} from "@/types";
+} from '@/types';
 
 const profile = ref<AccountProfile>({
-    name: "Kareem Tarek",
-    email: "kareem.tarek@example.com",
-    bio: "Learning software engineering and practical skills across MENA.",
+    name: 'Kareem Tarek',
+    email: 'kareem.tarek@example.com',
+    bio: 'Learning software engineering and practical skills across MENA.',
 });
-const preferences = ref<AccountPreferences>({ country: "EG", currency: "EGP" });
-const section = ref<AccountSection>("profile");
-const savedMessage = ref("");
-const previewTitle = ref("");
+const preferences = ref<AccountPreferences>({ country: 'EG', currency: 'EGP' });
+const section = ref<AccountSection>('profile');
+const savedMessage = ref('');
+const previewTitle = ref('');
 const previewOpen = ref(false);
 const strength = computed(
     () =>
@@ -185,9 +185,9 @@ function saved(message: string) {
                             </p>
                             <p class="mt-2 text-sm font-semibold">
                                 {{
-                                    preferences.country === "EG"
-                                        ? "Egypt"
-                                        : "Saudi Arabia"
+                                    preferences.country === 'EG'
+                                        ? 'Egypt'
+                                        : 'Saudi Arabia'
                                 }}
                             </p>
                             <p class="mt-1 text-xs text-teal-800">
@@ -277,7 +277,7 @@ function saved(message: string) {
 
 <style scoped>
 .account-settings {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { computed, ref } from 'vue';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 const emit = defineEmits<{ submit: [] }>();
-const headline = ref("");
+const headline = ref('');
 const expertise = ref<string[]>([]);
-const bio = ref("");
-const profile = ref("");
-const affiliation = ref("");
+const bio = ref('');
+const profile = ref('');
+const affiliation = ref('');
 const ready = computed(
     () =>
         !!headline.value.trim() &&

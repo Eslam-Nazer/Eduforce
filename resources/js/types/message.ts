@@ -1,7 +1,7 @@
 export interface ConversationMessage {
     id: string;
     text: string;
-    author: "instructor" | "student";
+    author: 'instructor' | 'student';
     time: string;
 }
 

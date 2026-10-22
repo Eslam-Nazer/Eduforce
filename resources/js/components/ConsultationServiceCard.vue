@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ArrowRight, Clock, Video, Check } from "@lucide/vue";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import type { ConsultationService } from "@/types/instructor";
-import type { Currency } from "@/types/course";
+import { ArrowRight, Clock, Video, Check } from '@lucide/vue';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import type { ConsultationService } from '@/types/instructor';
+import type { Currency } from '@/types/course';
 defineProps<{ service: ConsultationService; currency: Currency }>();
 defineEmits<{ select: [service: ConsultationService] }>();
 </script>
@@ -23,7 +23,7 @@ defineEmits<{ select: [service: ConsultationService] }>();
                             : 'bg-teal-50 text-teal-800'
                     "
                     >{{
-                        service.egp === 0 ? "Free Service" : "Paid Service"
+                        service.egp === 0 ? 'Free Service' : 'Paid Service'
                     }}</Badge
                 >
             </div>
@@ -36,8 +36,8 @@ defineEmits<{ select: [service: ConsultationService] }>();
             ><p class="text-2xl font-bold text-teal-800">
                 {{
                     service.egp === 0
-                        ? "Free"
-                        : `${new Intl.NumberFormat("en-US").format(currency === "EGP" ? service.egp : service.sar)} ${currency}`
+                        ? 'Free'
+                        : `${new Intl.NumberFormat('en-US').format(currency === 'EGP' ? service.egp : service.sar)} ${currency}`
                 }}
             </p>
             <div class="flex flex-wrap gap-4 text-xs text-slate-500">

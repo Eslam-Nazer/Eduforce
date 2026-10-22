@@ -1,9 +1,9 @@
-import type { Category, Currency } from "./course";
+import type { Category, Currency } from './course';
 
 export interface InstructorLesson {
     id: string;
     title: string;
-    kind: "video" | "file";
+    kind: 'video' | 'file';
     fileName: string;
     durationSeconds: number;
     summary: string;
@@ -15,14 +15,14 @@ export interface InstructorModule {
 }
 export interface InstructorQuestion {
     id: string;
-    kind: "multiple-choice" | "true-false";
+    kind: 'multiple-choice' | 'true-false';
     prompt: string;
     options: { id: string; text: string }[];
     correctOptionId: string;
 }
 export interface InstructorCourse {
     id: string;
-    status: "Draft" | "Published";
+    status: 'Draft' | 'Published';
     title: string;
     summary: string;
     description: string;

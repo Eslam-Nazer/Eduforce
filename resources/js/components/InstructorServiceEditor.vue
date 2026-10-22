@@ -1,57 +1,57 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+import { reactive, ref } from 'vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import type { InstructorService } from "@/types/instructor-consultations";
+} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import type { InstructorService } from '@/types/instructor-consultations';
 const props = defineProps<{ service: InstructorService }>();
 const emit = defineEmits<{ save: [service: InstructorService]; cancel: [] }>();
 const draft = reactive({ ...props.service, scope: [...props.service.scope] });
-const pricing = ref(props.service.basePrice === 0 ? "free" : "paid");
+const pricing = ref(props.service.basePrice === 0 ? 'free' : 'paid');
 const duration = ref(String(draft.durationMinutes));
-const error = ref("");
+const error = ref('');
 function submit() {
-    const price = pricing.value === "free" ? 0 : Number(draft.basePrice);
+    const price = pricing.value === 'free' ? 0 : Number(draft.basePrice);
     if (
         !draft.title.trim() ||
         !draft.description.trim() ||
         !Number.isFinite(price) ||
-        (pricing.value === "paid" && price <= 0) ||
+        (pricing.value === 'paid' && price <= 0) ||
         price > 1000000
     ) {
-        error.value = "Enter a title, scope and a valid positive paid price.";
+        error.value = 'Enter a title, scope and a valid positive paid price.';
         return;
     }
     const egp =
-        draft.baseCurrency === "EGP"
+        draft.baseCurrency === 'EGP'
             ? price
             : price === 0
               ? 0
               : Math.max(0.01, Math.round(((price * 850) / 105) * 100) / 100);
     const sar =
-        draft.baseCurrency === "SAR"
+        draft.baseCurrency === 'SAR'
             ? price
             : price === 0
               ? 0
               : Math.max(0.01, Math.round(((price * 105) / 850) * 100) / 100);
-    emit("save", {
+    emit('save', {
         ...draft,
         title: draft.title.trim(),
         description: draft.description.trim(),
         scope: draft.scope.length
             ? [...draft.scope]
-            : draft.description.trim().split("\n").filter(Boolean),
+            : draft.description.trim().split('\n').filter(Boolean),
         durationMinutes: Number(duration.value),
         basePrice: price,
         egp,

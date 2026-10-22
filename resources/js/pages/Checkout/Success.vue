@@ -117,9 +117,7 @@ async function copyReference() {
                         >
                             TRANSACTION COMPLETE
                         </p>
-                        <h1
-                            class="mt-3 text-3xl font-bold tracking-tight"
-                        >
+                        <h1 class="mt-3 text-3xl font-bold tracking-tight">
                             Payment successful
                         </h1>
                         <Badge
@@ -190,9 +188,7 @@ async function copyReference() {
                                 class="bg-teal-50 text-[10px] text-teal-800"
                                 >Development</Badge
                             >
-                            <h2
-                                class="mt-2 text-sm leading-6 font-semibold"
-                            >
+                            <h2 class="mt-2 text-sm leading-6 font-semibold">
                                 Full-Stack Web Development with Node.js &amp;
                                 React
                             </h2>
@@ -234,7 +230,9 @@ async function copyReference() {
                         >
                             <div>
                                 <p class="font-semibold">Total Amount Paid</p>
-                                <p class="mt-1 text-xs leading-5 text-slate-500">
+                                <p
+                                    class="mt-1 text-xs leading-5 text-slate-500"
+                                >
                                     Illustrative payment amount
                                 </p>
                             </div>
@@ -289,7 +287,9 @@ async function copyReference() {
                                 aria-hidden="true"
                             />
                             <div>
-                                <p class="text-xs leading-5 font-semibold">Final exam</p>
+                                <p class="text-xs leading-5 font-semibold">
+                                    Final exam
+                                </p>
                                 <p class="mt-1 text-[10px] text-slate-500">
                                     Certificate on completion
                                 </p>

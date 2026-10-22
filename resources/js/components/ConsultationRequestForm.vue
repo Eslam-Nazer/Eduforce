@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Info } from "@lucide/vue";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { ref } from 'vue';
+import { Info } from '@lucide/vue';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import type { ConsultationRequestDraft } from "@/types/instructor";
+} from '@/components/ui/select';
+import type { ConsultationRequestDraft } from '@/types/instructor';
 defineProps<{ free: boolean; cancelHref: string }>();
 const emit = defineEmits<{ submit: [draft: ConsultationRequestDraft] }>();
-const subject = ref("");
-const context = ref("");
-const preferredTime = ref("");
-const timeZone = ref<ConsultationRequestDraft["timeZone"]>("Africa/Cairo");
+const subject = ref('');
+const context = ref('');
+const preferredTime = ref('');
+const timeZone = ref<ConsultationRequestDraft['timeZone']>('Africa/Cairo');
 const errors = ref<{ subject?: string; context?: string }>({});
 function submit() {
     errors.value = {};
     if (!subject.value.trim())
-        errors.value.subject = "Enter a topic for your request.";
+        errors.value.subject = 'Enter a topic for your request.';
     if (!context.value.trim())
-        errors.value.context = "Describe your questions and context.";
+        errors.value.context = 'Describe your questions and context.';
     if (Object.keys(errors.value).length) return;
-    emit("submit", {
+    emit('submit', {
         subject: subject.value.trim(),
         context: context.value.trim(),
         preferredTime: preferredTime.value.trim(),
@@ -135,12 +135,12 @@ function submit() {
         </div>
         <Alert class="border-teal-100 bg-teal-50"
             ><Info class="size-4" /><AlertTitle>{{
-                free ? "Free consultation" : "No payment required now"
+                free ? 'Free consultation' : 'No payment required now'
             }}</AlertTitle
             ><AlertDescription>{{
                 free
-                    ? "Agree on an appointment with the instructor. This service requires no payment."
-                    : "Payment follows agreement on the appointment and scope with the instructor."
+                    ? 'Agree on an appointment with the instructor. This service requires no payment.'
+                    : 'Payment follows agreement on the appointment and scope with the instructor.'
             }}</AlertDescription></Alert
         >
         <p class="text-xs leading-6 text-slate-500">

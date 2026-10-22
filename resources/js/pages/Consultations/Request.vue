@@ -1,44 +1,44 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref, reactive } from "vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import ConsultationRequestForm from "@/components/ConsultationRequestForm.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref, reactive } from 'vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import ConsultationRequestForm from '@/components/ConsultationRequestForm.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import { useInstructorServices } from "@/composables/useInstructorServices";
+} from '@/components/ui/sheet';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import { useInstructorServices } from '@/composables/useInstructorServices';
 const { publicServices } = useInstructorServices();
 const instructor = reactive({
     ...sampleInstructorProfile,
     services: publicServices,
 });
-import type { Currency } from "@/types/course";
-import type { ConsultationRequestDraft } from "@/types/instructor";
-import { useConsultationPreview } from "@/composables/useConsultationPreview";
+import type { Currency } from '@/types/course';
+import type { ConsultationRequestDraft } from '@/types/instructor';
+import { useConsultationPreview } from '@/composables/useConsultationPreview';
 const { create } = useConsultationPreview();
 const props = defineProps<{ serviceId: string }>();
 const service = computed(() =>
     instructor.services.find((item) => item.id === props.serviceId),
 );
 const serviceHref = computed(() => `/consultations/${props.serviceId}`);
-const currency = ref<Currency>("EGP");
+const currency = ref<Currency>('EGP');
 const sheetOpen = ref(false);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 const draft = ref<ConsultationRequestDraft | null>(null);
 const price = computed(() =>
     service.value?.egp === 0
-        ? "Free"
-        : `${new Intl.NumberFormat("en-US").format(currency.value === "EGP" ? (service.value?.egp ?? 0) : (service.value?.sar ?? 0))} ${currency.value}`,
+        ? 'Free'
+        : `${new Intl.NumberFormat('en-US').format(currency.value === 'EGP' ? (service.value?.egp ?? 0) : (service.value?.sar ?? 0))} ${currency.value}`,
 );
 function preview(title: string) {
     draft.value = null;
@@ -47,7 +47,7 @@ function preview(title: string) {
 }
 function previewRequest(value: ConsultationRequestDraft) {
     draft.value = value;
-    sheetTitle.value = "Consultation Request Preview";
+    sheetTitle.value = 'Consultation Request Preview';
     sheetOpen.value = true;
 }
 function trackRequest() {
@@ -75,7 +75,7 @@ function trackRequest() {
                 }}</a
                 ><span>/</span
                 ><a :href="serviceHref" class="text-teal-800">{{
-                    service?.title ?? "Service"
+                    service?.title ?? 'Service'
                 }}</a
                 ><span>/</span><span aria-current="page">New Request</span>
             </nav>
@@ -172,7 +172,7 @@ function trackRequest() {
                                         </dt>
                                         <dd class="mt-1">
                                             {{
-                                                instructor.languages.join(" & ")
+                                                instructor.languages.join(' & ')
                                             }}
                                         </dd>
                                     </div>
@@ -202,8 +202,8 @@ function trackRequest() {
                                         <li>
                                             {{
                                                 service.egp === 0
-                                                    ? "Confirm the free appointment; no payment required."
-                                                    : "Pay after the appointment is agreed."
+                                                    ? 'Confirm the free appointment; no payment required.'
+                                                    : 'Pay after the appointment is agreed.'
                                             }}
                                         </li>
                                     </ol>
@@ -234,8 +234,8 @@ function trackRequest() {
                     ><SheetTitle>{{ sheetTitle }}</SheetTitle
                     ><SheetDescription>{{
                         draft
-                            ? "Local preview only. Nothing has been sent or booked. Save in this tab to view request tracking."
-                            : "This destination is not connected in this preview."
+                            ? 'Local preview only. Nothing has been sent or booked. Save in this tab to view request tracking.'
+                            : 'This destination is not connected in this preview.'
                     }}</SheetDescription></SheetHeader
                 >
                 <div v-if="draft && service" class="space-y-5 px-4 pb-6">
@@ -258,7 +258,7 @@ function trackRequest() {
                             <dd class="mt-1 break-words">
                                 {{
                                     draft.preferredTime ||
-                                    "Not specified — agree directly with the instructor"
+                                    'Not specified — agree directly with the instructor'
                                 }}
                             </dd>
                         </div>
@@ -270,8 +270,8 @@ function trackRequest() {
                     <p class="text-sm text-teal-800">
                         {{
                             service.egp === 0
-                                ? "Free service — no payment required."
-                                : "No payment required until the appointment is agreed."
+                                ? 'Free service — no payment required.'
+                                : 'No payment required until the appointment is agreed.'
                         }}
                     </p>
                     <Button variant="outline" @click="sheetOpen = false"
@@ -289,7 +289,7 @@ function trackRequest() {
 </template>
 <style scoped>
 .request-page {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

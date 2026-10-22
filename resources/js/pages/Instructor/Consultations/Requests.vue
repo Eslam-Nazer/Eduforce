@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import InstructorLayout from "@/layouts/InstructorLayout.vue";
-import InstructorAppointmentControls from "@/components/InstructorAppointmentControls.vue";
-import ConsultationDiscussion from "@/components/ConsultationDiscussion.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { computed, ref } from 'vue';
+import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorAppointmentControls from '@/components/InstructorAppointmentControls.vue';
+import ConsultationDiscussion from '@/components/ConsultationDiscussion.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -16,50 +16,50 @@ import {
     AlertDialogFooter,
     AlertDialogCancel,
     AlertDialogAction,
-} from "@/components/ui/alert-dialog";
-import { sampleConsultationRequests } from "@/data/sample-consultation-requests";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import type { InstructorRequest } from "@/types/instructor-consultations";
+} from '@/components/ui/alert-dialog';
+import { sampleConsultationRequests } from '@/data/sample-consultation-requests';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import type { InstructorRequest } from '@/types/instructor-consultations';
 const requests = ref<InstructorRequest[]>(
     sampleConsultationRequests.map((item, index) => ({
         ...item,
         messages: [],
-        learner: index === 2 ? "Sarah Al-Otaibi" : "Kareem Tarek",
-        meetingUrl: "",
-        proposal: "",
+        learner: index === 2 ? 'Sarah Al-Otaibi' : 'Kareem Tarek',
+        meetingUrl: '',
+        proposal: '',
     })),
 );
 requests.value.push({
     ...sampleConsultationRequests[0]!,
-    id: "sample-ready",
-    status: "Confirmed",
-    appointment: "2026-10-08T15:00:00Z",
+    id: 'sample-ready',
+    status: 'Confirmed',
+    appointment: '2026-10-08T15:00:00Z',
     messages: [],
-    learner: "Omar Hassan",
-    meetingUrl: "",
-    proposal: "",
+    learner: 'Omar Hassan',
+    meetingUrl: '',
+    proposal: '',
 });
-const filter = ref("All");
-const selectedId = ref("sample-agreed");
-const notice = ref("");
+const filter = ref('All');
+const selectedId = ref('sample-agreed');
+const notice = ref('');
 const confirmOpen = ref(false);
 const pending = ref<{
     id: string;
-    action: "Completed" | "Cancelled" | "Rejected";
+    action: 'Completed' | 'Cancelled' | 'Rejected';
 } | null>(null);
 const closed = (item: InstructorRequest) =>
-    ["Completed", "Cancelled", "Rejected"].includes(item.status);
+    ['Completed', 'Cancelled', 'Rejected'].includes(item.status);
 const visible = computed(() =>
     requests.value.filter(
         (item) =>
-            filter.value === "All" ||
-            (filter.value === "Needs response"
-                ? ["Requested", "Discussing"].includes(item.status)
-                : filter.value === "Confirmed"
-                  ? item.status === "Confirmed"
-                  : filter.value === "Closed"
+            filter.value === 'All' ||
+            (filter.value === 'Needs response'
+                ? ['Requested', 'Discussing'].includes(item.status)
+                : filter.value === 'Confirmed'
+                  ? item.status === 'Confirmed'
+                  : filter.value === 'Closed'
                     ? closed(item)
-                    : item.status === "Completed"),
+                    : item.status === 'Completed'),
     ),
 );
 const selected = computed(
@@ -73,26 +73,26 @@ const service = computed(() =>
     ),
 );
 const steps = computed(() => [
-    "Requested",
-    "Discussing",
-    "Time Agreed",
-    ...(service.value?.egp ? ["Payment"] : []),
-    "Confirmed",
-    "Completed",
+    'Requested',
+    'Discussing',
+    'Time Agreed',
+    ...(service.value?.egp ? ['Payment'] : []),
+    'Confirmed',
+    'Completed',
 ]);
 const currentStep = computed(() =>
-    selected.value?.status === "Time Agreed" && service.value?.egp
+    selected.value?.status === 'Time Agreed' && service.value?.egp
         ? 3
-        : steps.value.indexOf(selected.value?.status ?? ""),
+        : steps.value.indexOf(selected.value?.status ?? ''),
 );
 const appointment = (item: InstructorRequest) =>
     item.appointment
-        ? new Intl.DateTimeFormat("en-GB", {
-              dateStyle: "medium",
-              timeStyle: "short",
+        ? new Intl.DateTimeFormat('en-GB', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
               timeZone: item.timeZone,
           }).format(new Date(item.appointment))
-        : "No agreed appointment";
+        : 'No agreed appointment';
 function message(text: string) {
     const item = selected.value;
     if (item && !closed(item))
@@ -106,16 +106,16 @@ function proposal(text: string) {
         selected.value.proposal = text;
         message(`Time proposal: ${text}`);
         notice.value =
-            "Local proposal saved. Appointment and status unchanged.";
+            'Local proposal saved. Appointment and status unchanged.';
     }
 }
 function meeting(url: string) {
-    if (selected.value?.status === "Confirmed") {
+    if (selected.value?.status === 'Confirmed') {
         selected.value.meetingUrl = url;
-        notice.value = "Meeting URL saved to this page only. Nothing sent.";
+        notice.value = 'Meeting URL saved to this page only. Nothing sent.';
     }
 }
-function ask(action: "Completed" | "Cancelled" | "Rejected") {
+function ask(action: 'Completed' | 'Cancelled' | 'Rejected') {
     if (selected.value) {
         pending.value = { id: selected.value.id, action };
         confirmOpen.value = true;
@@ -126,8 +126,8 @@ function apply() {
     const item = requests.value.find((item) => item.id === action?.id);
     if (!item || !action || closed(item)) return;
     if (
-        action.action === "Completed" &&
-        (item.status !== "Confirmed" ||
+        action.action === 'Completed' &&
+        (item.status !== 'Confirmed' ||
             !item.appointment ||
             Date.parse(item.appointment) +
                 (sampleInstructorProfile.services.find(
@@ -138,13 +138,13 @@ function apply() {
     )
         return;
     if (
-        action.action === "Rejected" &&
-        !["Requested", "Discussing"].includes(item.status)
+        action.action === 'Rejected' &&
+        !['Requested', 'Discussing'].includes(item.status)
     )
         return;
     item.status = action.action;
     notice.value =
-        "Sample status updated on this page only. No booking, refund or message transmitted.";
+        'Sample status updated on this page only. No booking, refund or message transmitted.';
     pending.value = null;
 }
 </script>
@@ -238,7 +238,7 @@ function apply() {
                         </h2>
                         <p class="text-sm">Learner: {{ selected.learner }}</p>
                         <Badge>{{
-                            service.egp ? `${service.egp} EGP` : "Free session"
+                            service.egp ? `${service.egp} EGP` : 'Free session'
                         }}</Badge>
                         <p class="text-sm text-slate-500">
                             {{ service.durationMinutes }} minutes ·

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Check, Circle } from "@lucide/vue";
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Check, Circle } from '@lucide/vue';
 defineProps<{ checks: { title: string; ready: boolean; step: string }[] }>();
 const emit = defineEmits<{ edit: [step: string] }>();
 </script>
@@ -34,8 +34,8 @@ const emit = defineEmits<{ edit: [step: string] }>();
                     >
                         {{
                             check.ready
-                                ? "Ready in local draft"
-                                : "Needs attention"
+                                ? 'Ready in local draft'
+                                : 'Needs attention'
                         }}
                     </p>
                 </div>

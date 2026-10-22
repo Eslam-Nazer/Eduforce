@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { Head } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import {
     BookOpen,
     LayoutDashboard,
     GraduationCap,
     MessageCircle,
     Menu,
-} from "@lucide/vue";
-import { Button } from "@/components/ui/button";
+} from '@lucide/vue';
+import { Button } from '@/components/ui/button';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 defineProps<{
     title: string;
     description?: string;
-    active?: "dashboard" | "courses" | "services" | "requests" | "earnings";
+    active?: 'dashboard' | 'courses' | 'services' | 'requests' | 'earnings';
 }>();
 const menuOpen = ref(false);
 </script>
@@ -204,7 +204,7 @@ const menuOpen = ref(false);
 </template>
 <style scoped>
 .instructor-workspace {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

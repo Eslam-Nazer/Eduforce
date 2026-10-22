@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { router } from "@inertiajs/vue3";
-import CourseBuilderLayout from "@/layouts/CourseBuilderLayout.vue";
-import CoursePublicationChecklist from "@/components/CoursePublicationChecklist.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { computed, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CoursePublicationChecklist from '@/components/CoursePublicationChecklist.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -22,11 +22,11 @@ import {
     AlertDialogFooter,
     AlertDialogAction,
     AlertDialogCancel,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 import {
     courseReadiness,
     useInstructorWorkspace,
-} from "@/composables/useInstructorWorkspace";
+} from '@/composables/useInstructorWorkspace';
 const props = defineProps<{ courseId: string }>();
 const { course, contactEnabled, notice, save, publish } =
     useInstructorWorkspace(props.courseId);
@@ -40,7 +40,7 @@ const videos = computed(
     () =>
         course.value?.modules
             .flatMap((module) => module.lessons)
-            .filter((lesson) => lesson.kind === "video") ?? [],
+            .filter((lesson) => lesson.kind === 'video') ?? [],
 );
 const confirmOpen = ref(false);
 const previewOpen = ref(false);
@@ -85,7 +85,7 @@ function navigate(step: string) {
                             </h2>
                             <p class="text-sm text-slate-500">
                                 Instructor contact:
-                                {{ contactEnabled ? "enabled" : "disabled" }}.
+                                {{ contactEnabled ? 'enabled' : 'disabled' }}.
                             </p>
                             <p class="text-sm leading-6 text-slate-500">
                                 {{
@@ -106,14 +106,14 @@ function navigate(step: string) {
                         ><div
                             class="flex aspect-video items-center justify-center bg-slate-100 p-5 text-center text-xs text-slate-500"
                         >
-                            {{ course.coverName || "Cover image missing" }}
+                            {{ course.coverName || 'Cover image missing' }}
                         </div>
                         <CardContent class="space-y-3 p-5"
                             ><Badge variant="secondary">{{
                                 course.category
                             }}</Badge>
                             <h2 class="text-lg font-semibold">
-                                {{ course.title || "Untitled course" }}
+                                {{ course.title || 'Untitled course' }}
                             </h2>
                             <p class="text-sm leading-6 text-slate-500">
                                 {{ course.summary }}
@@ -124,7 +124,7 @@ function navigate(step: string) {
                                 {{ videos.length }} videos
                             </p>
                             <p class="text-2xl font-bold">
-                                {{ course.price.toLocaleString("en-US") }}
+                                {{ course.price.toLocaleString('en-US') }}
                                 {{ course.currency }}
                             </p></CardContent
                         ></Card
@@ -138,9 +138,9 @@ function navigate(step: string) {
                         class="h-11 w-full bg-teal-700 text-white hover:bg-teal-800"
                         @click="confirmOpen = true"
                         >{{
-                            course.status === "Published"
-                                ? "Published locally"
-                                : "Publish local preview"
+                            course.status === 'Published'
+                                ? 'Published locally'
+                                : 'Publish local preview'
                         }}</Button
                     >
                     <p v-if="!ready" class="text-xs leading-5 text-amber-800">
@@ -159,7 +159,7 @@ function navigate(step: string) {
                     class="overflow-y-auto bg-white text-slate-900 sm:max-w-xl"
                     ><SheetHeader
                         ><SheetTitle>{{
-                            course.title || "Untitled course"
+                            course.title || 'Untitled course'
                         }}</SheetTitle
                         ><SheetDescription
                             >Student-facing preview of this local course
@@ -203,9 +203,9 @@ function navigate(step: string) {
                                     >
                                         {{ lesson.title }} ·
                                         {{
-                                            lesson.kind === "video"
-                                                ? "Video"
-                                                : "File"
+                                            lesson.kind === 'video'
+                                                ? 'Video'
+                                                : 'File'
                                         }}
                                     </li>
                                 </ul>
@@ -215,7 +215,7 @@ function navigate(step: string) {
                             {{
                                 course.examEnabled
                                     ? `Final exam enabled · passing score ${course.passingScore}% · unlimited attempts.`
-                                    : "No final exam."
+                                    : 'No final exam.'
                             }}
                         </p>
                     </div></SheetContent

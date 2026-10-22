@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import type { ConsultationRequestPreview } from "@/types/instructor";
-import type { Currency } from "@/types/course";
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import type { ConsultationRequestPreview } from '@/types/instructor';
+import type { Currency } from '@/types/course';
 defineProps<{
     requests: ConsultationRequestPreview[];
     selectedId: string;
@@ -55,13 +55,13 @@ function service(id: string) {
                 <div class="flex flex-wrap justify-between gap-2 text-xs">
                     <span class="text-slate-500">{{
                         request.sample
-                            ? "Sample scenario"
-                            : "Your local preview"
+                            ? 'Sample scenario'
+                            : 'Your local preview'
                     }}</span
                     ><span class="font-semibold">{{
                         service(request.serviceId)?.egp === 0
-                            ? "Free"
-                            : `${currency === "EGP" ? service(request.serviceId)?.egp : service(request.serviceId)?.sar} ${currency}`
+                            ? 'Free'
+                            : `${currency === 'EGP' ? service(request.serviceId)?.egp : service(request.serviceId)?.sar} ${currency}`
                     }}</span>
                 </div>
             </button></Button

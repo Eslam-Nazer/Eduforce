@@ -12,8 +12,7 @@ Route::get('/verify-email', fn () => inertia('Auth/VerifyEmail', [
 ]))->name('verification.notice');
 Route::get('/verify/{id}/{hash}', function () {
     dd('verified');
-})->name('verify')->middleware('auth','signed');
-
+})->name('verify')->middleware('auth', 'signed');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {

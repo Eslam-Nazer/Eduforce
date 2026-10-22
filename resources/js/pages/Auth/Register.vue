@@ -1,22 +1,22 @@
 <script setup lang="ts">
 defineOptions({ layout: [] });
-import { Form, Head } from "@inertiajs/vue3";
-import { ref } from "vue";
-import { GraduationCap, Info, ArrowRight } from "@lucide/vue";
-import AuthLayout from "@/layouts/AuthLayout.vue";
-import PasswordInput from "@/components/PasswordInput.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import InputError from "@/components/InputError.vue";
+import { Form, Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { GraduationCap, Info, ArrowRight } from '@lucide/vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
+import PasswordInput from '@/components/PasswordInput.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import InputError from '@/components/InputError.vue';
 
-const name = ref("");
-const email = ref("");
-const password = ref("");
-const confirmation = ref("");
+const name = ref('');
+const email = ref('');
+const password = ref('');
+const confirmation = ref('');
 const submitted = ref(false);
 </script>
 

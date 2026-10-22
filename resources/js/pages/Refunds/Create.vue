@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import { Check, RotateCcw } from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import RefundRequestForm from "@/components/RefundRequestForm.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { Check, RotateCcw } from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import RefundRequestForm from '@/components/RefundRequestForm.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
     formatPurchaseAmount,
     refundEligibility,
     usePurchasePreview,
-} from "@/composables/usePurchasePreview";
-import type { RefundDraft } from "@/types/purchase";
-import type { Currency } from "@/types/course";
+} from '@/composables/usePurchasePreview';
+import type { RefundDraft } from '@/types/purchase';
+import type { Currency } from '@/types/course';
 const { transactions } = usePurchasePreview();
-const currency = ref<Currency>("EGP");
+const currency = ref<Currency>('EGP');
 const now = ref(Date.now());
 let timer: ReturnType<typeof setInterval>;
 onMounted(() => {
@@ -35,15 +35,15 @@ onMounted(() => {
 });
 onUnmounted(() => clearInterval(timer));
 const requestedId =
-    typeof window === "undefined"
+    typeof window === 'undefined'
         ? null
-        : new URLSearchParams(window.location.search).get("transaction");
+        : new URLSearchParams(window.location.search).get('transaction');
 const selectedId = ref(
     requestedId ??
         transactions.value.find(
             (item) => refundEligibility(item, now.value).eligible,
         )?.id ??
-        "",
+        '',
 );
 const selected = computed(() =>
     transactions.value.find((item) => item.id === selectedId.value),
@@ -52,7 +52,7 @@ const eligibility = computed(() =>
     selected.value ? refundEligibility(selected.value, now.value) : null,
 );
 const sheetOpen = ref(false);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 const draft = ref<RefundDraft | null>(null);
 const saved = ref<RefundDraft | null>(null);
 const draftTransaction = computed(() =>
@@ -79,7 +79,7 @@ function review(value: RefundDraft) {
     )
         return;
     draft.value = value;
-    sheetTitle.value = "Review refund request";
+    sheetTitle.value = 'Review refund request';
     sheetOpen.value = true;
 }
 function save() {
@@ -155,7 +155,7 @@ function save() {
                                         ><span
                                             class="flex flex-wrap items-start justify-between gap-3"
                                             ><span
-                                                class="font-semibold leading-6"
+                                                class="leading-6 font-semibold"
                                                 >{{ item.title }}</span
                                             ><span
                                                 class="shrink-0 font-semibold"
@@ -190,8 +190,8 @@ function save() {
                             >
                                 {{
                                     requestedId
-                                        ? "The requested transaction was not found. Select an eligible purchase above."
-                                        : "There are no eligible transactions to select."
+                                        ? 'The requested transaction was not found. Select an eligible purchase above.'
+                                        : 'There are no eligible transactions to select.'
                                 }}
                             </p>
                             <p
@@ -290,15 +290,15 @@ function save() {
                     ><SheetTitle>{{ sheetTitle }}</SheetTitle
                     ><SheetDescription>{{
                         draft
-                            ? "Check the details before saving a local preview."
-                            : "This action is a frontend preview."
+                            ? 'Check the details before saving a local preview.'
+                            : 'This action is a frontend preview.'
                     }}</SheetDescription></SheetHeader
                 >
                 <div
                     v-if="draft && draftTransaction"
                     class="space-y-5 px-4 py-6"
                 >
-                    <h3 class="font-semibold leading-6">
+                    <h3 class="leading-6 font-semibold">
                         {{ draftTransaction.title }}
                     </h3>
                     <p class="text-xl font-bold">

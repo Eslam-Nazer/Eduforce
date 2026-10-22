@@ -7,9 +7,9 @@ import {
     TableHeader,
     TableRow,
     TableCaption,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import type { InstructorTransaction } from "@/types/instructor-consultations";
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import type { InstructorTransaction } from '@/types/instructor-consultations';
 defineProps<{ transactions: InstructorTransaction[] }>();
 </script>
 <template>
@@ -49,17 +49,17 @@ defineProps<{ transactions: InstructorTransaction[] }>();
                         item.title
                     }}</TableCell
                     ><TableCell>{{
-                        new Date(item.date).toLocaleDateString("en-GB", {
-                            timeZone: "Africa/Cairo",
+                        new Date(item.date).toLocaleDateString('en-GB', {
+                            timeZone: 'Africa/Cairo',
                         })
                     }}</TableCell
                     ><TableCell class="whitespace-nowrap">{{
                         item.amount
-                            ? `${item.amount.toLocaleString("en-US")} ${item.currency}`
-                            : "Free"
+                            ? `${item.amount.toLocaleString('en-US')} ${item.currency}`
+                            : 'Free'
                     }}</TableCell
                     ><TableCell>{{
-                        item.amount ? "Not configured" : "—"
+                        item.amount ? 'Not configured' : '—'
                     }}</TableCell
                     ><TableCell>—</TableCell
                     ><TableCell

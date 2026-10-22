@@ -44,6 +44,7 @@ export default defineConfig({
     },
     lint: {
         ignorePatterns: [
+            'graphify-out/**',
             'vendor/**',
             'node_modules/**',
             'public/**',
@@ -67,6 +68,7 @@ export default defineConfig({
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: 'css',
         ignorePatterns: [
+            'graphify-out/**',
             '.github/**',
             'composer.json',
             'resources/js/components/ui/*',

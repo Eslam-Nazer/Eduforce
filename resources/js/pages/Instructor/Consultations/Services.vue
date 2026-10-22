@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import InstructorLayout from "@/layouts/InstructorLayout.vue";
-import InstructorServiceCard from "@/components/InstructorServiceCard.vue";
-import InstructorServiceEditor from "@/components/InstructorServiceEditor.vue";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { computed, ref } from 'vue';
+import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorServiceCard from '@/components/InstructorServiceCard.vue';
+import InstructorServiceEditor from '@/components/InstructorServiceEditor.vue';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -15,33 +15,33 @@ import {
     AlertDialogFooter,
     AlertDialogCancel,
     AlertDialogAction,
-} from "@/components/ui/alert-dialog";
-import { useInstructorServices } from "@/composables/useInstructorServices";
-import { useConsultationPreview } from "@/composables/useConsultationPreview";
-import type { InstructorService } from "@/types/instructor-consultations";
+} from '@/components/ui/alert-dialog';
+import { useInstructorServices } from '@/composables/useInstructorServices';
+import { useConsultationPreview } from '@/composables/useConsultationPreview';
+import type { InstructorService } from '@/types/instructor-consultations';
 const { services, notice, save, toggle, remove } = useInstructorServices();
 const { localRequests } = useConsultationPreview();
 const editing = ref<InstructorService | null>(null);
 const deleting = ref<InstructorService | null>(null);
 const confirmOpen = ref(false);
-const filter = ref("All");
+const filter = ref('All');
 const visible = computed(() =>
     services.value.filter(
         (item) =>
-            filter.value === "All" ||
-            (filter.value === "Active" ? item.active : !item.active),
+            filter.value === 'All' ||
+            (filter.value === 'Active' ? item.active : !item.active),
     ),
 );
 function create() {
     editing.value = {
         id: `service-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-        title: "",
-        description: "",
-        category: "General Advisory",
-        audience: "Individual learners",
+        title: '',
+        description: '',
+        category: 'General Advisory',
+        audience: 'Individual learners',
         scope: [],
         durationMinutes: 60,
-        baseCurrency: "EGP",
+        baseCurrency: 'EGP',
         basePrice: 0,
         egp: 0,
         sar: 0,
@@ -57,7 +57,7 @@ function submit(item: InstructorService) {
 function askDelete(item: InstructorService) {
     if (localRequests.value.some((request) => request.serviceId === item.id)) {
         notice.value =
-            "This service has saved request previews. Pause it to hide it from the public profile while keeping those previews.";
+            'This service has saved request previews. Pause it to hide it from the public profile while keeping those previews.';
         return;
     }
     deleting.value = item;

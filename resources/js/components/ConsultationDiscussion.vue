@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import type { ConsultationDiscussionMessage } from "@/types/instructor";
+import { ref } from 'vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import type { ConsultationDiscussionMessage } from '@/types/instructor';
 withDefaults(
     defineProps<{
         messages: ConsultationDiscussionMessage[];
@@ -14,18 +14,18 @@ withDefaults(
         description?: string;
     }>(),
     {
-        composerLabel: "Message to Instructor",
-        messageLabel: "Your local preview",
+        composerLabel: 'Message to Instructor',
+        messageLabel: 'Your local preview',
         description:
-            "Local text previews only. Nothing is sent to the instructor, and no replies are simulated.",
+            'Local text previews only. Nothing is sent to the instructor, and no replies are simulated.',
     },
 );
 const emit = defineEmits<{ message: [text: string] }>();
-const message = ref("");
+const message = ref('');
 function preview() {
     if (!message.value.trim()) return;
-    emit("message", message.value.trim());
-    message.value = "";
+    emit('message', message.value.trim());
+    message.value = '';
 }
 </script>
 <template>

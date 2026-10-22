@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { Head, router } from "@inertiajs/vue3";
-import { computed, ref, reactive } from "vue";
-import { Info } from "@lucide/vue";
-import MarketplaceHeader from "@/components/MarketplaceHeader.vue";
-import MarketplaceFooter from "@/components/MarketplaceFooter.vue";
-import ConsultationRequestList from "@/components/ConsultationRequestList.vue";
-import ConsultationDiscussion from "@/components/ConsultationDiscussion.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref, reactive } from 'vue';
+import { Info } from '@lucide/vue';
+import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
+import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
+import ConsultationRequestList from '@/components/ConsultationRequestList.vue';
+import ConsultationDiscussion from '@/components/ConsultationDiscussion.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import { useInstructorServices } from "@/composables/useInstructorServices";
+} from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import { useInstructorServices } from '@/composables/useInstructorServices';
 const { services: configuredServices } = useInstructorServices();
 const instructor = reactive({
     ...sampleInstructorProfile,
@@ -35,22 +35,22 @@ const instructor = reactive({
         ),
     ]),
 });
-import { sampleConsultationRequests } from "@/data/sample-consultation-requests";
-import { useConsultationPreview } from "@/composables/useConsultationPreview";
-import type { Currency } from "@/types/course";
+import { sampleConsultationRequests } from '@/data/sample-consultation-requests';
+import { useConsultationPreview } from '@/composables/useConsultationPreview';
+import type { Currency } from '@/types/course';
 import type {
     ConsultationRequestPreview,
     ConsultationRequestStatus,
-} from "@/types/instructor";
+} from '@/types/instructor';
 const { localRequests, storageNotice, addMessage } = useConsultationPreview();
-const currency = ref<Currency>("EGP");
-const filter = ref("All");
+const currency = ref<Currency>('EGP');
+const filter = ref('All');
 const requestedId =
-    typeof window !== "undefined"
-        ? new URLSearchParams(window.location.search).get("request")
+    typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search).get('request')
         : null;
 const selectedId = ref(
-    requestedId ?? localRequests.value[0]?.id ?? "sample-agreed",
+    requestedId ?? localRequests.value[0]?.id ?? 'sample-agreed',
 );
 const samples = ref(
     sampleConsultationRequests.map((item) => ({
@@ -60,14 +60,14 @@ const samples = ref(
 );
 const requests = computed(() => [...localRequests.value, ...samples.value]);
 const closed = (status: ConsultationRequestStatus) =>
-    ["Completed", "Cancelled", "Rejected"].includes(status);
+    ['Completed', 'Cancelled', 'Rejected'].includes(status);
 function matches(item: ConsultationRequestPreview, value: string) {
     return (
-        value === "All" ||
-        (value === "Active" ? !closed(item.status) : item.status === value)
+        value === 'All' ||
+        (value === 'Active' ? !closed(item.status) : item.status === value)
     );
 }
-const filters = ["All", "Active", "Completed", "Cancelled", "Rejected"];
+const filters = ['All', 'Active', 'Completed', 'Cancelled', 'Rejected'];
 const visibleRequests = computed(() =>
     requests.value.filter((item) => matches(item, filter.value)),
 );
@@ -81,30 +81,30 @@ const service = computed(() =>
 );
 const free = computed(() => service.value?.egp === 0);
 const steps = computed(() => [
-    "Requested",
-    "Discussing",
-    "Time Agreed",
-    ...(!free.value ? ["Payment"] : []),
-    "Confirmed",
-    "Completed",
+    'Requested',
+    'Discussing',
+    'Time Agreed',
+    ...(!free.value ? ['Payment'] : []),
+    'Confirmed',
+    'Completed',
 ]);
 const currentStep = computed(() =>
     selected.value ? steps.value.indexOf(selected.value.status) : -1,
 );
 const appointment = computed(() =>
     selected.value?.appointment
-        ? new Intl.DateTimeFormat("en-GB", {
-              dateStyle: "full",
-              timeStyle: "short",
+        ? new Intl.DateTimeFormat('en-GB', {
+              dateStyle: 'full',
+              timeStyle: 'short',
               timeZone: selected.value.timeZone,
           }).format(new Date(selected.value.appointment))
         : null,
 );
 const sheetOpen = ref(false);
-const sheetTitle = ref("");
+const sheetTitle = ref('');
 const proposalOpen = ref(false);
-const proposal = ref("");
-const proposalNotice = ref("");
+const proposal = ref('');
+const proposalNotice = ref('');
 function preview(title: string) {
     proposalOpen.value = false;
     sheetTitle.value = title;
@@ -116,10 +116,10 @@ function message(text: string) {
     else selected.value.messages.push({ id: `preview-${Date.now()}`, text });
 }
 function proposeTime() {
-    proposal.value = "";
-    proposalNotice.value = "";
+    proposal.value = '';
+    proposalNotice.value = '';
     proposalOpen.value = true;
-    sheetTitle.value = "Propose a New Time";
+    sheetTitle.value = 'Propose a New Time';
     sheetOpen.value = true;
 }
 function saveProposal() {
@@ -128,7 +128,7 @@ function saveProposal() {
         `Preferred time proposal (${selected.value?.timeZone}): ${proposal.value.trim()}`,
     );
     proposalNotice.value =
-        "Time proposal added locally. The appointment and request status have not changed.";
+        'Time proposal added locally. The appointment and request status have not changed.';
 }
 </script>
 <template>
@@ -206,8 +206,8 @@ function saveProposal() {
                                 <div class="min-w-0">
                                     <Badge variant="secondary">{{
                                         selected.sample
-                                            ? "Sample scenario"
-                                            : "Your local request preview"
+                                            ? 'Sample scenario'
+                                            : 'Your local request preview'
                                     }}</Badge>
                                     <h2 class="mt-3 text-xl font-semibold">
                                         {{ service.title }}
@@ -221,14 +221,14 @@ function saveProposal() {
                                 <div>
                                     <p class="text-xs text-slate-500">
                                         {{
-                                            free ? "Free service" : "Total fee"
+                                            free ? 'Free service' : 'Total fee'
                                         }}
                                     </p>
                                     <p class="mt-1 text-xl font-semibold">
                                         {{
                                             free
-                                                ? "Free"
-                                                : `${currency === "EGP" ? service.egp : service.sar} ${currency}`
+                                                ? 'Free'
+                                                : `${currency === 'EGP' ? service.egp : service.sar} ${currency}`
                                         }}
                                     </p>
                                     <p class="mt-1 text-xs text-slate-500">
@@ -279,22 +279,22 @@ function saveProposal() {
                                     <dt class="font-semibold">
                                         {{
                                             appointment
-                                                ? "Appointment"
-                                                : "Appointment not agreed"
+                                                ? 'Appointment'
+                                                : 'Appointment not agreed'
                                         }}
                                     </dt>
                                     <dd class="mt-2 leading-6">
                                         {{
                                             appointment ??
-                                            "Discuss preferred times with the instructor. A proposal does not confirm a booking."
+                                            'Discuss preferred times with the instructor. A proposal does not confirm a booking.'
                                         }}
                                     </dd>
                                     <dd class="mt-1 text-xs text-slate-500">
                                         Timezone: {{ selected.timeZone
                                         }}{{
                                             selected.sample && appointment
-                                                ? " · Illustrative appointment"
-                                                : ""
+                                                ? ' · Illustrative appointment'
+                                                : ''
                                         }}
                                     </dd>
                                 </div>
@@ -329,8 +329,8 @@ function saveProposal() {
                             >
                                 {{
                                     free
-                                        ? "Free services skip payment after appointment agreement."
-                                        : "The appointment is agreed in this sample. Payment is the next step."
+                                        ? 'Free services skip payment after appointment agreement.'
+                                        : 'The appointment is agreed in this sample. Payment is the next step.'
                                 }}
                             </p>
                             <p
@@ -339,8 +339,8 @@ function saveProposal() {
                             >
                                 {{
                                     free
-                                        ? "This sample free appointment is confirmed; no payment is required."
-                                        : "This sample appointment is confirmed."
+                                        ? 'This sample free appointment is confirmed; no payment is required.'
+                                        : 'This sample appointment is confirmed.'
                                 }}
                             </p>
                             <div class="flex flex-wrap gap-3">
@@ -356,7 +356,7 @@ function saveProposal() {
                                         )
                                     "
                                     >Pay Consultation ({{
-                                        currency === "EGP"
+                                        currency === 'EGP'
                                             ? service.egp
                                             : service.sar
                                     }}
@@ -407,10 +407,10 @@ function saveProposal() {
                     ><SheetTitle>{{ sheetTitle }}</SheetTitle
                     ><SheetDescription>{{
                         proposalOpen
-                            ? "A local proposal does not change the agreed appointment or imply instructor approval."
-                            : sheetTitle === "Consultation Checkout"
-                              ? "Checkout is the next screen, 04.05. No payment is collected here."
-                              : "Submit a request, agree on a time, then pay if the service is paid. Free services skip payment. Meetings use an external tool."
+                            ? 'A local proposal does not change the agreed appointment or imply instructor approval.'
+                            : sheetTitle === 'Consultation Checkout'
+                              ? 'Checkout is the next screen, 04.05. No payment is collected here.'
+                              : 'Submit a request, agree on a time, then pay if the service is paid. Free services skip payment. Meetings use an external tool.'
                     }}</SheetDescription></SheetHeader
                 >
                 <form
@@ -449,7 +449,7 @@ function saveProposal() {
 </template>
 <style scoped>
 .tracking-page {
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     color-scheme: light;
 }
 </style>

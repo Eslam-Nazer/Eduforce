@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { router } from "@inertiajs/vue3";
-import CourseBuilderLayout from "@/layouts/CourseBuilderLayout.vue";
-import InstructorExamQuestionEditor from "@/components/InstructorExamQuestionEditor.vue";
-import CertificatePreview from "@/components/CertificatePreview.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import InstructorExamQuestionEditor from '@/components/InstructorExamQuestionEditor.vue';
+import CertificatePreview from '@/components/CertificatePreview.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
     Select,
     SelectTrigger,
     SelectValue,
     SelectContent,
     SelectItem,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
     Sheet,
     SheetContent,
     SheetHeader,
     SheetTitle,
     SheetDescription,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -32,40 +32,40 @@ import {
     AlertDialogFooter,
     AlertDialogAction,
     AlertDialogCancel,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 import {
     newPreviewId,
     useInstructorWorkspace,
-} from "@/composables/useInstructorWorkspace";
-import type { InstructorQuestion } from "@/types/instructor-workspace";
+} from '@/composables/useInstructorWorkspace';
+import type { InstructorQuestion } from '@/types/instructor-workspace';
 const props = defineProps<{ courseId: string }>();
 const { course, contactEnabled, notice, save } = useInstructorWorkspace(
     props.courseId,
 );
-const kind = ref<InstructorQuestion["kind"]>("multiple-choice");
+const kind = ref<InstructorQuestion['kind']>('multiple-choice');
 const certificateOpen = ref(false);
-const removalId = ref("");
+const removalId = ref('');
 const confirmOpen = ref(false);
 function navigate(step: string) {
     if (save()) router.visit(`/instructor/courses/${props.courseId}/${step}`);
 }
 function addQuestion() {
     const options =
-        kind.value === "true-false"
+        kind.value === 'true-false'
             ? [
-                  { id: newPreviewId(), text: "True" },
-                  { id: newPreviewId(), text: "False" },
+                  { id: newPreviewId(), text: 'True' },
+                  { id: newPreviewId(), text: 'False' },
               ]
             : [
-                  { id: newPreviewId(), text: "" },
-                  { id: newPreviewId(), text: "" },
+                  { id: newPreviewId(), text: '' },
+                  { id: newPreviewId(), text: '' },
               ];
     course.value?.questions.push({
         id: newPreviewId(),
         kind: kind.value,
-        prompt: "",
+        prompt: '',
         options,
-        correctOptionId: "",
+        correctOptionId: '',
     });
 }
 function move(index: number, offset: number) {

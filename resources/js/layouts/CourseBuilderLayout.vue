@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import InstructorLayout from "./InstructorLayout.vue";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import type { InstructorCourse } from "@/types/instructor-workspace";
+import InstructorLayout from './InstructorLayout.vue';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import type { InstructorCourse } from '@/types/instructor-workspace';
 const props = defineProps<{
     course?: InstructorCourse;
     step: string;
@@ -10,10 +10,10 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ navigate: [step: string] }>();
 const steps = [
-    { id: "basics", title: "Basics & Pricing" },
-    { id: "curriculum", title: "Curriculum" },
-    { id: "exam", title: "Exam & Settings" },
-    { id: "publish", title: "Preview & Publish" },
+    { id: 'basics', title: 'Basics & Pricing' },
+    { id: 'curriculum', title: 'Curriculum' },
+    { id: 'exam', title: 'Exam & Settings' },
+    { id: 'publish', title: 'Preview & Publish' },
 ];
 </script>
 <template>
@@ -25,10 +25,10 @@ const steps = [
         <template v-if="props.course"
             ><div class="flex flex-wrap items-center justify-between gap-3">
                 <p class="max-w-3xl text-lg font-semibold">
-                    {{ course.title || "Untitled course" }}
+                    {{ props.course.title || 'Untitled course' }}
                 </p>
                 <Badge variant="secondary"
-                    >{{ course.status }} · local preview</Badge
+                    >{{ props.course.status }} · local preview</Badge
                 >
             </div>
             <nav

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { router } from "@inertiajs/vue3";
-import InstructorLayout from "@/layouts/InstructorLayout.vue";
-import InstructorCourseCard from "@/components/InstructorCourseCard.vue";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { computed } from 'vue';
+import { router } from '@inertiajs/vue3';
+import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorCourseCard from '@/components/InstructorCourseCard.vue';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import {
     Table,
     TableHeader,
@@ -13,13 +13,13 @@ import {
     TableRow,
     TableCell,
     TableCaption,
-} from "@/components/ui/table";
-import { useInstructorWorkspace } from "@/composables/useInstructorWorkspace";
+} from '@/components/ui/table';
+import { useInstructorWorkspace } from '@/composables/useInstructorWorkspace';
 import {
     usePurchasePreview,
     formatPurchaseAmount,
-} from "@/composables/usePurchasePreview";
-import { sampleConsultationRequests } from "@/data/sample-consultation-requests";
+} from '@/composables/usePurchasePreview';
+import { sampleConsultationRequests } from '@/data/sample-consultation-requests';
 const { courses, notice, createCourse } = useInstructorWorkspace();
 const { transactions } = usePurchasePreview();
 const gross = (currency: string) =>
@@ -27,10 +27,10 @@ const gross = (currency: string) =>
         .filter((item) => item.currency === currency)
         .reduce((sum, item) => sum + item.amount, 0);
 const published = computed(() =>
-    courses.value.filter((course) => course.status === "Published"),
+    courses.value.filter((course) => course.status === 'Published'),
 );
 const pending = sampleConsultationRequests.filter((request) =>
-    ["Requested", "Discussing"].includes(request.status),
+    ['Requested', 'Discussing'].includes(request.status),
 );
 function create() {
     const id = createCourse();

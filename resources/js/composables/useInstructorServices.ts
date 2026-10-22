@@ -1,24 +1,24 @@
-import { computed, ref } from "vue";
-import { sampleInstructorProfile } from "@/data/sample-instructor";
-import type { InstructorService } from "@/types/instructor-consultations";
-const key = "eduforce.instructor-services.v1";
+import { computed, ref } from 'vue';
+import { sampleInstructorProfile } from '@/data/sample-instructor';
+import type { InstructorService } from '@/types/instructor-consultations';
+const key = 'eduforce.instructor-services.v1';
 const services = ref<InstructorService[]>(
     sampleInstructorProfile.services.map((item) => ({
         ...item,
         scope: [...item.scope],
         active: true,
-        baseCurrency: "EGP",
+        baseCurrency: 'EGP',
         basePrice: item.egp,
     })),
 );
-const notice = ref("");
+const notice = ref('');
 let loaded = false;
 export function useInstructorServices() {
-    if (!loaded && typeof window !== "undefined") {
+    if (!loaded && typeof window !== 'undefined') {
         loaded = true;
         try {
             const saved: unknown = JSON.parse(
-                sessionStorage.getItem(key) ?? "null",
+                sessionStorage.getItem(key) ?? 'null',
             );
             if (saved !== null) {
                 if (
@@ -27,27 +27,27 @@ export function useInstructorServices() {
                     !saved.every(valid) ||
                     new Set(saved.map((item) => item.id)).size !== saved.length
                 )
-                    throw new Error("Invalid service data");
+                    throw new Error('Invalid service data');
                 services.value = saved;
             }
         } catch {
             notice.value =
-                "Saved services could not be read. Sample services are shown.";
+                'Saved services could not be read. Sample services are shown.';
         }
     }
     function persist() {
         try {
             sessionStorage.setItem(key, JSON.stringify(services.value));
-            notice.value = "Services saved in this tab only.";
+            notice.value = 'Services saved in this tab only.';
         } catch {
             notice.value =
-                "Storage unavailable. Changes remain in memory and may be lost on reload.";
+                'Storage unavailable. Changes remain in memory and may be lost on reload.';
         }
     }
     function save(item: InstructorService) {
         if (!valid(item)) {
             notice.value =
-                "Service could not be saved. Check field limits and use no more than 30 scope lines.";
+                'Service could not be saved. Check field limits and use no more than 30 scope lines.';
             return false;
         }
         const index = services.value.findIndex(
@@ -55,7 +55,7 @@ export function useInstructorServices() {
         );
         if (index < 0) {
             if (services.value.length >= 100) {
-                notice.value = "This preview supports up to 100 services.";
+                notice.value = 'This preview supports up to 100 services.';
                 return false;
             }
             services.value.push(item);
@@ -86,29 +86,29 @@ export function useInstructorServices() {
     };
 }
 function valid(value: unknown): value is InstructorService {
-    if (!value || typeof value !== "object") return false;
+    if (!value || typeof value !== 'object') return false;
     const item = value as InstructorService;
     return (
-        typeof item.id === "string" &&
+        typeof item.id === 'string' &&
         /^[a-z0-9-]{1,100}$/.test(item.id) &&
-        typeof item.title === "string" &&
+        typeof item.title === 'string' &&
         !!item.title.trim() &&
         item.title.length <= 100 &&
-        typeof item.description === "string" &&
+        typeof item.description === 'string' &&
         !!item.description.trim() &&
         item.description.length <= 1200 &&
-        typeof item.category === "string" &&
+        typeof item.category === 'string' &&
         item.category.length <= 100 &&
-        typeof item.audience === "string" &&
+        typeof item.audience === 'string' &&
         item.audience.length <= 200 &&
         Array.isArray(item.scope) &&
         item.scope.length <= 30 &&
         item.scope.every(
-            (line) => typeof line === "string" && line.length <= 1200,
+            (line) => typeof line === 'string' && line.length <= 1200,
         ) &&
         [30, 45, 60, 90].includes(item.durationMinutes) &&
-        typeof item.active === "boolean" &&
-        ["EGP", "SAR"].includes(item.baseCurrency) &&
+        typeof item.active === 'boolean' &&
+        ['EGP', 'SAR'].includes(item.baseCurrency) &&
         Number.isFinite(item.basePrice) &&
         item.basePrice >= 0 &&
         item.basePrice <= 1000000 &&
