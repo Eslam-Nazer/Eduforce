@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
 import {
     UserRound,
     Globe,
@@ -8,8 +9,6 @@ import {
     GraduationCap,
     Info,
 } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import AccountProfileForm from '@/components/account/AccountProfile.vue';
 import AccountPreferencesForm from '@/components/account/AccountPreferences.vue';
 import AccountPassword from '@/components/account/AccountPassword.vue';
@@ -26,14 +25,6 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
-    Breadcrumb,
-    BreadcrumbList,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import {
     Sheet,
     SheetContent,
     SheetHeader,
@@ -46,12 +37,22 @@ import type {
     AccountSection,
 } from '@/types';
 
+const user = usePage().props.auth.user;
 const profile = ref<AccountProfile>({
-    name: 'Kareem Tarek',
-    email: 'kareem.tarek@example.com',
+    name: user?.name ?? '',
+    email: user?.email ?? '',
     bio: 'Learning software engineering and practical skills across MENA.',
 });
-const preferences = ref<AccountPreferences>({ country: 'EG', currency: 'EGP' });
+const currency = useDisplayCurrency();
+const preferences = ref<AccountPreferences>({
+    country: 'EG',
+    get currency() {
+        return currency.value;
+    },
+    set currency(value) {
+        currency.value = value;
+    },
+});
 const section = ref<AccountSection>('profile');
 const savedMessage = ref('');
 const previewTitle = ref('');
@@ -73,29 +74,8 @@ function saved(message: string) {
 
 <template>
     <Head title="Account Settings" />
-    <div class="account-settings min-h-screen bg-[#f8fafc] text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="preferences.currency"
-            :account-name="profile.name"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <div class="bg-slate-100">
-            <Breadcrumb class="mx-auto max-w-7xl px-5 py-4 sm:px-8"
-                ><BreadcrumbList
-                    ><BreadcrumbItem
-                        ><BreadcrumbLink href="/"
-                            >Home</BreadcrumbLink
-                        ></BreadcrumbItem
-                    ><BreadcrumbSeparator /><BreadcrumbItem
-                        ><BreadcrumbPage
-                            >Account Settings</BreadcrumbPage
-                        ></BreadcrumbItem
-                    ></BreadcrumbList
-                ></Breadcrumb
-            >
-        </div>
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8 sm:py-10">
+    <div class="account-settings bg-[#f8fafc] text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8 sm:py-10">
             <div
                 class="flex flex-wrap items-center justify-between gap-5 rounded-xl bg-teal-50 p-5 sm:p-8"
             >
@@ -258,8 +238,8 @@ function saved(message: string) {
                     </TabsContent>
                 </div></Tabs
             >
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="previewOpen"
             ><SheetContent class="bg-white text-slate-900"
                 ><SheetHeader

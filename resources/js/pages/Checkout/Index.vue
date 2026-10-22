@@ -1,23 +1,14 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
+import { Head, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { FlaskConical } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import CheckoutBilling from '@/components/CheckoutBilling.vue';
 import CheckoutPayment from '@/components/CheckoutPayment.vue';
 import CheckoutOrderSummary from '@/components/CheckoutOrderSummary.vue';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-    Breadcrumb,
-    BreadcrumbList,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import {
     Sheet,
     SheetContent,
@@ -34,7 +25,7 @@ import type {
 } from '@/types';
 
 const country = ref<BillingCountry>('EG');
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const method = ref<CheckoutPaymentMethod>('hosted');
 const previewOpen = ref(false);
 const previewTitle = ref('');
@@ -42,18 +33,27 @@ function preview(title: string) {
     previewTitle.value = title;
     previewOpen.value = true;
 }
-// Illustrative values; no provider, exchange rate or authenticated buyer is connected.
+// Prices are illustrative; no provider or exchange-rate service is connected.
 const order: CheckoutOrder = {
     title: 'Full-Stack Web Development with Node.js & React',
     instructor: 'Ahmed Mansour',
     image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80',
     prices: { EGP: 2400, SAR: 190 },
 };
-const buyer: CheckoutBuyer = {
-    name: 'Kareem Tarek',
-    email: 'kareem.tarek@example.com',
-    initials: 'KT',
-};
+const buyer = computed<CheckoutBuyer>(() => {
+    const user = usePage().props.auth.user;
+    const name = user?.name ?? '';
+    return {
+        name,
+        email: user?.email ?? '',
+        initials: name
+            .split(' ')
+            .filter(Boolean)
+            .map((part) => part[0])
+            .slice(0, 2)
+            .join(''),
+    };
+});
 const chargeCurrency = computed<Currency>(() =>
     country.value === 'EG' ? 'EGP' : 'SAR',
 );
@@ -62,36 +62,8 @@ const chargeAmount = computed(() => order.prices[chargeCurrency.value]);
 
 <template>
     <Head title="Course Checkout" />
-    <div class="checkout min-h-screen bg-[#f8fafc] text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <div class="bg-slate-100">
-            <Breadcrumb class="mx-auto max-w-7xl px-5 py-4 sm:px-8"
-                ><BreadcrumbList
-                    ><BreadcrumbItem
-                        ><BreadcrumbLink href="/"
-                            >Home</BreadcrumbLink
-                        ></BreadcrumbItem
-                    ><BreadcrumbSeparator /><BreadcrumbItem
-                        ><BreadcrumbLink href="/#courses"
-                            >Browse Courses</BreadcrumbLink
-                        ></BreadcrumbItem
-                    ><BreadcrumbSeparator /><BreadcrumbItem
-                        ><BreadcrumbLink href="/courses/show">{{
-                            order.title
-                        }}</BreadcrumbLink></BreadcrumbItem
-                    ><BreadcrumbSeparator /><BreadcrumbItem
-                        ><BreadcrumbPage
-                            >Checkout</BreadcrumbPage
-                        ></BreadcrumbItem
-                    ></BreadcrumbList
-                ></Breadcrumb
-            >
-        </div>
-        <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-10">
+    <div class="checkout bg-[#f8fafc] text-slate-900">
+        <section class="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-10">
             <h1 class="text-3xl font-bold tracking-tight">
                 Complete your purchase
             </h1>
@@ -136,8 +108,8 @@ const chargeAmount = computed(() => order.prices[chargeCurrency.value]);
                     :currency="currency"
                 />
             </div>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="previewOpen"
             ><SheetContent class="bg-white text-slate-900"
                 ><SheetHeader

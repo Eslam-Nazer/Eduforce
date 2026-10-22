@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref, reactive } from 'vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import ConsultationRequestForm from '@/components/ConsultationRequestForm.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -22,7 +21,7 @@ const instructor = reactive({
     ...sampleInstructorProfile,
     services: publicServices,
 });
-import type { Currency } from '@/types/course';
+
 import type { ConsultationRequestDraft } from '@/types/instructor';
 import { useConsultationPreview } from '@/composables/useConsultationPreview';
 const { create } = useConsultationPreview();
@@ -31,7 +30,7 @@ const service = computed(() =>
     instructor.services.find((item) => item.id === props.serviceId),
 );
 const serviceHref = computed(() => `/consultations/${props.serviceId}`);
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const sheetOpen = ref(false);
 const sheetTitle = ref('');
 const draft = ref<ConsultationRequestDraft | null>(null);
@@ -58,27 +57,8 @@ function trackRequest() {
 </script>
 <template>
     <Head title="Request Consultation" />
-    <div class="request-page min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex flex-wrap gap-2 text-sm text-slate-500"
-            >
-                <a href="/instructors/ahmed-mansour" class="text-teal-800">{{
-                    instructor.name
-                }}</a
-                ><span>/</span
-                ><a :href="serviceHref" class="text-teal-800">{{
-                    service?.title ?? 'Service'
-                }}</a
-                ><span>/</span><span aria-current="page">New Request</span>
-            </nav>
+    <div class="request-page bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8">
             <template v-if="service">
                 <div>
                     <Badge variant="secondary" class="bg-teal-50 text-teal-800"
@@ -226,8 +206,8 @@ function trackRequest() {
                     >Back to Instructor</a
                 >
             </div>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

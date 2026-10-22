@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
+import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { Check, RotateCcw } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import RefundRequestForm from '@/components/RefundRequestForm.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,9 +22,9 @@ import {
     usePurchasePreview,
 } from '@/composables/usePurchasePreview';
 import type { RefundDraft } from '@/types/purchase';
-import type { Currency } from '@/types/course';
+
 const { transactions } = usePurchasePreview();
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const now = ref(Date.now());
 let timer: ReturnType<typeof setInterval>;
 onMounted(() => {
@@ -90,24 +89,8 @@ function save() {
 </script>
 <template>
     <Head title="Request a Refund" />
-    <div class="min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            browse-href="/"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex flex-wrap gap-2 text-sm text-slate-500"
-            >
-                <a href="/" class="text-teal-800">Home</a><span>/</span
-                ><a href="/purchase-history" class="text-teal-800"
-                    >Purchase History</a
-                ><span>/</span><span aria-current="page">Refund Request</span>
-            </nav>
+    <div class="bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <div>
                 <h1 class="text-3xl font-bold">Request a Refund</h1>
                 <p class="mt-2 text-sm leading-6 text-slate-600">
@@ -282,8 +265,8 @@ function save() {
                     >
                 </aside>
             </div>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

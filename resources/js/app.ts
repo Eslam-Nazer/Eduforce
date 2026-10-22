@@ -1,5 +1,7 @@
 import { createInertiaApp } from '@inertiajs/vue3';
 import AppLayout from './layouts/AppLayout.vue';
+import AuthLayout from './layouts/AuthLayout.vue';
+import { workspacePages } from '@/lib/navigation';
 import { ZiggyVue } from 'ziggy-js';
 import { createApp, createSSRApp, h } from 'vue';
 import AppToaster from '@/components/AppToaster.vue';
@@ -11,7 +13,7 @@ void createInertiaApp({
     progress: {
         color: '#4B5563',
     },
-    layout: (name) => (name.startsWith('Auth/') ? [] : AppLayout),
+    layout: (name) => (workspacePages[name] ? AppLayout : AuthLayout),
     setup({ el, App, props, plugin }) {
         const factory =
             !el || el.hasAttribute('data-server-rendered')

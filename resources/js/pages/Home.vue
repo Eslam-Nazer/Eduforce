@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
 import { Head } from '@inertiajs/vue3';
 import { ChevronLeft, ChevronRight, Search } from '@lucide/vue';
 import { computed, ref } from 'vue';
 import CourseCard from '@/components/CourseCard.vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -24,7 +23,7 @@ import {
     SheetTitle,
 } from '@/components/ui/sheet';
 
-import type { Course, Currency } from '@/types';
+import type { Course } from '@/types';
 
 // Illustrative catalogue and prices only; no live exchange rate or backend requests.
 const courses: Course[] = [
@@ -111,7 +110,7 @@ const categories = [
 const category = ref<(typeof categories)[number]>('All');
 const search = ref('');
 const query = ref('');
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const filteredCourses = computed(() =>
     courses.filter(
         (course) =>
@@ -136,13 +135,7 @@ function resetFilters() {
 
 <template>
     <Head title="Browse Courses" />
-    <div class="marketplace min-h-screen bg-[#f8fafc] text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            @browse="resetFilters"
-            @preview="preview"
-        />
-
+    <div class="marketplace bg-[#f8fafc] text-slate-900">
         <main
             id="courses"
             class="mx-auto max-w-7xl px-5 pt-10 pb-12 sm:px-8 sm:pt-12"
@@ -291,7 +284,6 @@ function resetFilters() {
             </div>
         </main>
 
-        <MarketplaceFooter @preview="preview" />
         <Sheet v-model:open="previewOpen">
             <SheetContent class="bg-white text-slate-900">
                 <SheetHeader>

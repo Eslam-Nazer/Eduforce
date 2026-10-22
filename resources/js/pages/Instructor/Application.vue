@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import InstructorApplicationForm from '@/components/InstructorApplicationForm.vue';
 import InstructorApplicationStatus from '@/components/InstructorApplicationStatus.vue';
 import { Card, CardContent } from '@/components/ui/card';
@@ -14,8 +12,7 @@ import {
     SheetTitle,
     SheetDescription,
 } from '@/components/ui/sheet';
-import type { Currency } from '@/types/course';
-const currency = ref<Currency>('EGP');
+
 const state = ref<'form' | 'pending' | 'approved' | 'rejected'>('form');
 const open = ref(false);
 const title = ref('');
@@ -26,15 +23,8 @@ function preview(value: string) {
 </script>
 <template>
     <Head title="Become an Instructor" />
-    <div class="min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Ahmed Mansour"
-            browse-href="/"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-3xl space-y-6 px-5 py-10 sm:px-8">
+    <div class="bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-3xl space-y-6 px-5 py-10 sm:px-8">
             <a href="/my-courses" class="text-sm text-teal-800"
                 >← Back to learning</a
             >
@@ -72,7 +62,8 @@ function preview(value: string) {
                         <p
                             class="mb-6 rounded-lg bg-slate-50 p-4 text-sm font-semibold"
                         >
-                            Ahmed Mansour · sample account
+                            {{ usePage().props.auth.user?.name }} · instructor
+                            application
                         </p>
                         <InstructorApplicationForm
                             @submit="state = 'pending'"
@@ -83,8 +74,8 @@ function preview(value: string) {
                         :state="state"
                         @edit="state = 'form'" /></CardContent
             ></Card>
-        </main>
-        <MarketplaceFooter @preview="preview" /><Sheet v-model:open="open"
+        </section>
+        <Sheet v-model:open="open"
             ><SheetContent
                 ><SheetHeader
                     ><SheetTitle>{{ title }}</SheetTitle

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
-import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CourseBuilder from '@/components/CourseBuilder.vue';
 import CurriculumModuleEditor from '@/components/CurriculumModuleEditor.vue';
 import CourseLessonEditor from '@/components/CourseLessonEditor.vue';
 import { Button } from '@/components/ui/button';
@@ -101,7 +101,7 @@ function confirmRemove() {
 }
 </script>
 <template>
-    <CourseBuilderLayout
+    <CourseBuilder
         :course="course"
         step="curriculum"
         :notice="notice"
@@ -244,6 +244,6 @@ function confirmRemove() {
                     ></AlertDialogContent
                 ></AlertDialog
             ></template
-        ></CourseBuilderLayout
+        ></CourseBuilder
     >
 </template>

@@ -1,21 +1,11 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { ArrowLeft, Ban, Headphones, Info, RefreshCw } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-    Breadcrumb,
-    BreadcrumbList,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import {
     Sheet,
     SheetContent,
@@ -23,9 +13,7 @@ import {
     SheetTitle,
     SheetDescription,
 } from '@/components/ui/sheet';
-import type { Currency } from '@/types';
 
-const currency = ref<Currency>('EGP');
 const previewOpen = ref(false);
 const previewTitle = ref('');
 function preview(title: string) {
@@ -36,36 +24,8 @@ function preview(title: string) {
 
 <template>
     <Head title="Payment Cancelled" />
-    <div class="payment-cancelled min-h-screen bg-[#f8fafc] text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <div class="bg-slate-100">
-            <Breadcrumb class="mx-auto max-w-7xl px-5 py-4 sm:px-8">
-                <BreadcrumbList>
-                    <BreadcrumbItem
-                        ><BreadcrumbLink href="/"
-                            >Home</BreadcrumbLink
-                        ></BreadcrumbItem
-                    >
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem
-                        ><BreadcrumbLink href="/checkout"
-                            >Checkout</BreadcrumbLink
-                        ></BreadcrumbItem
-                    >
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem
-                        ><BreadcrumbPage
-                            >Payment Status</BreadcrumbPage
-                        ></BreadcrumbItem
-                    >
-                </BreadcrumbList>
-            </Breadcrumb>
-        </div>
-        <main class="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-12">
+    <div class="payment-cancelled bg-[#f8fafc] text-slate-900">
+        <section class="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-12">
             <Card
                 class="overflow-hidden border-0 border-t-4 border-t-amber-500 bg-white shadow-sm"
             >
@@ -219,8 +179,8 @@ function preview(title: string) {
                     </div>
                 </CardContent>
             </Card>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="previewOpen"
             ><SheetContent class="bg-white text-slate-900"
                 ><SheetHeader

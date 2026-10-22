@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
-import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CourseBuilder from '@/components/CourseBuilder.vue';
 import InstructorExamQuestionEditor from '@/components/InstructorExamQuestionEditor.vue';
 import CertificatePreview from '@/components/CertificatePreview.vue';
 import { Card, CardContent } from '@/components/ui/card';
@@ -87,7 +87,7 @@ function confirmRemove() {
 }
 </script>
 <template>
-    <CourseBuilderLayout
+    <CourseBuilder
         :course="course"
         step="exam"
         :notice="notice"
@@ -271,6 +271,6 @@ function confirmRemove() {
                     ></AlertDialogContent
                 ></AlertDialog
             ></template
-        ></CourseBuilderLayout
+        ></CourseBuilder
     >
 </template>

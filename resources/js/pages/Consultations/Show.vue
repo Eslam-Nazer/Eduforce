@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref, reactive } from 'vue';
 import { Check, Minus, Info } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import ConsultationRequestCard from '@/components/ConsultationRequestCard.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -24,12 +23,12 @@ const instructor = reactive({
     ...sampleInstructorProfile,
     services: publicServices,
 });
-import type { Currency } from '@/types/course';
+
 const props = defineProps<{ serviceId: string }>();
 const service = computed(() =>
     instructor.services.find((item) => item.id === props.serviceId),
 );
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const sheetOpen = ref(false);
 const sheetTitle = ref('');
 
@@ -78,13 +77,7 @@ function request() {
 </script>
 <template>
     <Head :title="service?.title ?? 'Service not found'" />
-    <div class="consultation-page min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
+    <div class="consultation-page bg-slate-50 text-slate-900">
         <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8">
             <nav
                 aria-label="Breadcrumb"
@@ -252,7 +245,7 @@ function request() {
                 >
             </div>
         </main>
-        <MarketplaceFooter @preview="preview" />
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

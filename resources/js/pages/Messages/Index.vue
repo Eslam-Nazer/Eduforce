@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import ConversationList from '@/components/ConversationList.vue';
 import ConversationThread from '@/components/ConversationThread.vue';
 import {
@@ -13,8 +11,7 @@ import {
     SheetDescription,
 } from '@/components/ui/sheet';
 import { sampleConversations } from '@/data/sample-conversations';
-import type { Currency } from '@/types/course';
-const currency = ref<Currency>('EGP');
+
 const conversations = ref(
     sampleConversations.map((item) => ({
         ...item,
@@ -46,22 +43,8 @@ function addMessage(text: string) {
 </script>
 <template>
     <Head title="Messages" />
-    <div class="min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            browse-href="/"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex gap-2 text-sm text-slate-500"
-            >
-                <a href="/" class="text-teal-800">Home</a><span>/</span
-                ><span aria-current="page">Messages</span>
-            </nav>
+    <div class="bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <div>
                 <h1 class="text-3xl font-bold">Messages</h1>
                 <p class="mt-2 text-sm leading-6 text-slate-600">
@@ -93,8 +76,8 @@ function addMessage(text: string) {
                 class="text-sm font-medium text-teal-800"
                 >View purchase history →</a
             >
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent
                 ><SheetHeader

@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref, reactive } from 'vue';
 import { MessageCircle, ArrowRight, Globe, Info } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import CourseCard from '@/components/CourseCard.vue';
 import ConsultationServiceCard from '@/components/ConsultationServiceCard.vue';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -28,10 +27,10 @@ const instructor = reactive({
     services: publicServices,
 });
 import { sampleModules } from '@/data/sample-course';
-import type { Currency, Course } from '@/types/course';
+import type { Course } from '@/types/course';
 import type { ConsultationService } from '@/types/instructor';
 
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const sheetOpen = ref(false);
 const sheetKind = ref<'message' | 'destination'>('destination');
 const sheetTitle = ref('');
@@ -83,13 +82,7 @@ function previewMessage() {
 </script>
 <template>
     <Head :title="instructor.name" />
-    <div class="instructor-profile min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
+    <div class="instructor-profile bg-slate-50 text-slate-900">
         <main class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8">
             <nav
                 aria-label="Breadcrumb"
@@ -256,7 +249,7 @@ function previewMessage() {
                 </p>
             </section>
         </main>
-        <MarketplaceFooter @preview="preview" />
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

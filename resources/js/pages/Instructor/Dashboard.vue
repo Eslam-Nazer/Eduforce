@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { router } from '@inertiajs/vue3';
-import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorWorkspace from '@/components/InstructorWorkspace.vue';
 import InstructorCourseCard from '@/components/InstructorCourseCard.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,10 +38,10 @@ function create() {
 }
 </script>
 <template>
-    <InstructorLayout
+    <InstructorWorkspace
         title="Instructor Dashboard"
         active="dashboard"
-        description="Welcome back, Ahmed. Review your course and consultation workspace."
+        description="Review your course and consultation workspace."
         ><div class="flex flex-wrap justify-end gap-3">
             <Button as-child variant="outline"
                 ><a href="/instructor/courses">Manage courses</a></Button
@@ -158,6 +158,6 @@ function create() {
                     ></Card
                 >
             </aside>
-        </div></InstructorLayout
+        </div></InstructorWorkspace
     >
 </template>
