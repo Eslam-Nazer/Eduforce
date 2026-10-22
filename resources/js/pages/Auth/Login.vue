@@ -1,9 +1,8 @@
 <script setup lang="ts">
 defineOptions({ layout: [] });
-import { Head } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import { GraduationCap, ArrowRight, Info, Mail } from '@lucide/vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import { Head, useForm } from '@inertiajs/vue3';
+import { GraduationCap, ArrowRight, Info, Mail } from '@lucide/vue';
 import PasswordInput from '@/components/PasswordInput.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -12,20 +11,17 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import InputError from '@/components/InputError.vue';
 
-const email = ref('');
-const password = ref('');
-const remember = ref(false);
-const submitted = ref(false);
+const form = useForm({ email: '', password: '', remember: false });
 function submit() {
-    submitted.value = true;
-    password.value = '';
+    form.post('/login', { onFinish: () => form.reset('password') });
 }
 </script>
 
 <template>
     <Head title="Sign In" />
+
     <AuthLayout>
         <Card
             class="gap-0 overflow-hidden border-0 border-t-4 border-t-teal-700 bg-white py-0 shadow-sm"
@@ -47,17 +43,6 @@ function submit() {
                         Access your enrolled courses and continue learning.
                     </p>
                 </div>
-                <Alert
-                    v-if="submitted"
-                    role="status"
-                    class="border-teal-100 bg-teal-50"
-                    ><Info class="size-4" /><AlertTitle
-                        >Sign-in preview</AlertTitle
-                    ><AlertDescription
-                        >No sign-in request was sent. Authentication will be
-                        connected later.</AlertDescription
-                    ></Alert
-                >
                 <form class="space-y-5" @submit.prevent="submit">
                     <div class="space-y-2">
                         <Label for="login-email">Email Address</Label>
@@ -67,7 +52,7 @@ function submit() {
                                 aria-hidden="true"
                             /><Input
                                 id="login-email"
-                                v-model="email"
+                                v-model="form.email"
                                 type="email"
                                 autocomplete="username"
                                 placeholder="name@example.com"
@@ -75,15 +60,17 @@ function submit() {
                                 class="h-11 border-slate-200 pl-10"
                             />
                         </div>
+                        <InputError :message="form.errors.email" />
                     </div>
                     <div class="space-y-2">
                         <Label for="login-password">Password</Label
                         ><PasswordInput
                             id="login-password"
-                            v-model="password"
+                            v-model="form.password"
                             autocomplete="current-password"
                             required
                         />
+                        <InputError :message="form.errors.password" />
                     </div>
                     <div
                         class="flex flex-wrap items-center justify-between gap-3 text-xs"
@@ -91,7 +78,7 @@ function submit() {
                         <div class="flex items-center gap-2">
                             <Checkbox
                                 id="remember-me"
-                                v-model="remember"
+                                v-model="form.remember"
                             /><Label
                                 for="remember-me"
                                 class="text-xs font-normal text-slate-500"
@@ -106,6 +93,7 @@ function submit() {
                     </div>
                     <Button
                         type="submit"
+                        :disabled="form.processing"
                         class="h-11 w-full bg-teal-700 text-white hover:bg-teal-800"
                         >Sign In<ArrowRight class="size-4" aria-hidden="true"
                     /></Button>

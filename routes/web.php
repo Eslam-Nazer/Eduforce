@@ -1,18 +1,18 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-Route::get('/verify-email', fn () => inertia('Auth/VerifyEmail', [
-    'email' => session('verification_email'),
-]))->name('verification.notice');
-Route::get('/verify/{id}/{hash}', function () {
-    dd('verified');
-})->name('verify')->middleware('auth', 'signed');
+Route::get('/verify-email', [VerificationController::class, 'index'])->name('verification.notice');
+Route::get('/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verify')->middleware('auth', 'signed');
+Route::post('/email/verification-notification', [VerificationController::class, 'store'])->middleware('auth')->name('verification.send');
+Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
 
 // Route::prefix('courses')->group(function () {
 //     Route::get('/show', function () {
@@ -41,7 +41,8 @@ Route::get('/verify/{id}/{hash}', function () {
 // Route::inertia('/', 'Home')->name('home');
 Route::inertia('/checkout', 'Checkout/Index')->name('checkout');
 Route::inertia('/checkout/success', 'Checkout/Success')->name('checkout.success');
-Route::inertia('/login', 'Auth/Login')->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 // Route::inertia('/register', 'Auth/Register')->name('register');
 Route::inertia('/forgot-password', 'Auth/ForgotPassword')->name('password.request');
 Route::inertia('/reset-password', 'Auth/ResetPassword')->name('password.reset');
