@@ -2,21 +2,11 @@
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { GraduationCap, FileText, MessageCircle } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import EnrolledCourseCard from '@/components/EnrolledCourseCard.vue';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import {
-    Breadcrumb,
-    BreadcrumbList,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbSeparator,
-    BreadcrumbPage,
-} from '@/components/ui/breadcrumb';
 import {
     Sheet,
     SheetContent,
@@ -24,7 +14,7 @@ import {
     SheetTitle,
     SheetDescription,
 } from '@/components/ui/sheet';
-import type { Currency } from '@/types/course';
+
 import type { EnrolledCourse } from '@/types/learning';
 import {
     sampleModules,
@@ -37,7 +27,6 @@ const sampleVideos = sampleModules
     .flatMap((module) => module.lessons)
     .filter((lesson) => lesson.kind === 'video');
 
-const currency = ref<Currency>('EGP');
 const filter = ref('all');
 const previewOpen = ref(false);
 const previewTitle = ref('');
@@ -104,29 +93,8 @@ function preview(title: string) {
 
 <template>
     <Head title="My Courses" />
-    <div class="my-courses min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <div class="bg-slate-100">
-            <Breadcrumb class="mx-auto max-w-7xl px-5 py-4 sm:px-8"
-                ><BreadcrumbList
-                    ><BreadcrumbItem
-                        ><BreadcrumbLink href="/"
-                            >Home</BreadcrumbLink
-                        ></BreadcrumbItem
-                    ><BreadcrumbSeparator /><BreadcrumbItem
-                        ><BreadcrumbPage
-                            >My Courses</BreadcrumbPage
-                        ></BreadcrumbItem
-                    ></BreadcrumbList
-                ></Breadcrumb
-            >
-        </div>
-        <main class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8 sm:py-10">
+    <div class="my-courses bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8 sm:py-10">
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-bold tracking-tight">
@@ -348,8 +316,8 @@ function preview(title: string) {
                     >
                 </TabsContent>
             </Tabs>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="previewOpen"
             ><SheetContent class="bg-white text-slate-900"
                 ><SheetHeader

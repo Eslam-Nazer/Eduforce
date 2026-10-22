@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import LearningHeader from '@/components/LearningHeader.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { ArrowLeft, ArrowRight, Info } from '@lucide/vue';
-import LearningHeader from '@/components/LearningHeader.vue';
 import ExamQuestion from '@/components/ExamQuestion.vue';
 import ExamNavigator from '@/components/ExamNavigator.vue';
 import { Button } from '@/components/ui/button';
@@ -76,9 +76,9 @@ function submit() {
 
 <template>
     <Head title="Course Exam" />
-    <div class="course-exam min-h-screen bg-slate-50 text-slate-900">
-        <LearningHeader active="exam" />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
+    <div class="course-exam bg-slate-50 text-slate-900">
+        <LearningHeader />
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <a
                 href="/my-courses/full-stack"
                 class="inline-flex items-center gap-2 text-sm text-teal-800"
@@ -199,7 +199,7 @@ function submit() {
                     </aside>
                 </div>
             </div>
-        </main>
+        </section>
         <AlertDialog v-model:open="confirmationOpen"
             ><AlertDialogContent class="bg-white text-slate-900"
                 ><AlertDialogHeader

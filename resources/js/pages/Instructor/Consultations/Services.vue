@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorWorkspace from '@/components/InstructorWorkspace.vue';
 import InstructorServiceCard from '@/components/InstructorServiceCard.vue';
 import InstructorServiceEditor from '@/components/InstructorServiceEditor.vue';
 import { Button } from '@/components/ui/button';
@@ -72,7 +72,7 @@ function confirmDelete() {
 }
 </script>
 <template>
-    <InstructorLayout
+    <InstructorWorkspace
         title="Consultation Services"
         active="services"
         description="Offer standalone paid or free sessions, independently of your courses."
@@ -191,6 +191,6 @@ function confirmDelete() {
                     ></AlertDialogFooter
                 ></AlertDialogContent
             ></AlertDialog
-        ></InstructorLayout
+        ></InstructorWorkspace
     >
 </template>

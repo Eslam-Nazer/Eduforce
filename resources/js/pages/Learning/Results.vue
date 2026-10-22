@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import LearningHeader from '@/components/LearningHeader.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import LearningHeader from '@/components/LearningHeader.vue';
 import ExamResultSummary from '@/components/ExamResultSummary.vue';
 import ExamAnswerReview from '@/components/ExamAnswerReview.vue';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -30,19 +30,9 @@ function retake() {
 </script>
 <template>
     <Head title="Exam Results" />
-    <div class="exam-results min-h-screen bg-slate-50 text-slate-900">
-        <LearningHeader active="exam" />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex flex-wrap gap-2 text-sm text-slate-500"
-            >
-                <a href="/my-courses" class="text-teal-800">My Courses</a
-                ><span>/</span
-                ><a href="/my-courses/full-stack" class="text-teal-800"
-                    >Course Player</a
-                ><span>/</span><span aria-current="page">Exam Results</span>
-            </nav>
+    <div class="exam-results bg-slate-50 text-slate-900">
+        <LearningHeader />
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <div>
                 <h1 class="text-2xl font-bold sm:text-3xl">Exam Results</h1>
                 <p class="mt-2 text-lg font-semibold">
@@ -109,7 +99,7 @@ function retake() {
                     >Go to Exam</Button
                 >
             </div>
-        </main>
+        </section>
     </div>
 </template>
 <style scoped>

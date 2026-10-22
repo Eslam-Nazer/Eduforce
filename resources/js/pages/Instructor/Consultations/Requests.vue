@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorWorkspace from '@/components/InstructorWorkspace.vue';
 import InstructorAppointmentControls from '@/components/InstructorAppointmentControls.vue';
 import ConsultationDiscussion from '@/components/ConsultationDiscussion.vue';
 import { Card, CardContent } from '@/components/ui/card';
@@ -149,7 +149,7 @@ function apply() {
 }
 </script>
 <template>
-    <InstructorLayout
+    <InstructorWorkspace
         title="Consultation Requests & Bookings"
         active="requests"
         description="Coordinate sample requests and review agreed appointments."
@@ -348,6 +348,6 @@ function apply() {
                     ></AlertDialogFooter
                 ></AlertDialogContent
             ></AlertDialog
-        ></InstructorLayout
+        ></InstructorWorkspace
     >
 </template>

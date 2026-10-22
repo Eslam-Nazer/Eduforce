@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { BookOpen, Globe } from '@lucide/vue';
 import { Button } from '@/components/ui/button';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 import {
     Select,
     SelectContent,
@@ -11,13 +20,11 @@ import {
 import type { Currency } from '@/types';
 
 const currency = defineModel<Currency>('currency', { required: true });
-withDefaults(defineProps<{ browseHref?: string; accountName?: string }>(), {
+withDefaults(defineProps<{ browseHref?: string }>(), {
     browseHref: '/#courses',
 });
-const emit = defineEmits<{
-    browse: [];
-    preview: [title: string];
-}>();
+const page = usePage();
+const user = computed(() => page.props.auth.user);
 </script>
 
 <template>
@@ -26,14 +33,13 @@ const emit = defineEmits<{
             class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-5 px-5 py-5 sm:px-8"
         >
             <div class="flex flex-wrap items-center gap-6 lg:gap-9">
-                <a
-                    href="#"
+                <Link
+                    href="/"
                     class="flex items-center gap-2 text-lg font-bold tracking-tight"
-                    @click.prevent="emit('browse')"
                 >
                     <BookOpen class="size-6 text-teal-700" aria-hidden="true" />
                     Eduforce
-                </a>
+                </Link>
                 <nav
                     aria-label="Main navigation"
                     class="flex items-center gap-6 text-sm"
@@ -64,13 +70,37 @@ const emit = defineEmits<{
                         ><SelectItem value="SAR">SAR</SelectItem></SelectContent
                     >
                 </Select>
-                <Button
-                    v-if="accountName"
-                    as-child
-                    variant="ghost"
-                    class="text-teal-800"
-                    ><a href="/settings">{{ accountName }}</a></Button
-                >
+                <DropdownMenu v-if="user">
+                    <DropdownMenuTrigger as-child
+                        ><Button variant="outline" class="max-w-48"
+                            ><span class="truncate">{{
+                                user.name
+                            }}</span></Button
+                        ></DropdownMenuTrigger
+                    >
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem as-child
+                            ><Link href="/my-courses"
+                                >My courses</Link
+                            ></DropdownMenuItem
+                        >
+                        <DropdownMenuItem as-child
+                            ><Link href="/settings"
+                                >Account settings</Link
+                            ></DropdownMenuItem
+                        >
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem as-child
+                            ><Link
+                                href="/logout"
+                                method="post"
+                                as="button"
+                                class="w-full"
+                                >Log out</Link
+                            ></DropdownMenuItem
+                        >
+                    </DropdownMenuContent>
+                </DropdownMenu>
                 <template v-else>
                     <Button
                         as-child

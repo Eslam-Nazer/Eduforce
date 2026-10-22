@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
-import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CourseBuilder from '@/components/CourseBuilder.vue';
 import CoursePublicationChecklist from '@/components/CoursePublicationChecklist.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -49,7 +49,7 @@ function navigate(step: string) {
 }
 </script>
 <template>
-    <CourseBuilderLayout
+    <CourseBuilder
         :course="course"
         step="publish"
         :notice="notice"
@@ -238,6 +238,6 @@ function navigate(step: string) {
                     ></AlertDialogContent
                 ></AlertDialog
             ></template
-        ></CourseBuilderLayout
+        ></CourseBuilder
     >
 </template>

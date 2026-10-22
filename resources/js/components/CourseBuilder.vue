@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import InstructorLayout from './InstructorLayout.vue';
+import InstructorWorkspace from './InstructorWorkspace.vue';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import type { InstructorCourse } from '@/types/instructor-workspace';
@@ -17,7 +17,7 @@ const steps = [
 ];
 </script>
 <template>
-    <InstructorLayout
+    <InstructorWorkspace
         title="Course Builder Studio"
         active="courses"
         description="Build your course, review its content and publish when you are ready."
@@ -69,5 +69,5 @@ const steps = [
                 ><a href="/instructor/courses">Back to courses</a></Button
             >
         </div>
-    </InstructorLayout>
+    </InstructorWorkspace>
 </template>

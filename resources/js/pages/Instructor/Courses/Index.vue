@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
-import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorWorkspace from '@/components/InstructorWorkspace.vue';
 import InstructorCourseCard from '@/components/InstructorCourseCard.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -55,7 +55,7 @@ function remove(id: string) {
 }
 </script>
 <template>
-    <InstructorLayout
+    <InstructorWorkspace
         title="Course Management"
         active="courses"
         description="Create, edit and publish courses from your instructor workspace."
@@ -144,6 +144,6 @@ function remove(id: string) {
                     ></AlertDialogFooter
                 ></AlertDialogContent
             ></AlertDialog
-        ></InstructorLayout
+        ></InstructorWorkspace
     >
 </template>

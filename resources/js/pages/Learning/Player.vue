@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
 import LearningHeader from '@/components/LearningHeader.vue';
+import { Head, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import {
     ArrowLeft,
@@ -93,8 +93,8 @@ function previewMessage() {
 
 <template>
     <Head title="Course Player" />
-    <div class="learning-player min-h-screen bg-slate-50 text-slate-900">
-        <LearningHeader active="lessons" />
+    <div class="learning-player bg-slate-50 text-slate-900">
+        <LearningHeader />
         <Alert
             v-if="!storageAvailable"
             class="mx-auto max-w-7xl border-amber-200 bg-amber-50"
@@ -104,7 +104,7 @@ function previewMessage() {
                 you leave.</AlertDescription
             ></Alert
         >
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <a
                 href="/my-courses"
                 class="inline-flex items-center gap-2 text-sm text-teal-800"
@@ -361,7 +361,7 @@ function previewMessage() {
                     >
                 </aside>
             </div>
-        </main>
+        </section>
         <Sheet v-model:open="previewOpen"
             ><SheetContent class="bg-white text-slate-900"
                 ><SheetHeader

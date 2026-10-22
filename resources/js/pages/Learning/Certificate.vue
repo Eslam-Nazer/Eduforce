@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import {
     ArrowLeft,
@@ -11,8 +11,6 @@ import {
     Link as LinkIcon,
     Share2,
 } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import CertificatePreview from '@/components/CertificatePreview.vue';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -32,7 +30,6 @@ import {
 } from '@/data/sample-course';
 import { sampleExam } from '@/data/sample-exam';
 import { useLearningPreview } from '@/composables/useLearningPreview';
-import type { Currency } from '@/types/course';
 
 const { attempts, completedIds, examPassed, scoreAttempt, storageAvailable } =
     useLearningPreview();
@@ -53,7 +50,6 @@ const passingAttempt = computed(() =>
 const score = computed(() =>
     passingAttempt.value ? scoreAttempt(passingAttempt.value) : 0,
 );
-const currency = ref<Currency>('EGP');
 const expanded = ref(false);
 const noticeOpen = ref(false);
 const noticeTitle = ref('');
@@ -62,7 +58,7 @@ const previewDate = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Africa/Cairo',
 }).format(new Date());
 const certificateProps = computed(() => ({
-    learner: 'Kareem Tarek',
+    learner: usePage().props.auth.user?.name ?? '',
     course: sampleCourseTitle,
     instructor: sampleInstructor,
     videoCount: totalVideos,
@@ -80,25 +76,8 @@ function printCertificate() {
 
 <template>
     <Head title="Course Certificate" />
-    <div class="certificate-page min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="print-hide flex flex-wrap gap-2 text-sm text-slate-500"
-            >
-                <a href="/my-courses" class="text-teal-800">My Courses</a
-                ><span>/</span
-                ><a href="/my-courses/full-stack" class="text-teal-800"
-                    >Full-Stack Web Development</a
-                ><span>/</span
-                ><span aria-current="page">Course Certificate</span>
-            </nav>
+    <div class="certificate-page bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <div
                 class="print-hide flex flex-wrap items-center justify-between gap-5 rounded-xl border border-teal-100 bg-white p-5 sm:p-6"
             >
@@ -318,8 +297,8 @@ function printCertificate() {
                     >
                 </aside>
             </div>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="expanded"
             ><SheetContent
                 class="print-hide w-full overflow-y-auto bg-white text-slate-900 sm:max-w-5xl"
@@ -361,7 +340,7 @@ function printCertificate() {
         min-height: auto;
         background: white;
     }
-    .certificate-page main {
+    .certificate-page > section {
         max-width: none;
         padding: 0;
     }

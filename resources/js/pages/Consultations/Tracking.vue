@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref, reactive } from 'vue';
 import { Info } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import ConsultationRequestList from '@/components/ConsultationRequestList.vue';
 import ConsultationDiscussion from '@/components/ConsultationDiscussion.vue';
 import { Card, CardContent } from '@/components/ui/card';
@@ -37,13 +36,13 @@ const instructor = reactive({
 });
 import { sampleConsultationRequests } from '@/data/sample-consultation-requests';
 import { useConsultationPreview } from '@/composables/useConsultationPreview';
-import type { Currency } from '@/types/course';
+
 import type {
     ConsultationRequestPreview,
     ConsultationRequestStatus,
 } from '@/types/instructor';
 const { localRequests, storageNotice, addMessage } = useConsultationPreview();
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const filter = ref('All');
 const requestedId =
     typeof window !== 'undefined'
@@ -133,21 +132,8 @@ function saveProposal() {
 </script>
 <template>
     <Head title="Consultation Requests" />
-    <div class="tracking-page min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex gap-2 text-sm text-slate-500"
-            >
-                <a href="/" class="text-teal-800">Home</a><span>/</span
-                ><span aria-current="page">Consultation Requests</span>
-            </nav>
+    <div class="tracking-page bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>
                     <h1 class="text-3xl font-bold">
@@ -399,8 +385,8 @@ function saveProposal() {
                     Select another filter to view request details.
                 </div>
             </div>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import InstructorLayout from '@/layouts/InstructorLayout.vue';
+import InstructorWorkspace from '@/components/InstructorWorkspace.vue';
 import InstructorTransactionTable from '@/components/InstructorTransactionTable.vue';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -114,7 +114,7 @@ function exportLedger() {
 }
 </script>
 <template>
-    <InstructorLayout
+    <InstructorWorkspace
         title="Earnings & Financial Transactions"
         active="earnings"
         description="Review illustrative course sales and consultation records."
@@ -236,5 +236,5 @@ function exportLedger() {
             records, not settlements. Refunded records are excluded from sample
             gross volume.
         </p>
-    </InstructorLayout>
+    </InstructorWorkspace>
 </template>

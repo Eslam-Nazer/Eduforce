@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { router } from '@inertiajs/vue3';
-import CourseBuilderLayout from '@/layouts/CourseBuilderLayout.vue';
+import CourseBuilder from '@/components/CourseBuilder.vue';
 import CourseBasicsForm from '@/components/CourseBasicsForm.vue';
 import { useInstructorWorkspace } from '@/composables/useInstructorWorkspace';
 const props = defineProps<{ courseId: string }>();
@@ -10,7 +10,7 @@ function navigate(step: string) {
 }
 </script>
 <template>
-    <CourseBuilderLayout
+    <CourseBuilder
         :course="course"
         step="basics"
         :notice="notice"
@@ -20,5 +20,5 @@ function navigate(step: string) {
             v-model:course="course"
             @save="save"
             @continue="navigate('curriculum')"
-    /></CourseBuilderLayout>
+    /></CourseBuilder>
 </template>

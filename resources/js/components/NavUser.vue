@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import {
-    BadgeCheck,
-    Bell,
     ChevronsUpDown,
     CreditCard,
     LogOut,
     User as UserIcon,
 } from '@lucide/vue';
+import { Link } from '@inertiajs/vue3';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -25,11 +24,11 @@ import {
 } from '@/components/ui/sidebar';
 import type { User } from '@/types';
 
-const props = defineProps<{
+defineProps<{
     user: User;
 }>();
 
-const { isMobile } = useSidebar();
+const { isMobile, setOpenMobile } = useSidebar();
 </script>
 
 <template>
@@ -70,24 +69,32 @@ const { isMobile } = useSidebar();
                     :side-offset="4"
                 >
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                            <BadgeCheck />
-                            Account
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <CreditCard />
-                            Billing
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <Bell />
-                            Notifications
-                        </DropdownMenuItem>
+                        <DropdownMenuItem as-child
+                            ><Link
+                                @click="setOpenMobile(false)"
+                                href="/settings"
+                                ><UserIcon />Account settings</Link
+                            ></DropdownMenuItem
+                        >
+                        <DropdownMenuItem as-child
+                            ><Link
+                                @click="setOpenMobile(false)"
+                                href="/purchase-history"
+                                ><CreditCard />Purchase history</Link
+                            ></DropdownMenuItem
+                        >
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                        <LogOut />
-                        Log out
-                    </DropdownMenuItem>
+                    <DropdownMenuItem as-child
+                        ><Link
+                            @click="setOpenMobile(false)"
+                            href="/logout"
+                            method="post"
+                            as="button"
+                            class="w-full"
+                            ><LogOut />Log out</Link
+                        ></DropdownMenuItem
+                    >
                 </DropdownMenuContent>
             </DropdownMenu>
         </SidebarMenuItem>

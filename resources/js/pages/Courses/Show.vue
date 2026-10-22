@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
+import { Head } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { Check, Clock, Download, Globe, Play, ShieldCheck } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import CourseCurriculum from '@/components/CourseCurriculum.vue';
 import CoursePurchaseCard from '@/components/CoursePurchaseCard.vue';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -26,12 +25,11 @@ import {
     SheetTitle,
     SheetDescription,
 } from '@/components/ui/sheet';
-import type { Currency } from '@/types';
 
 import { sampleModules, sampleCourseTitle } from '@/data/sample-course';
 
 const title = sampleCourseTitle;
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const previewOpen = ref(false);
 const previewTitle = ref('');
 function preview(value: string) {
@@ -81,12 +79,7 @@ const outcomes = [
 
 <template>
     <Head :title="title" />
-    <div class="course-details min-h-screen bg-[#f8fafc] text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
+    <div class="course-details bg-[#f8fafc] text-slate-900">
         <div class="bg-slate-100">
             <Breadcrumb class="mx-auto max-w-7xl px-5 py-4 sm:px-8"
                 ><BreadcrumbList
@@ -341,7 +334,7 @@ const outcomes = [
                 @buy="preview('Course checkout')"
             />
         </main>
-        <MarketplaceFooter @preview="preview" />
+
         <Sheet v-model:open="previewOpen"
             ><SheetContent class="bg-white text-slate-900"
                 ><SheetHeader

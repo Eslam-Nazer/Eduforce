@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
+import { Head } from '@inertiajs/vue3';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import PurchaseTransactionCard from '@/components/PurchaseTransactionCard.vue';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
@@ -17,9 +16,9 @@ import {
     formatPurchaseAmount,
 } from '@/composables/usePurchasePreview';
 import type { PurchaseTransaction } from '@/types/purchase';
-import type { Currency } from '@/types/course';
+
 const { transactions } = usePurchasePreview();
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const filter = ref('all');
 const visible = computed(() =>
     transactions.value.filter(
@@ -50,22 +49,8 @@ function showReceipt(transaction: PurchaseTransaction) {
 </script>
 <template>
     <Head title="Purchase History" />
-    <div class="min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            browse-href="/"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex gap-2 text-sm text-slate-500"
-            >
-                <a href="/" class="text-teal-800">Home</a><span>/</span
-                ><span aria-current="page">Purchase History</span>
-            </nav>
+    <div class="bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-6 px-5 py-8 sm:px-8">
             <div>
                 <h1 class="text-3xl font-bold">Purchase History</h1>
                 <p class="mt-2 text-sm leading-6 text-slate-600">
@@ -131,8 +116,8 @@ function showReceipt(transaction: PurchaseTransaction) {
             <a href="/messages" class="text-sm font-medium text-teal-800"
                 >Open messages →</a
             >
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

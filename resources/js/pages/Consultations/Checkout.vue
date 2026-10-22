@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { Head, router } from '@inertiajs/vue3';
+import { useDisplayCurrency } from '@/composables/useDisplayCurrency';
+import { Head } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { FlaskConical, Info } from '@lucide/vue';
-import MarketplaceHeader from '@/components/MarketplaceHeader.vue';
-import MarketplaceFooter from '@/components/MarketplaceFooter.vue';
 import CheckoutBilling from '@/components/CheckoutBilling.vue';
 import CheckoutPayment from '@/components/CheckoutPayment.vue';
 import ConsultationCheckoutSummary from '@/components/ConsultationCheckoutSummary.vue';
@@ -43,7 +42,7 @@ const eligible = computed(
         service.value.egp > 0,
 );
 const country = ref<BillingCountry>('EG');
-const currency = ref<Currency>('EGP');
+const currency = useDisplayCurrency();
 const method = ref<CheckoutPaymentMethod>('hosted');
 const chargeCurrency = computed<Currency>(() =>
     country.value === 'EG' ? 'EGP' : 'SAR',
@@ -76,24 +75,8 @@ const trackingHref = computed(() =>
 </script>
 <template>
     <Head title="Consultation Checkout" />
-    <div class="consultation-checkout min-h-screen bg-slate-50 text-slate-900">
-        <MarketplaceHeader
-            v-model:currency="currency"
-            account-name="Kareem Tarek"
-            @browse="router.visit('/')"
-            @preview="preview"
-        />
-        <main class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8">
-            <nav
-                aria-label="Breadcrumb"
-                class="flex flex-wrap gap-2 text-sm text-slate-500"
-            >
-                <a :href="trackingHref" class="text-teal-800"
-                    >Consultation Requests</a
-                ><span>/</span
-                ><span>{{ service?.title ?? 'Consultation' }}</span
-                ><span>/</span><span aria-current="page">Checkout</span>
-            </nav>
+    <div class="consultation-checkout bg-slate-50 text-slate-900">
+        <section class="mx-auto max-w-7xl space-y-7 px-5 py-8 sm:px-8">
             <template v-if="eligible && request && service"
                 ><div>
                     <h1 class="text-3xl font-bold">
@@ -169,8 +152,8 @@ const trackingHref = computed(() =>
                     ><a :href="trackingHref">Back to Requests</a></Button
                 >
             </div>
-        </main>
-        <MarketplaceFooter @preview="preview" />
+        </section>
+
         <Sheet v-model:open="sheetOpen"
             ><SheetContent class="overflow-y-auto bg-white text-slate-900"
                 ><SheetHeader

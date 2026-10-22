@@ -161,7 +161,7 @@ onBeforeUnmount(removeAvatar);
                             class="h-11 border-slate-200 bg-slate-50"
                         />
                         <p class="text-xs leading-5 text-slate-500">
-                            Sample account email.
+                            Your account email. This field is read-only.
                         </p>
                     </div>
                 </div>
