@@ -8,20 +8,20 @@ Start with accounts and instructor permissions, then course creation.
 
 ## Proposed implementation order
 
-| # | Area | Scope |
-|---|---|---|
-| 1 | Accounts | Registration, sign-in, password recovery, account settings |
-| 2 | Permissions | Learner and instructor capabilities in one account, Admin permissions, authorization using Policies |
-| 3 | Instructor applications | Submission, platform Admin review, approval or rejection, activation of instructor permissions |
-| 4 | Course creation | Details and pricing, modules and ordered lessons, file uploads, drafts, publishing by approved instructors |
-| 5 | Catalogue | Published courses, search and filters, course details, instructor profiles |
-| 6 | Consultation services | Free or paid services, pricing and duration, editing and visibility; independent of course purchases or publishing |
-| 7 | Requests and conversations | Consultation requests, text messages, appointment proposals and mutual agreement, cancellation and rejection |
-| 8 | Payments and purchases | Sandbox gateway, transaction records, idempotent gateway notifications, course access after confirmed payment; consultation payment after mutual appointment agreement |
-| 9 | Learning | Purchaser-only content access, completed videos, progress calculation |
-| 10 | Exams and certificates | Questions, attempts and grading, course completion requirements, certificate issuance, download and email delivery |
-| 11 | Refunds | Enforce course and consultation policies, record requests and refund outcomes |
-| 12 | Administration and earnings | User management, transactions and refunds, commissions, instructor reports |
+| #   | Area                        | Scope                                                                                                                                                                  |
+| --- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Accounts                    | Registration, sign-in, password recovery, account settings                                                                                                             |
+| 2   | Permissions                 | Learner and instructor capabilities in one account, Admin permissions, authorization using Policies                                                                    |
+| 3   | Instructor applications     | Submission, platform Admin review, approval or rejection, activation of instructor permissions                                                                         |
+| 4   | Course creation             | Details and pricing, modules and ordered lessons, file uploads, drafts, publishing by approved instructors                                                             |
+| 5   | Catalogue                   | Published courses, search and filters, course details, instructor profiles                                                                                             |
+| 6   | Consultation services       | Free or paid services, pricing and duration, editing and visibility; independent of course purchases or publishing                                                     |
+| 7   | Requests and conversations  | Consultation requests, text messages, appointment proposals and mutual agreement, cancellation and rejection                                                           |
+| 8   | Payments and purchases      | Sandbox gateway, transaction records, idempotent gateway notifications, course access after confirmed payment; consultation payment after mutual appointment agreement |
+| 9   | Learning                    | Purchaser-only content access, completed videos, progress calculation                                                                                                  |
+| 10  | Exams and certificates      | Questions, attempts and grading, course completion requirements, certificate issuance, download and email delivery                                                     |
+| 11  | Refunds                     | Enforce course and consultation policies, record requests and refund outcomes                                                                                          |
+| 12  | Administration and earnings | User management, transactions and refunds, commissions, instructor reports                                                                                             |
 
 ## Workflow for each area
 
@@ -57,6 +57,7 @@ Use an Action for operations involving multiple steps or a shared business rule,
 The production database, video hosting, chat transport, and email provider remain open decisions to resolve before integrating each area. Preview prices, currency conversions, and payment states are not final business rules.
 
 Ongoing decision reference: [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md).
+
 | #   | الجزء                | المطلوب                                                                                                                                             |
 | --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1   | الحسابات             | تسجيل، دخول، استعادة كلمة المرور، إعدادات الحساب                                                                                                    |
