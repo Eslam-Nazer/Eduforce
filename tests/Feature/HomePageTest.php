@@ -1,9 +1,5 @@
 <?php
 
-test('shows courses overviews', function () {
-    //
-});
-
-test('shows only released courses', function () {
-    //
+test('Load the home page', function () {
+    $this->get(route('home'))->assertOk();
 });
